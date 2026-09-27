@@ -5,6 +5,7 @@
 import { matchClock, scoreFromTimeline } from "../lib/clock";
 import { deriveMarkets, driftOdds } from "../lib/odds";
 import { checkWithdrawalGate } from "../lib/withdrawals";
+import { __localNumber as localNumber } from "../lib/partner-accounts";
 import { buildMarkets } from "../lib/markets";
 import { resolveSelection } from "../lib/resolve";
 import { isMinorCompetition } from "../lib/api-football";
@@ -141,6 +142,18 @@ console.log("\nWithdrawal gate (Ghana: 3 deposits of GHS 300)");
     JSON.stringify(checkWithdrawalGate(approvedButUnqualified, 100).failed));
   check("an unapproved player is still stopped at the deposit gate",
     checkWithdrawalGate(player, 100).failed === "deposits");
+  // The two tables store a phone differently: a partner types "0243911567"
+  // into a form, a player's number is normalised to "233243911567" at
+  // registration. Matching raw digits found nothing, and every partner was
+  // charged the verification deposit anyway.
+  check("a local and an international number reduce to the same thing",
+    localNumber("0243911567") === localNumber("233243911567"), localNumber("0243911567"));
+  check("a Nigerian pair reduces too",
+    localNumber("09014598271") === localNumber("2349014598271"));
+  check("a number that is not one reduces to nothing", localNumber("Fsdgtr") === "");
+  check("a local number beginning with a dial code survives",
+    localNumber("0233456") === "233456");
+
   // A sub-admin playing on their own account is already known to us.
   const partner = { ...player, isPartner: true };
   check("a sub-admin skips the deposit gate", checkWithdrawalGate(partner, 100).failed === "approval",
