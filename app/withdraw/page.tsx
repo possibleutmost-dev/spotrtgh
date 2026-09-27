@@ -6,6 +6,7 @@ import { Page } from "@/components/Shell";
 import { useSession } from "@/lib/store";
 import { getCountry, formatMoney } from "@/lib/countries";
 import { VerifyGate } from "@/components/VerifyGate";
+import { RequestSubmitted } from "@/components/RequestSubmitted";
 
 export default function WithdrawPage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function WithdrawPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState<{ title: string; message: string } | null>(null);
   const [progress, setProgress] = useState<{ label: string; have: number; need: number } | null>(null);
   const [gateFailed, setGateFailed] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
@@ -93,7 +95,12 @@ export default function WithdrawPage() {
         return;
       }
 
-      setMessage(json.message);
+      // Awaiting an operator reads differently from already on its way, so the
+      // heading follows the endpoint rather than assuming one of them.
+      setSubmitted({
+        title: json.status === "processing" ? "Pending Request" : "Withdrawal sent",
+        message: json.message,
+      });
       if (typeof json.balance === "number") setBalance(json.balance);
     } catch {
       setError("Network problem. Try again.");
@@ -106,6 +113,8 @@ export default function WithdrawPage() {
     <Page>
       {/* The deposit gate is the one worth interrupting for: the others are
           fixed on this page, this one is not. */}
+      {submitted && <RequestSubmitted title={submitted.title} message={submitted.message} />}
+
       {gateFailed === "deposits" && progress && (
         <VerifyGate
           amount={country.withdrawQualifyAmount}

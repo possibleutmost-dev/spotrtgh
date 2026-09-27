@@ -59,8 +59,33 @@ export async function POST(req: Request) {
     // Gate 3 is not a refusal. The request is recorded as pending and the
     // player is told it is being processed, rather than shown a lock screen.
     if (gate.failed === "approval") {
+      // The gate stops at approval before it ever reaches its own balance
+      // check, so this path has to make it itself.
+      const held = Number(user.balance);
+      if (!(amount > 0) || amount > held) {
+        return NextResponse.json({ error: "Amount is more than your balance" }, { status: 400 });
+      }
+
+      // The money leaves the balance when the request is made, not when it is
+      // paid. Otherwise the same balance can be requested again and again
+      // while the first request is still waiting for an operator.
+      const { data: debited } = await supabase
+        .from("users")
+        .update({
+          balance: held - amount,
+          total_withdrawn: Number(user.total_withdrawn) + amount,
+        })
+        .eq("id", user.id)
+        .eq("balance", held)
+        .select("id")
+        .maybeSingle();
+
+      if (!debited) {
+        return NextResponse.json({ error: "Your balance changed. Try again." }, { status: 409 });
+      }
+
       const reference = paymentReference("WDR");
-      await supabase.from("payments").insert({
+      const { error: ledgerErr } = await supabase.from("payments").insert({
         reference,
         user_id: user.id,
         amount,
@@ -75,11 +100,21 @@ export async function POST(req: Request) {
         },
       });
 
+      if (ledgerErr) {
+        console.error("[withdrawal] ledger write failed, refunding", user.id, ledgerErr);
+        await supabase
+          .from("users")
+          .update({ balance: held, total_withdrawn: Number(user.total_withdrawn) })
+          .eq("id", user.id);
+        return NextResponse.json({ error: "Could not submit your withdrawal" }, { status: 500 });
+      }
+
       await sendSms(user.phone, withdrawalRequestedSms(amount, user.currency)).catch(() => {});
 
       return NextResponse.json({
         status: "processing",
         reference,
+        balance: held - amount,
         message: gate.message,
       });
     }
