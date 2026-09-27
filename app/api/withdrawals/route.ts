@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
 import { getCountry } from "@/lib/countries";
 import { checkWithdrawalGate } from "@/lib/withdrawals";
+import { partnerPhones, isPartnerPhone } from "@/lib/partner-accounts";
 import { paymentReference } from "@/lib/codes";
 import { sendSms, withdrawalRequestedSms } from "@/lib/sms";
 
@@ -36,7 +37,9 @@ export async function POST(req: Request) {
 
   if (!user) return NextResponse.json({ error: "Sign in first" }, { status: 401 });
 
-  const gate = checkWithdrawalGate(user, amount, {
+  const phones = await partnerPhones();
+  const subject = { ...user, isPartner: isPartnerPhone(user.phone, phones) };
+  const gate = checkWithdrawalGate(subject, amount, {
     number: body.payoutNumber,
     bank: body.payoutBank,
   });

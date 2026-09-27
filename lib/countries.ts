@@ -52,10 +52,11 @@ const BASE: Record<string, CountryConfig> = {
     // mobile-money number, which is already name-verified by the network.
     kyc: [],
     minFirstDeposit: 200,
-    minDeposit: 1,
+    // Every top-up meets the same floor, not only the first one.
+    minDeposit: 200,
     maxDeposit: 50000,
     verificationAmount: 300,
-    withdrawQualifyCount: 3,
+    withdrawQualifyCount: 4,
     withdrawQualifyAmount: 300,
     networks: ["MTN Mobile Money", "Telecel Cash", "AirtelTigo Money"],
   },
@@ -73,12 +74,14 @@ const BASE: Record<string, CountryConfig> = {
       { kind: "bvn", label: "BVN", pattern: /^\d{11}$/, hint: "11 digits" },
       { kind: "nin", label: "NIN", pattern: /^\d{11}$/, hint: "11 digits" },
     ],
-    minFirstDeposit: 500,
-    minDeposit: 100,
-    maxDeposit: 1000000,
-    verificationAmount: 10000,
-    withdrawQualifyCount: 3,
-    withdrawQualifyAmount: 10000,
+    // Every threshold here is Ghana's, carried across at roughly 25 naira to
+    // the cedi, so a player meets the same bar in either market.
+    minFirstDeposit: 5000, // GH200
+    minDeposit: 5000, // GH200
+    maxDeposit: 1250000, // GH50,000
+    verificationAmount: 7500, // GH300
+    withdrawQualifyCount: 4,
+    withdrawQualifyAmount: 7500, // GH300
     networks: ["Bank transfer"],
   },
   KE: {
@@ -95,7 +98,7 @@ const BASE: Record<string, CountryConfig> = {
     minDeposit: 10,
     maxDeposit: 150000,
     verificationAmount: 2000,
-    withdrawQualifyCount: 3,
+    withdrawQualifyCount: 4,
     withdrawQualifyAmount: 2000,
     networks: ["M-Pesa", "Airtel Money"],
   },
@@ -113,7 +116,7 @@ const BASE: Record<string, CountryConfig> = {
     minDeposit: 10,
     maxDeposit: 50000,
     verificationAmount: 500,
-    withdrawQualifyCount: 3,
+    withdrawQualifyCount: 4,
     withdrawQualifyAmount: 500,
     networks: ["Bank transfer"],
   },

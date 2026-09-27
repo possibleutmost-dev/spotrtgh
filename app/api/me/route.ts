@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
 import { getCountry } from "@/lib/countries";
 import { checkWithdrawalGate } from "@/lib/withdrawals";
+import { partnerPhones, isPartnerPhone } from "@/lib/partner-accounts";
 
 /**
  * The signed-in player's own record.
@@ -28,7 +29,8 @@ export async function GET(req: Request) {
   if (error || !user) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   const country = getCountry(user.country_code);
-  const gate = checkWithdrawalGate(user, 0);
+  const phones = await partnerPhones();
+  const gate = checkWithdrawalGate({ ...user, isPartner: isPartnerPhone(user.phone, phones) }, 0);
 
   // Tier points come from turnover, so they are summed off the stakes.
   const { data: staked } = await supabase.from("bets").select("stake").eq("user_id", user.id);

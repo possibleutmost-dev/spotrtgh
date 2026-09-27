@@ -17,7 +17,9 @@ export async function GET() {
     .select("id, name, phone, country_code, currency, total_deposited, created_at")
     .eq("referred_by", partner.id)
     .order("created_at", { ascending: false })
-    .limit(200);
+    // A partner with 381 members was shown 200 of them and never told the
+    // rest existed. They are all theirs; they all count toward commission.
+    .limit(2000);
 
   const { data: commissions } = await supabase
     .from("commissions")

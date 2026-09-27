@@ -126,18 +126,37 @@ console.log("\nWithdrawal gate (Ghana: 3 deposits of GHS 300)");
   check("gate 2 counts deposits rather than summing them", notEnough.failed === "deposits",
     JSON.stringify(notEnough.failed));
 
-  const qualified = { ...player, qualifying_deposits: 3 };
+  const qualified = { ...player, qualifying_deposits: 4 };
   const needsApproval = checkWithdrawalGate(qualified, 100);
   check("gate 3 asks for operator approval", needsApproval.failed === "approval");
 
   const approved = { ...qualified, withdrawal_approved: true };
   check("a fully qualified player passes", checkWithdrawalGate(approved, 100).ok);
 
+  // The operator's approval outranks the deposit rule. Without this the
+  // Approve button would be a lie: the console would say yes and the endpoint
+  // would still refuse.
+  const approvedButUnqualified = { ...player, withdrawal_approved: true };
+  check("approval overrides the deposit gate", checkWithdrawalGate(approvedButUnqualified, 100).ok,
+    JSON.stringify(checkWithdrawalGate(approvedButUnqualified, 100).failed));
+  check("an unapproved player is still stopped at the deposit gate",
+    checkWithdrawalGate(player, 100).failed === "deposits");
+  // A sub-admin playing on their own account is already known to us.
+  const partner = { ...player, isPartner: true };
+  check("a sub-admin skips the deposit gate", checkWithdrawalGate(partner, 100).failed === "approval",
+    JSON.stringify(checkWithdrawalGate(partner, 100).failed));
+  check("a sub-admin is still held for approval", !checkWithdrawalGate(partner, 100).ok);
+  check("a sub-admin cannot exceed their balance",
+    checkWithdrawalGate({ ...partner, withdrawal_approved: true }, 5000).failed === "details");
+
+  check("approval does not let a player exceed their balance",
+    checkWithdrawalGate(approvedButUnqualified, 5000).failed === "details");
+
   const overBalance = checkWithdrawalGate(approved, 5000);
   check("cannot withdraw more than the balance", !overBalance.ok);
 
   check("progress is reported for the meter",
-    needsApproval.progress.have === 3 && needsApproval.progress.need === 3);
+    needsApproval.progress.have === 4 && needsApproval.progress.need === 4);
 }
 
 console.log("\nMarket grouping and 1X2 outcome labels");

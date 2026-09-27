@@ -20,6 +20,14 @@ export interface GateSubject {
   withdrawal_approved: boolean;
   payout_number?: string | null;
   payout_bank?: string | null;
+  /**
+   * True when this account belongs to one of our own sub-admins.
+   *
+   * The deposit gate exists to qualify players. A partner is already known to
+   * us — we approved them — so asking them to buy their way past it is asking
+   * our own staff to pay to be trusted.
+   */
+  isPartner?: boolean;
 }
 
 export interface GateResult {
@@ -83,7 +91,12 @@ export function checkWithdrawalGate(
   // Deposits are counted, not summed: paying the whole qualifying sum in a
   // single deposit unlocks nothing. A market can be dropped back to the older
   // cumulative-total rule with WITHDRAW_QUALIFY_COUNT_<CC>=0.
-  if (useCount) {
+  //
+  // An operator's approval supersedes it. The rule is there to decide for the
+  // operator when they have not looked at the account; once they have, their
+  // judgement is the one that counts, and a gate that still refused them would
+  // make the Approve button a lie.
+  if (!user.isPartner && !user.withdrawal_approved && useCount) {
     if (Number(user.qualifying_deposits) < country.withdrawQualifyCount) {
       const remaining = country.withdrawQualifyCount - Number(user.qualifying_deposits);
       return {
@@ -96,7 +109,11 @@ export function checkWithdrawalGate(
         progress,
       };
     }
-  } else if (Number(user.total_deposited) < country.withdrawQualifyAmount) {
+  } else if (
+    !user.isPartner &&
+    !user.withdrawal_approved &&
+    Number(user.total_deposited) < country.withdrawQualifyAmount
+  ) {
     return {
       ok: false,
       failed: "deposits",
@@ -127,8 +144,15 @@ export function checkWithdrawalGate(
   return { ok: true, progress };
 }
 
-/** Whether the operator's Approve button should be offered at all. */
+/**
+ * Whether the automatic rule would have released this player on its own.
+ *
+ * Advice now, not a lock: the console shows it so an operator can see who has
+ * earned it without being asked, but the Approve button is theirs to press
+ * whatever this says.
+ */
 export function qualifiesForApproval(user: GateSubject): boolean {
+  if (user.isPartner) return true;
   const country = getCountry(user.country_code);
   return country.withdrawQualifyCount > 0
     ? Number(user.qualifying_deposits) >= country.withdrawQualifyCount

@@ -123,7 +123,7 @@ export default function PlayersPage() {
                   ) : p.gate.qualifies ? (
                     <Badge tone="pending">Qualifies</Badge>
                   ) : (
-                    <Badge tone="muted">Locked</Badge>
+                    <Badge tone="muted">Not yet</Badge>
                   )}
                 </td>
                 <td className="px-3 py-2">
@@ -134,9 +134,10 @@ export default function PlayersPage() {
                         Revoke
                       </Button>
                     ) : (
-                      // Never offered to a player the withdrawal endpoint would
-                      // still block: both read the same gate module.
-                      <Button tone="accent" disabled={!p.gate.qualifies} onClick={() => act(p.id, "approve")}>
+                      // Always offered. The badge beside it says whether the
+                      // automatic rule would have released this player anyway;
+                      // the decision is the operator's either way.
+                      <Button tone="accent" onClick={() => act(p.id, "approve")}>
                         Approve
                       </Button>
                     )}

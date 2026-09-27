@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
 import { requireAdmin } from "@/lib/admin-guard";
 import { checkWithdrawalGate, qualifiesForApproval } from "@/lib/withdrawals";
+import { partnerPhones, isPartnerPhone } from "@/lib/partner-accounts";
 
 export const dynamic = "force-dynamic";
 
@@ -41,13 +42,17 @@ export async function GET(req: Request) {
   const { data, error } = await query;
   if (error) return NextResponse.json({ error: "Could not load players" }, { status: 500 });
 
+  // One lookup for the whole page rather than one per row.
+  const phones = await partnerPhones();
+
   let players = (data ?? []).map((u) => {
-    const gate = checkWithdrawalGate(u, 0);
+    const subject = { ...u, isPartner: isPartnerPhone(u.phone, phones) };
+    const gate = checkWithdrawalGate(subject, 0);
     return {
       ...u,
       gate: {
         progress: gate.progress,
-        qualifies: qualifiesForApproval(u),
+        qualifies: qualifiesForApproval(subject),
         unlocked: gate.ok,
       },
     };
