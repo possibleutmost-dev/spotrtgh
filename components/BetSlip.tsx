@@ -201,9 +201,7 @@ export function BetSlip() {
             }}
           />
         ) : legs.length === 0 ? (
-          <p className="p-12 text-center text-[13px] text-[var(--text-muted)]">
-            Tap any odds to add a selection.
-          </p>
+          <EmptySlip />
         ) : (
           <>
             {/* Count, mode badge and balance */}
@@ -440,6 +438,85 @@ export function BetSlip() {
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+/**
+ * The empty slip doubles as the code box: a player who opened the slip with
+ * nothing on it is very often holding a booking code someone sent them, so
+ * pasting it here fills the slip without a trip to the Load Code page.
+ */
+function EmptySlip() {
+  const load = useSlip((s) => s.load);
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [ticket, setTicket] = useState<string | null>(null);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = code.trim().toUpperCase();
+    if (!clean) return;
+    setBusy(true);
+    setError(null);
+    setTicket(null);
+    try {
+      const res = await fetch(`/api/bookings/${encodeURIComponent(clean)}`);
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error ?? "That code was not found");
+        if (json.ticket) setTicket(json.ticket as string);
+        return;
+      }
+      // The slip stays open: the point is seeing the selections land on it.
+      load(json.booking.selections as SlipLeg[]);
+    } catch {
+      setError("Network problem. Try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="px-6 pb-10 pt-4">
+      <p className="text-center text-[13px] text-[var(--text-muted)]">
+        Tap any odds to add a selection.
+      </p>
+
+      <p className="mt-6 text-[12px] font-bold uppercase tracking-wide text-[var(--text-muted)]">
+        Or paste a booking code
+      </p>
+      <form onSubmit={submit} className="mt-2 flex items-center gap-2">
+        <input
+          value={code}
+          onChange={(e) => setCode(e.target.value.toUpperCase())}
+          placeholder="ABC123"
+          maxLength={6}
+          className="min-w-0 flex-1 rounded-lg bg-[var(--surface-2)] px-3 py-3 text-center text-[17px] font-black tracking-[0.2em] text-[var(--text)] outline-none placeholder:text-[var(--text-faint)] focus:ring-1 focus:ring-[var(--accent)]"
+        />
+        <button
+          type="submit"
+          disabled={busy || code.trim().length < 4}
+          className="shrink-0 rounded-lg bg-[var(--accent)] px-4 py-3 text-[13px] font-black text-[var(--accent-ink)] disabled:opacity-50"
+        >
+          {busy ? "…" : "Load"}
+        </button>
+      </form>
+
+      {error && (
+        <p className="mt-2 rounded-lg bg-[var(--lose)]/15 px-3 py-2 text-[12px] text-[var(--lose)]">
+          {error}
+          {ticket && (
+            <>
+              {" "}
+              <Link href={`/my-bets/${ticket}`} className="font-bold text-[var(--accent)] underline">
+                Open it in My Bets
+              </Link>
+            </>
+          )}
+        </p>
+      )}
     </div>
   );
 }
