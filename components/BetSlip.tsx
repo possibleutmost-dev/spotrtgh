@@ -332,6 +332,7 @@ export function BetSlip() {
               <BookedCode
                 code={booked.code}
                 expiresAt={booked.expiresAt}
+                legs={legs}
                 onDone={() => setBooked(null)}
               />
             ) : (

@@ -1,37 +1,43 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { Copy, Check, Link2, Download, Share2, ZoomIn, X } from "lucide-react";
-import { useSession } from "@/lib/store";
+import { Copy, Check, Link2, Download, Share2, Ticket, X } from "lucide-react";
+import { useSession, type SlipLeg } from "@/lib/store";
 import { copyText } from "@/lib/clipboard";
 
 /**
- * The booking receipt.
- *
- * A code on its own is a string someone has to type correctly down a phone, so
- * it comes with a rendered ticket image: the code and the selections together,
- * readable as a screenshot without any of our chrome around it.
+ * The booking receipt, laid out like the reference ticket: a gold masthead,
+ * the code writ large with copy and download beside it, the total odds, a
+ * worked example bet, then every selection. The ticket area keeps its own
+ * literal colours in both themes — it is a branded artifact, not chrome.
  */
 export function BookedCode({
   code,
   expiresAt,
+  legs,
   onDone,
 }: {
   code: string;
   expiresAt?: string | null;
+  legs: SlipLeg[];
   onDone: () => void;
 }) {
   const player = useSession((s) => s.player);
 
   const [copied, setCopied] = useState<"code" | "link" | null>(null);
   const [shared, setShared] = useState(true);
-  const [zoom, setZoom] = useState(false);
 
   const origin = typeof window !== "undefined" ? window.location.origin : "";
   const link = `${origin}/load-code?code=${code}`;
   const imageUrl = `/api/bookings/${code}/image`;
   const message = `Load my Stakeza code ${code} — ${link}`;
+
+  const totalOdds = legs.reduce((acc, l) => acc * l.odds, 1);
+  const exampleStake = 10;
+  const examplePayout = exampleStake * totalOdds;
+
+  const money = (n: number) =>
+    n.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   const copy = async (value: string, which: "code" | "link") => {
     const ok = await copyText(value);
@@ -66,129 +72,184 @@ export function BookedCode({
   };
 
   return (
-    <div className="border-t border-[var(--line)] px-5 pb-5 pt-4">
-      <h2 className="text-center text-[14px] font-bold text-[var(--text-bright)]">Booking Code</h2>
-
-      <button
-        onClick={() => copy(code, "code")}
-        className="mx-auto mt-1 flex items-center gap-2"
-        aria-label="Copy booking code"
-      >
-        <span className="text-[30px] font-black tracking-[0.12em] text-[var(--text-bright)]">
-          {code}
+    <div className="border-t border-[var(--line)]">
+      {/* Gold masthead */}
+      <div className="flex items-center justify-between bg-[#f5b51b] px-4 py-3 text-black">
+        <span className="flex items-center gap-2">
+          <Ticket size={22} strokeWidth={2.4} />
+          <span className="text-[16px] font-black tracking-wide">STAKEZA</span>
+          <span className="text-[13px] font-bold">🇬🇭 Ghana</span>
         </span>
-        {copied === "code" ? (
-          <Check size={18} strokeWidth={2.6} className="text-[var(--accent)]" />
-        ) : (
-          <Copy size={18} strokeWidth={1.9} className="text-[var(--text-muted)]" />
-        )}
-      </button>
-
-      <p className="mt-1 text-center text-[12px] text-[var(--text-muted)]">
-        {expiresAt
-          ? new Date(expiresAt).toLocaleString("en-GB", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-          : "No expiry"}
-      </p>
-
-      {/* Ticket preview */}
-      <button
-        onClick={() => setZoom(true)}
-        className="relative mx-auto mt-3 block w-[92px] overflow-hidden rounded-lg ring-1 ring-[var(--line)]"
-        aria-label="Enlarge ticket"
-      >
-        <Image
-          src={imageUrl}
-          alt={`Ticket for booking code ${code}`}
-          width={92}
-          height={122}
-          className="h-[122px] w-[92px] object-cover"
-          unoptimized
-        />
-        <span className="absolute inset-0 flex items-center justify-center bg-black/25">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white">
-            <ZoomIn size={15} strokeWidth={2.2} />
+        <span className="flex items-center gap-3">
+          <span className="text-right">
+            <span className="block text-[15px] font-black leading-tight">Betslip</span>
+            <span className="block text-[11px] font-semibold">
+              {new Date().toLocaleString("en-GB", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
           </span>
-        </span>
-      </button>
-
-      {/* Personal page listing */}
-      <div className="mt-4 flex items-center justify-between">
-        <span className="text-[14px] text-[var(--text-bright)]">Share Code on Personal Page</span>
-        <button
-          role="switch"
-          aria-checked={shared}
-          onClick={() => toggleShare(!shared)}
-          className="relative h-6 w-11 rounded-full transition-colors"
-          style={{ background: shared ? "var(--accent)" : "var(--surface-2)" }}
-        >
-          <span
-            className="absolute top-0.5 h-5 w-5 rounded-full bg-white transition-all"
-            style={{ left: shared ? "calc(100% - 22px)" : "2px" }}
-          />
-        </button>
-      </div>
-
-      <hr className="mt-4 border-[var(--line)]" />
-
-      {/* Share row */}
-      <div className="mt-4 grid grid-cols-5 gap-1">
-        <ShareAction
-          label="X / Twitter"
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`}
-          icon={<XLogo />}
-        />
-        <ShareAction
-          label="Whatsapp"
-          href={`https://wa.me/?text=${encodeURIComponent(message)}`}
-          icon={<WhatsAppLogo />}
-        />
-        <ShareAction label="Share In App" onClick={shareInApp} icon={<Share2 size={19} strokeWidth={2} />} />
-        <ShareAction
-          label={copied === "link" ? "Copied" : "Copy Link"}
-          onClick={() => copy(link, "link")}
-          icon={copied === "link" ? <Check size={19} strokeWidth={2.4} /> : <Link2 size={19} strokeWidth={2} />}
-        />
-        <ShareAction
-          label="Save"
-          href={imageUrl}
-          download={`stakeza-${code}.png`}
-          icon={<Download size={19} strokeWidth={2} />}
-        />
-      </div>
-
-      <button
-        onClick={onDone}
-        className="mt-4 w-full py-2 text-[13px] font-semibold text-[var(--text-muted)]"
-      >
-        Back to slip
-      </button>
-
-      {zoom && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-6">
-          <button className="absolute inset-0" onClick={() => setZoom(false)} aria-label="Close" />
           <button
-            onClick={() => setZoom(false)}
-            aria-label="Close"
-            className="absolute right-4 top-4 text-white"
+            onClick={onDone}
+            aria-label="Back to slip"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-black/15"
           >
-            <X size={26} strokeWidth={2} />
+            <X size={18} strokeWidth={2.4} />
           </button>
-          <Image
-            src={imageUrl}
-            alt={`Ticket for booking code ${code}`}
-            width={450}
-            height={600}
-            className="relative max-h-full w-auto rounded-lg"
-            unoptimized
+        </span>
+      </div>
+
+      {/* Ticket body — literal dark, in both themes */}
+      <div className="bg-[#0f0f12] px-4 pb-5 pt-5">
+        <h2 className="text-center text-[15px] font-bold text-white">Booking Code</h2>
+
+        <div className="mt-1 flex items-center justify-center gap-3">
+          <span className="text-[40px] font-black leading-none tracking-[0.06em] text-[#f5b51b]">
+            {code}
+          </span>
+          <button
+            onClick={() => copy(code, "code")}
+            aria-label="Copy booking code"
+            className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#26272b] text-white"
+          >
+            {copied === "code" ? (
+              <Check size={19} strokeWidth={2.6} className="text-[#f5b51b]" />
+            ) : (
+              <Copy size={19} strokeWidth={2} />
+            )}
+          </button>
+          <a
+            href={imageUrl}
+            download={`stakeza-${code}.png`}
+            aria-label="Download ticket"
+            className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#26272b] text-white"
+          >
+            <Download size={19} strokeWidth={2} />
+          </a>
+        </div>
+
+        <p className="mt-1.5 text-center text-[12px] text-[#9ca0a8]">
+          {expiresAt
+            ? `Valid till ${new Date(expiresAt).toLocaleString("en-GB", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}`
+            : "No expiry"}
+        </p>
+
+        {/* Total odds */}
+        <div className="mt-4 rounded-lg border-b-4 border-[#f5b51b] bg-[#1b1c20] px-4 py-4">
+          <div className="flex items-center justify-between">
+            <span className="text-[16px] font-semibold text-white">Odds</span>
+            <span className="text-[32px] font-black leading-none text-white">
+              {money(totalOdds)}
+            </span>
+          </div>
+        </div>
+
+        {/* Example bet */}
+        <div className="mt-4 overflow-hidden rounded-lg">
+          <div className="bg-[#f2e3bd] px-4 py-2.5">
+            <span className="text-[15px] font-black text-[#8a6100]">Example Bet</span>
+          </div>
+          <div className="space-y-2 bg-white px-4 py-3">
+            <div className="flex items-center justify-between text-[15px] text-[#1b1c20]">
+              <span>Stake</span>
+              <span className="font-semibold">{money(exampleStake)}</span>
+            </div>
+            <div className="flex items-center justify-between text-[15px] text-[#1b1c20]">
+              <span>Payout</span>
+              <span className="font-semibold">{money(examplePayout)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Selections */}
+        <div className="mt-4 overflow-hidden rounded-lg">
+          <div className="bg-[#f2e3bd] px-4 py-2.5">
+            <span className="text-[15px] font-black text-[#8a6100]">Selections</span>
+          </div>
+          <ul className="divide-y divide-[#eef2f7] bg-white">
+            {legs.map((l) => (
+              <li key={`${l.matchId}-${l.market}-${l.outcome}`} className="px-4 py-3">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#f5b51b]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#f5b51b]" />
+                    </span>
+                    <span className="text-[16px] font-black text-[#1b1c20]">{l.outcomeLabel}</span>
+                  </span>
+                  <span className="text-[16px] font-black text-[#1b1c20]">{money(l.odds)}</span>
+                </div>
+                <p className="mt-1 pl-6 text-[14px] text-[#3f4650]">
+                  {l.homeTeam} vs {l.awayTeam}
+                </p>
+                <p className="pl-6 text-[13px] text-[#6b7280]">{l.marketLabel}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Sharing, on the sheet's own tokens */}
+      <div className="px-5 pb-5 pt-4">
+        <div className="flex items-center justify-between">
+          <span className="text-[14px] text-[var(--text-bright)]">Share Code on Personal Page</span>
+          <button
+            role="switch"
+            aria-checked={shared}
+            onClick={() => toggleShare(!shared)}
+            className="relative h-6 w-11 rounded-full transition-colors"
+            style={{ background: shared ? "var(--accent)" : "var(--surface-2)" }}
+          >
+            <span
+              className="absolute top-0.5 h-5 w-5 rounded-full bg-white transition-all"
+              style={{ left: shared ? "calc(100% - 22px)" : "2px" }}
+            />
+          </button>
+        </div>
+
+        <hr className="mt-4 border-[var(--line)]" />
+
+        <div className="mt-4 grid grid-cols-5 gap-1">
+          <ShareAction
+            label="X / Twitter"
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`}
+            icon={<XLogo />}
+          />
+          <ShareAction
+            label="Whatsapp"
+            href={`https://wa.me/?text=${encodeURIComponent(message)}`}
+            icon={<WhatsAppLogo />}
+          />
+          <ShareAction label="Share In App" onClick={shareInApp} icon={<Share2 size={19} strokeWidth={2} />} />
+          <ShareAction
+            label={copied === "link" ? "Copied" : "Copy Link"}
+            onClick={() => copy(link, "link")}
+            icon={copied === "link" ? <Check size={19} strokeWidth={2.4} /> : <Link2 size={19} strokeWidth={2} />}
+          />
+          <ShareAction
+            label="Save"
+            href={imageUrl}
+            download={`stakeza-${code}.png`}
+            icon={<Download size={19} strokeWidth={2} />}
           />
         </div>
-      )}
+
+        <button
+          onClick={onDone}
+          className="mt-4 w-full py-2 text-[13px] font-semibold text-[var(--text-muted)]"
+        >
+          Back to slip
+        </button>
+      </div>
     </div>
   );
 }
