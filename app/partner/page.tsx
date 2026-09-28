@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { WalletPanel } from "@/components/partner/WalletPanel";
+import { copyText } from "@/lib/clipboard";
 
 interface Partner {
   id: string;
@@ -257,7 +258,7 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
             {link}
           </code>
           <button
-            onClick={() => navigator.clipboard?.writeText(link)}
+            onClick={() => void copyText(link)}
             className="rounded-lg bg-[var(--accent)] px-3 py-1.5 text-[11px] font-black text-[var(--accent-ink)]"
           >
             Copy

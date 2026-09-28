@@ -15,6 +15,7 @@ import {
   Share2,
   LineChart,
 } from "lucide-react";
+import { copyText } from "@/lib/clipboard";
 import { useSlip, useSession, type SlipLeg } from "@/lib/store";
 import { formatMoney } from "@/lib/countries";
 import { marketName } from "@/lib/markets";
@@ -175,7 +176,7 @@ export function TicketDetail({ code }: { code: string }) {
       }
     }
     try {
-      await navigator.clipboard.writeText(`${text} ${url}`);
+      await copyText(`${text} ${url}`);
       setShared(true);
       setTimeout(() => setShared(false), 1800);
     } catch {
@@ -290,13 +291,10 @@ export function TicketDetail({ code }: { code: string }) {
           <span className="ml-auto">Ticket ID: {bet.code}</span>
           <button
             onClick={() => {
-              navigator.clipboard?.writeText(bet.code).then(
-                () => {
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 1600);
-                },
-                () => setCopied(false),
-              );
+              copyText(bet.code).then((ok) => {
+                setCopied(ok);
+                if (ok) setTimeout(() => setCopied(false), 1600);
+              });
             }}
             className="flex items-center gap-1 rounded-full bg-[var(--surface-2)] px-2.5 py-1 text-[11px] font-medium text-[var(--text)]"
           >

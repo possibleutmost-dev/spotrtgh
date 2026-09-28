@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Copy, Check, Link2, Download, Share2, ZoomIn, X } from "lucide-react";
 import { useSession } from "@/lib/store";
+import { copyText } from "@/lib/clipboard";
 
 /**
  * The booking receipt.
@@ -32,14 +33,10 @@ export function BookedCode({
   const imageUrl = `/api/bookings/${code}/image`;
   const message = `Load my Stakeza code ${code} — ${link}`;
 
-  const copy = (value: string, which: "code" | "link") => {
-    navigator.clipboard?.writeText(value).then(
-      () => {
-        setCopied(which);
-        setTimeout(() => setCopied(null), 1600);
-      },
-      () => setCopied(null),
-    );
+  const copy = async (value: string, which: "code" | "link") => {
+    const ok = await copyText(value);
+    setCopied(ok ? which : null);
+    if (ok) setTimeout(() => setCopied(null), 1600);
   };
 
   const toggleShare = async (next: boolean) => {

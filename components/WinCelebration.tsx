@@ -5,6 +5,7 @@ import Link from "next/link";
 import { X, Share2, Check } from "lucide-react";
 import { Trophy } from "@/components/Trophy";
 import { formatMoney } from "@/lib/countries";
+import { copyText } from "@/lib/clipboard";
 
 /**
  * The winning-ticket celebration.
@@ -97,7 +98,7 @@ export function WinCelebration({
       }
     }
     try {
-      await navigator.clipboard.writeText(`${text} ${url}`);
+      await copyText(`${text} ${url}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {

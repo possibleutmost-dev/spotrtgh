@@ -6,6 +6,7 @@ import { Check, Copy, X } from "lucide-react";
 import { useState } from "react";
 import { formatMoney } from "@/lib/countries";
 import type { SlipLeg } from "@/lib/store";
+import { copyText } from "@/lib/clipboard";
 
 /**
  * The slip shown the moment a bet is placed.
@@ -43,13 +44,10 @@ export function PlacedReceipt({
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
-    navigator.clipboard?.writeText(ticket.code).then(
-      () => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1600);
-      },
-      () => setCopied(false),
-    );
+    copyText(ticket.code).then((ok) => {
+      setCopied(ok);
+      if (ok) setTimeout(() => setCopied(false), 1600);
+    });
   };
 
   return (
