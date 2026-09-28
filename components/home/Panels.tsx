@@ -1,102 +1,245 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
-  Star,
-  Clock,
-  Tv,
-  Trophy,
-  Dices,
+  Calendar,
+  ShieldCheck,
   Ticket,
-  PlayCircle,
-  MoreHorizontal,
+  Grid3x3,
+  Search,
   type LucideIcon,
 } from "lucide-react";
 import { useSlip, type SlipLeg } from "@/lib/store";
 import { BallIcon } from "@/components/icons";
 
 /**
- * The home page furniture above the match content: the promo story strip, the
- * sport quick panel, the booking-code widget and the highlight chips.
+ * The home page furniture above the board, mirroring the reference: the hero
+ * banner carousel, the square sport tiles, the sport pills, and the search +
+ * filter bar that drives the events board.
  *
  * Promo photography lives in public/promo under the Pexels licence — see the
  * CREDITS file there. Swapping one is a file replacement, not a code change.
  */
 
-// ------------------------------------------------------------- story list
+// ------------------------------------------------------------- hero banner
 
-interface Story {
-  title: string;
-  kicker?: string;
-  href: string;
+interface Banner {
   art: string;
+  title: string;
+  kicker: string;
+  href: string;
 }
 
-const STORIES: Story[] = [
-  { title: "Welcome Bonus", kicker: "GH₵50", href: "/register", art: "/promo/welcome-bonus.jpg" },
-  { title: "Best Odds", kicker: "Boosted", href: "/?tab=boosted", art: "/promo/best-odds.jpg" },
-  { title: "Top Matches", href: "/?tab=today", art: "/promo/top-matches.jpg" },
-  { title: "Live Now", href: "/?tab=live", art: "/promo/live-now.jpg" },
-  { title: "Booking Codes", href: "/load-code", art: "/promo/booking-codes.jpg" },
+const BANNERS: Banner[] = [
+  {
+    art: "/promo/welcome-bonus.jpg",
+    kicker: "Welcome Bonus",
+    title: "GH₵50 on your first deposit",
+    href: "/register",
+  },
+  {
+    art: "/promo/best-odds.jpg",
+    kicker: "Bet like a champion",
+    title: "Boosted odds every day",
+    href: "/?tab=boosted",
+  },
+  {
+    art: "/promo/live-now.jpg",
+    kicker: "Live now",
+    title: "Bet in play, cash out fast",
+    href: "/?tab=live",
+  },
 ];
 
-export function StoryList() {
+export function HeroBanner() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setIndex((i) => (i + 1) % BANNERS.length), 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="scroll-x flex gap-2 px-2.5 py-2.5 md:gap-3 md:px-5">
-      {STORIES.map((s) => (
-        <Link
-          key={s.title}
-          href={s.href}
-          className="relative h-[88px] w-[86px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-white/10 md:h-[132px] md:w-[132px]"
+    <div className="mx-2.5 my-3 md:mx-5">
+      <div className="relative overflow-hidden rounded-2xl border border-[var(--line)] shadow-xl">
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${index * 100}%)` }}
         >
-          <Image src={s.art} alt="" fill sizes="(min-width: 768px) 132px, 86px" className="object-cover" />
-          {/* Scrim so the label stays legible over any artwork. */}
-          <span className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 to-transparent" />
-          <span className="absolute inset-x-0 bottom-0 p-1.5">
-            {s.kicker && (
-              <span className="block text-[11px] font-black leading-tight text-[var(--accent)]">
-                {s.kicker}
+          {BANNERS.map((b) => (
+            <Link
+              key={b.title}
+              href={b.href}
+              className="relative aspect-[16/9] w-full shrink-0 sm:aspect-[21/9]"
+              aria-label={`${b.kicker} — ${b.title}`}
+            >
+              <Image src={b.art} alt="" fill sizes="100vw" className="object-cover" />
+              <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <span className="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+                <span className="block text-[13px] font-black uppercase tracking-wider text-[var(--accent)] sm:text-[15px]">
+                  {b.kicker}
+                </span>
+                <span className="block text-[17px] font-black text-white sm:text-[22px]">
+                  {b.title}
+                </span>
               </span>
-            )}
-            <span className="block text-[10px] font-bold leading-tight text-white">{s.title}</span>
-          </span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5">
+          {BANNERS.map((b, i) => (
+            <button
+              key={b.title}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to banner ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all ${
+                i === index ? "w-6 bg-[var(--accent)]" : "w-1.5 bg-zinc-600"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------- sport tiles
+
+const TILES: {
+  label: string;
+  href: string;
+  Icon?: LucideIcon | typeof BallIcon;
+  art?: string;
+  hot?: boolean;
+  active?: boolean;
+}[] = [
+  { label: "Soccer", href: "/", Icon: BallIcon, active: true },
+  { label: "Today", href: "/?tab=today", Icon: Calendar },
+  { label: "Games", href: "/games", art: "/image.png", hot: true },
+  { label: "Verify Bet", href: "/my-bets", Icon: ShieldCheck },
+  { label: "Booking Codes", href: "/load-code", Icon: Ticket },
+  { label: "All", href: "/az", Icon: Grid3x3 },
+];
+
+export function SportTiles() {
+  return (
+    <div className="scroll-x mx-2.5 flex gap-2 pb-1 md:mx-5">
+      {TILES.map(({ label, href, Icon, art, hot, active }) => (
+        <Link
+          key={label}
+          href={href}
+          className={`relative flex h-16 w-16 shrink-0 flex-col items-center justify-center gap-1 overflow-hidden rounded-2xl border transition-colors md:h-20 md:w-20 ${
+            active
+              ? "border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)] shadow-lg shadow-amber-400/10"
+              : "border-[var(--line)] bg-[var(--bg-elevated)] text-[var(--text-muted)]"
+          }`}
+        >
+          {art ? (
+            <Image src={art} alt="" width={40} height={40} className="h-9 w-9 object-contain md:h-11 md:w-11" />
+          ) : (
+            Icon && <Icon size={22} strokeWidth={1.7} />
+          )}
+          <span className="px-0.5 text-center text-[10px] font-bold leading-tight">{label}</span>
+          {hot && (
+            <span className="absolute right-1 top-1 animate-pulse rounded-full bg-[var(--lose)] px-1 text-[8px] font-black text-white">
+              HOT
+            </span>
+          )}
         </Link>
       ))}
     </div>
   );
 }
 
-// ------------------------------------------------------------ quick panel
+// ------------------------------------------------------------- sport pills
 
-const QUICK: { label: string; href: string; Icon: LucideIcon | typeof BallIcon }[] = [
-  { label: "Football", href: "/", Icon: BallIcon },
-  { label: "Live", href: "/?tab=live", Icon: PlayCircle },
-  { label: "Virtuals", href: "/games", Icon: Dices },
-  { label: "Code Center", href: "/load-code", Icon: Ticket },
-  { label: "Best Odds", href: "/?tab=boosted", Icon: Trophy },
-  { label: "More", href: "/az", Icon: MoreHorizontal },
+const PILLS = [
+  { label: "Soccer", href: "/", active: true },
+  { label: "Live", href: "/?tab=live" },
+  { label: "Today", href: "/?tab=today" },
+  { label: "Tomorrow", href: "/?tab=tomorrow" },
+  { label: "Best Odds", href: "/?tab=boosted" },
 ];
 
-export function QuickPanel() {
+export function SportPills() {
   return (
-    <div className="scroll-x mx-2.5 flex gap-2 py-1 md:mx-5">
-      {QUICK.map(({ label, href, Icon }, i) => (
+    <div className="scroll-x mx-2.5 flex items-center gap-1.5 pb-1 pt-2 md:mx-5">
+      {PILLS.map((p) => (
         <Link
-          key={label}
-          href={href}
-          className={`flex h-16 w-16 shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border transition-colors md:h-20 md:w-20 ${
-            i === 0
-              ? "border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)] shadow-lg shadow-amber-400/10"
-              : "border-[var(--line)] bg-[var(--bg-elevated)] text-[var(--text-muted)]"
+          key={p.label}
+          href={p.href}
+          className={`whitespace-nowrap rounded-xl px-4 py-1.5 text-[12px] font-bold transition-all ${
+            p.active
+              ? "bg-[var(--accent)] text-black shadow-md shadow-amber-400/20"
+              : "border border-[var(--line)] bg-[var(--bg-elevated)] text-[var(--text-muted)]"
           }`}
         >
-          <Icon size={22} strokeWidth={1.7} />
-          <span className="px-0.5 text-center text-[10px] font-bold leading-tight">{label}</span>
+          {p.label}
         </Link>
       ))}
+    </div>
+  );
+}
+
+// ------------------------------------------------------------- filter bar
+
+const FILTERS: { key: string; label: string }[] = [
+  { key: "", label: "All" },
+  { key: "today", label: "📅 Today" },
+  { key: "live", label: "🔴 Live" },
+  { key: "tomorrow", label: "⏳ Tomorrow" },
+  { key: "boosted", label: "🔥 Best Odds" },
+];
+
+export function FilterBar({
+  active,
+  onChange,
+}: {
+  active: string;
+  onChange: (key: string) => void;
+}) {
+  const router = useRouter();
+  const [q, setQ] = useState("");
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (q.trim()) router.push(`/search?q=${encodeURIComponent(q.trim())}`);
+  };
+
+  return (
+    <div className="mx-2.5 flex flex-col gap-2 py-2 sm:flex-row sm:items-center md:mx-5">
+      <form onSubmit={submit} className="relative flex-1">
+        <Search
+          size={15}
+          strokeWidth={2.2}
+          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-faint)]"
+        />
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search teams or leagues..."
+          className="w-full rounded-xl border border-[var(--line)] bg-[var(--bg-elevated)] py-2.5 pl-10 pr-4 text-[12px] font-semibold text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]"
+        />
+      </form>
+      <div className="scroll-x flex items-center gap-1.5">
+        {FILTERS.map((f) => (
+          <button
+            key={f.key}
+            onClick={() => onChange(f.key)}
+            className={`whitespace-nowrap rounded-xl px-3 py-2 text-[12px] font-extrabold transition-all ${
+              active === f.key
+                ? "bg-[var(--accent)] text-black shadow-md shadow-amber-400/20"
+                : "border border-[var(--line)] bg-[var(--bg-elevated)] text-[var(--text-muted)]"
+            }`}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -165,48 +308,6 @@ export function LoadCodeWidget() {
           )}
         </p>
       )}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------- highlight list
-
-export function HighlightList({ liveCount, soonCount }: { liveCount: number; soonCount: number }) {
-  const items: {
-    Icon: LucideIcon | typeof BallIcon;
-    label: string;
-    href: string;
-    badge: string | null;
-  }[] = [
-    { Icon: Star, label: "My Favourites", href: "/account", badge: null },
-    { Icon: BallIcon, label: "Today's Football", href: "/?tab=today", badge: null },
-    {
-      Icon: Clock,
-      label: "Football in Next 3 Hours",
-      href: "/?tab=soon",
-      badge: soonCount ? String(soonCount) : null,
-    },
-    { Icon: Tv, label: "Live Now", href: "/?tab=live", badge: liveCount ? String(liveCount) : null },
-  ];
-
-  return (
-    <div className="scroll-x flex gap-2 px-2.5 py-2.5 md:gap-3 md:px-5">
-      {items.map(({ Icon, label, href, badge }) => (
-        <Link
-          key={label}
-          href={href}
-          className="flex h-[58px] w-[168px] shrink-0 items-center gap-2.5 rounded-xl border border-[var(--line)] bg-[var(--bg-elevated)] px-3 md:h-[64px] md:w-[220px] md:px-4"
-        >
-          {badge ? (
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] text-[12px] font-bold text-[var(--accent)]">
-              {badge}
-            </span>
-          ) : (
-            <Icon size={18} strokeWidth={1.8} className="shrink-0 text-[var(--accent)]" />
-          )}
-          <span className="text-[12px] font-medium leading-tight text-[var(--text)]">{label}</span>
-        </Link>
-      ))}
     </div>
   );
 }

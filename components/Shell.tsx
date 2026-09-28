@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Search, LayoutGrid, Gamepad2, ReceiptText, User } from "lucide-react";
+import { Search, Tv, ReceiptText, User } from "lucide-react";
 import { useSession, useSlip } from "@/lib/store";
 import { BrandIcon } from "@/components/icons";
 import { AccountDrawer } from "@/components/AccountDrawer";
@@ -90,18 +89,44 @@ function HeaderActions({ onOpenAccount }: { onOpenAccount: () => void }) {
   );
 }
 
+/** Desktop-only primary navigation, mirroring the reference header. */
+const HEADER_NAV = [
+  { href: "/", label: "Home" },
+  { href: "/?tab=live", label: "Live" },
+  { href: "/az", label: "Sports" },
+  { href: "/games", label: "⚡ Games" },
+  { href: "/games", label: "Virtual" },
+] as const;
+
 export function Header() {
   const [accountOpen, setAccountOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-[var(--surface)]/95 backdrop-blur-md">
       <div className="flex h-[52px] w-full items-center gap-2 px-2.5 md:px-5">
-        <Link href="/" className="flex shrink-0 items-center gap-1.5">
-          <Image src="/logo-mark.svg" alt="Stakeza" width={26} height={26} priority />
-          <span className="font-display text-[19px] font-black tracking-wider text-white">
-            STAKE<span className="text-[var(--accent)]">ZA</span>
+        <Link href="/" className="flex shrink-0 items-center gap-1">
+          <span className="text-[19px] font-black tracking-wider text-white">
+            PRIME <span className="text-[var(--accent)]">BET</span>
           </span>
         </Link>
+
+        <nav className="hidden items-center gap-1 border-l border-white/20 pl-4 lg:flex">
+          {HEADER_NAV.map((item) => {
+            const active = pathname === "/" && item.href === "/";
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`rounded-lg px-4 py-2 text-[13px] font-bold text-white transition-all ${
+                  active ? "border border-white/40 bg-white/10" : "hover:bg-white/10"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
           <Link href="/search" aria-label="Search" className="p-1 text-[var(--text-bright)]">
@@ -118,57 +143,95 @@ export function Header() {
 
 // ------------------------------------------------------------- bottom nav
 
-const NAV = [
-  { href: "/", label: "Home", Icon: BrandIcon },
-  { href: "/az", label: "AZ Menu", Icon: LayoutGrid },
-  { href: "/games", label: "Games", Icon: Gamepad2 },
-  { href: "/my-bets", label: "My Bets", Icon: ReceiptText },
-  { href: "/account", label: "Me", Icon: User },
+const NAV_LEFT = [
+  { href: "/", label: "PRIME BET", Icon: BrandIcon },
+  { href: "/?tab=live", label: "Live Matches", Icon: Tv },
 ] as const;
+
+const NAV_RIGHT = [
+  { href: "/my-bets", label: "My Bets", Icon: ReceiptText },
+  { href: "/account", label: "Me Profile", Icon: User },
+] as const;
+
+function NavItem({
+  href,
+  label,
+  Icon,
+  active,
+}: {
+  href: string;
+  label: string;
+  Icon: (typeof NAV_LEFT)[number]["Icon"];
+  active: boolean;
+}) {
+  return (
+    <Link
+      href={href}
+      className="relative flex flex-col items-center justify-center gap-1 pb-2 pt-2.5"
+      style={{ color: active ? "var(--accent)" : "rgba(255,255,255,0.7)" }}
+    >
+      {active && (
+        <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[var(--accent)]" />
+      )}
+      <Icon size={20} strokeWidth={1.8} />
+      <span className="text-[10px] font-bold">{label}</span>
+    </Link>
+  );
+}
+
+/** The raised gold betslip button that anchors the middle of the nav. */
+function SlipCircle() {
+  const legs = useSlip((s) => s.legs);
+  const setOpen = useSlip((s) => s.setOpen);
+
+  return (
+    <div className="relative flex items-start justify-center">
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
+        className="glow-gold relative -top-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[var(--accent)] text-black transition-transform hover:scale-105 active:scale-95"
+      >
+        <ReceiptText size={24} strokeWidth={2.2} />
+        <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
+          {legs.length}
+        </span>
+      </button>
+    </div>
+  );
+}
 
 export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/20 bg-[var(--surface)]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/20 bg-[var(--surface)]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg lg:hidden">
       <div className="grid w-full grid-cols-5 md:mx-auto md:max-w-2xl">
-        {NAV.map((item) => {
-          const active = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="relative flex flex-col items-center gap-1 pb-2 pt-2.5"
-              style={{ color: active ? "var(--accent)" : "rgba(255,255,255,0.7)" }}
-            >
-              {active && (
-                <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[var(--accent)]" />
-              )}
-              <item.Icon size={20} strokeWidth={1.8} />
-              <span className="text-[10px] font-bold">{item.label}</span>
-            </Link>
-          );
-        })}
+        {NAV_LEFT.map((item) => (
+          <NavItem key={item.label} {...item} active={pathname === item.href} />
+        ))}
+        <SlipCircle />
+        {NAV_RIGHT.map((item) => (
+          <NavItem key={item.label} {...item} active={pathname === item.href} />
+        ))}
       </div>
     </nav>
   );
 }
 
-/** Floating slip counter — only shown once there is something to place. */
+/** Desktop floating slip button, bottom-right like the reference. */
 export function SlipButton() {
   const legs = useSlip((s) => s.legs);
   const setOpen = useSlip((s) => s.setOpen);
-
-  if (!legs.length) return null;
 
   return (
     <button
       type="button"
       onClick={() => setOpen(true)}
       aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-      className="glow-gold fixed bottom-[78px] right-3 z-30 flex h-[54px] w-[54px] flex-col items-center justify-center rounded-full border-2 border-white bg-[var(--accent)] text-black transition-transform active:scale-95"
+      className="glow-gold fixed bottom-8 right-8 z-30 hidden h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[var(--accent)] text-black transition-transform hover:scale-105 active:scale-95 lg:flex"
     >
-      <span className="text-[16px] font-black leading-none">SLIP</span>
+      <ReceiptText size={24} strokeWidth={2.2} />
       <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
         {legs.length}
       </span>

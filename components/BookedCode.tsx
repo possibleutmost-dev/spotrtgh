@@ -30,7 +30,7 @@ export function BookedCode({
   const origin = typeof window !== "undefined" ? window.location.origin : "";
   const link = `${origin}/load-code?code=${code}`;
   const imageUrl = `/api/bookings/${code}/image`;
-  const message = `Load my Stakeza code ${code} — ${link}`;
+  const message = `Load my PRIME BET code ${code} — ${link}`;
 
   const copy = (value: string, which: "code" | "link") => {
     navigator.clipboard?.writeText(value).then(
@@ -59,7 +59,7 @@ export function BookedCode({
   const shareInApp = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: `Stakeza code ${code}`, text: message, url: link });
+        await navigator.share({ title: `PRIME BET code ${code}`, text: message, url: link });
         return;
       } catch {
         /* dismissed */

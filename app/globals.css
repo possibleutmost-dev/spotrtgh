@@ -88,10 +88,11 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  /* Barlow is the face the reference ships (400–800), with a metric-friendly
-     fallback stack so the layout does not shift before the webfont lands. */
-  font-family: var(--font-sans), "Segoe UI", "Helvetica Neue", Arial,
-    "Noto Sans", sans-serif;
+  /* Inter is the interface face (betafrica.site's build), with a
+     metric-friendly fallback stack so the layout does not shift before the
+     webfont lands. */
+  font-family: var(--font-sans), -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", "Noto Sans", Arial, sans-serif;
   font-size: 12px;
   line-height: 1.4;
   overscroll-behavior-y: none;

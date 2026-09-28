@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow, Bebas_Neue } from "next/font/google";
+import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
-// The reference build ships Barlow at five weights for the interface and
-// Bebas Neue as the display face; matching them keeps the type colour of the
-// board identical.
-const barlow = Barlow({
+// Inter is the interface face (taken from betafrica.site's build — a variable
+// font, so every weight the board uses ships in one file); Bebas Neue is the
+// display face for the wordmark.
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -20,9 +19,9 @@ const bebas = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "Stakeza Ghana | Online Sports Betting, Mobile Money Deposits",
+  title: "PRIME BET — Live Sports Betting & Casino",
   description:
-    "Bet on football with mobile money. Fast deposits, fast payouts, booking codes and daily boosted odds.",
+    "Bet live on football and more, and cash out fast with mobile money on PRIME BET. Live odds, instant betslips, booking codes and daily boosted odds.",
   manifest: "/manifest.json",
   icons: { icon: "/logo-mark.svg", apple: "/logo-mark.svg" },
 };
@@ -36,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${barlow.variable} ${bebas.variable}`}>
+    <html lang="en" className={`${inter.variable} ${bebas.variable}`}>
       <body>{children}</body>
     </html>
   );
