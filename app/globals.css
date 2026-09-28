@@ -56,6 +56,39 @@
   --radius: 12px;
 }
 
+/* ---------------------------------------------------------------------------
+   The white theme, toggled from the header. Chrome (header, league bars,
+   bottom nav) stays black in both themes — that black-on-light contrast is
+   the reference's light mode. Anything that sits ON the chrome therefore uses
+   literal white classes, not --text-bright, which flips to ink here.
+   ------------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  --bg: #f1f5f9;
+  --bg-elevated: #ffffff;
+  --surface-2: #e2e8f0;
+  --surface-3: #eef2f7;
+  --line: #e2e8f0;
+  --odds-btn: #e8edf3;
+  --disabled: #cbd5e1;
+
+  --accent: #d99b0a; /* darker gold so type keeps contrast on white */
+  --accent-dim: #b8860b;
+
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+  --text-bright: #0f172a;
+
+  --lose-bg: #fbe3e5;
+  --hint-bg: #dbeafe;
+
+  --field: #ffffff;
+  --field-line: #cbd5e1;
+  --input: #ffffff;
+  --input-ink: #0f172a;
+  --input-placeholder: #94a3b8;
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-elevated: var(--bg-elevated);

@@ -313,7 +313,7 @@ export default function DepositPage() {
                 {settings.deposit_account_number ?? "—"}
               </p>
               <p className="text-[12px] text-[var(--text-muted)]">
-                {settings.deposit_account_name ?? "PRIME BET"} ·{" "}
+                {settings.deposit_account_name ?? "Stakeza"} ·{" "}
                 {settings.deposit_account_network ?? "Mobile Money"}
               </p>
             </div>
@@ -427,14 +427,14 @@ function DepositHeader({ onBack }: { onBack: () => void }) {
   return (
     <header className="sticky top-0 z-40 bg-[var(--surface)]">
       <div className="mx-auto flex h-[52px] max-w-2xl items-center gap-3 px-4">
-        <button onClick={onBack} aria-label="Back" className="text-[var(--text-bright)]">
+        <button onClick={onBack} aria-label="Back" className="text-white">
           <ArrowLeft size={22} strokeWidth={2} />
         </button>
-        <h1 className="flex-1 text-[19px] font-bold text-[var(--text-bright)]">Deposit</h1>
-        <Link href="/how-to-play" aria-label="Help" className="text-[var(--text-bright)]">
+        <h1 className="flex-1 text-[19px] font-bold text-white">Deposit</h1>
+        <Link href="/how-to-play" aria-label="Help" className="text-white">
           <CircleHelp size={20} strokeWidth={1.9} />
         </Link>
-        <Link href="/" aria-label="Home" className="text-[var(--text-bright)]">
+        <Link href="/" aria-label="Home" className="text-white">
           <Home size={20} strokeWidth={1.9} />
         </Link>
       </div>

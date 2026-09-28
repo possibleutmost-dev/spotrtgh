@@ -34,7 +34,7 @@ export function BallIcon({ size = 24, strokeWidth = 1.7, className }: IconProps)
   );
 }
 
-/** PRIME BET mark, for the home tab in the bottom navigation. */
+/** Stakeza mark, for the home tab in the bottom navigation. */
 export function BrandIcon({ size = 20, className }: { size?: number; className?: string }) {
   return (
     <svg

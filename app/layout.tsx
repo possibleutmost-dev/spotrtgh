@@ -19,9 +19,9 @@ const bebas = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "PRIME BET — Live Sports Betting & Casino",
+  title: "Stakeza — Live Sports Betting & Casino",
   description:
-    "Bet live on football and more, and cash out fast with mobile money on PRIME BET. Live odds, instant betslips, booking codes and daily boosted odds.",
+    "Bet live on football and more, and cash out fast with mobile money on Stakeza. Live odds, instant betslips, booking codes and daily boosted odds.",
   manifest: "/manifest.json",
   icons: { icon: "/logo-mark.svg", apple: "/logo-mark.svg" },
 };
@@ -35,7 +35,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${bebas.variable}`}>
+    <html lang="en" className={`${inter.variable} ${bebas.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Applies the saved theme before first paint, so a light-theme player
+            never sees a dark flash. Dark is the default. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

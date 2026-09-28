@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Search, Tv, ReceiptText, User } from "lucide-react";
+import { Search, Sun, Moon, Tv, ReceiptText, User } from "lucide-react";
 import { useSession, useSlip } from "@/lib/store";
 import { BrandIcon } from "@/components/icons";
 import { AccountDrawer } from "@/components/AccountDrawer";
@@ -98,6 +98,42 @@ const HEADER_NAV = [
   { href: "/games", label: "Virtual" },
 ] as const;
 
+/**
+ * Dark by default; the sun/moon flips the page ground to white. The choice
+ * lives on <html data-theme> so the token layer swaps, and in localStorage so
+ * the head script can re-apply it before the next paint.
+ */
+function ThemeToggle() {
+  const [light, setLight] = useState(false);
+
+  useEffect(() => {
+    setLight(document.documentElement.dataset.theme === "light");
+  }, []);
+
+  const toggle = () => {
+    const next = !light;
+    setLight(next);
+    if (next) document.documentElement.dataset.theme = "light";
+    else delete document.documentElement.dataset.theme;
+    try {
+      localStorage.setItem("theme", next ? "light" : "dark");
+    } catch {
+      /* private mode — the toggle still works for this page view */
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={light ? "Switch to dark background" : "Switch to white background"}
+      className="p-1 text-white"
+    >
+      {light ? <Moon size={20} strokeWidth={2} /> : <Sun size={20} strokeWidth={2} />}
+    </button>
+  );
+}
+
 export function Header() {
   const [accountOpen, setAccountOpen] = useState(false);
   const pathname = usePathname();
@@ -107,7 +143,7 @@ export function Header() {
       <div className="flex h-[52px] w-full items-center gap-2 px-2.5 md:px-5">
         <Link href="/" className="flex shrink-0 items-center gap-1">
           <span className="text-[19px] font-black tracking-wider text-white">
-            PRIME <span className="text-[var(--accent)]">BET</span>
+            Stake<span className="text-[var(--accent)]">za</span>
           </span>
         </Link>
 
@@ -129,7 +165,8 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
-          <Link href="/search" aria-label="Search" className="p-1 text-[var(--text-bright)]">
+          <ThemeToggle />
+          <Link href="/search" aria-label="Search" className="p-1 text-white">
             <Search size={21} strokeWidth={2} />
           </Link>
           <HeaderActions onOpenAccount={() => setAccountOpen(true)} />
@@ -144,7 +181,7 @@ export function Header() {
 // ------------------------------------------------------------- bottom nav
 
 const NAV_LEFT = [
-  { href: "/", label: "PRIME BET", Icon: BrandIcon },
+  { href: "/", label: "Stakeza", Icon: BrandIcon },
   { href: "/?tab=live", label: "Live Matches", Icon: Tv },
 ] as const;
 
