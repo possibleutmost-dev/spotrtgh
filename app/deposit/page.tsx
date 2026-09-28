@@ -425,7 +425,7 @@ export default function DepositPage() {
 
 function DepositHeader({ onBack }: { onBack: () => void }) {
   return (
-    <header className="sticky top-0 z-40 bg-[var(--surface)]">
+    <header className="sticky top-0 z-40 bg-[var(--chrome)]">
       <div className="mx-auto flex h-[52px] max-w-2xl items-center gap-3 px-4">
         <button onClick={onBack} aria-label="Back" className="text-white">
           <ArrowLeft size={22} strokeWidth={2} />

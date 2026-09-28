@@ -16,7 +16,8 @@
   /* Grounds */
   --bg: #0f0f12;          /* the page */
   --bg-elevated: #16161d; /* cards, panels, footer */
-  --surface: #000000;     /* chrome — header, league bars, bottom nav */
+  --chrome: #000000;      /* header, bottom nav — black in BOTH themes */
+  --surface: #000000;     /* league bars, chips, section heads — flips */
   --surface-2: #26272b;   /* chips, inputs */
   --surface-3: #1b1c20;
   --line: #26272b;        /* dividers */
@@ -57,14 +58,16 @@
 }
 
 /* ---------------------------------------------------------------------------
-   The white theme, toggled from the header. Chrome (header, league bars,
-   bottom nav) stays black in both themes — that black-on-light contrast is
-   the reference's light mode. Anything that sits ON the chrome therefore uses
-   literal white classes, not --text-bright, which flips to ink here.
+   The white theme, toggled from the header. Only the chrome (header, bottom
+   nav) stays black — that black-on-light contrast is the reference's light
+   mode. Anything that sits ON the chrome uses literal white/gold classes,
+   never the flipping tokens. Everything else, league bars included, flips
+   here along with its ink.
    ------------------------------------------------------------------------- */
 :root[data-theme="light"] {
   --bg: #f1f5f9;
   --bg-elevated: #ffffff;
+  --surface: #e2e8f0;
   --surface-2: #e2e8f0;
   --surface-3: #eef2f7;
   --line: #e2e8f0;

@@ -75,7 +75,7 @@ function HeaderActions({ onOpenAccount }: { onOpenAccount: () => void }) {
       <button
         onClick={onOpenAccount}
         aria-label="Account and balance"
-        className="rounded-full px-3 py-1 text-[13px] font-bold text-[var(--accent)] ring-1 ring-[var(--accent)]"
+        className="rounded-full px-3 py-1 text-[13px] font-bold text-[#f5b51b] ring-1 ring-[#f5b51b]"
       >
         {formatMoney(Number(player.balance), player.currency)}
       </button>
@@ -139,11 +139,11 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-[var(--surface)]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-[var(--chrome)]/95 backdrop-blur-md">
       <div className="flex h-[52px] w-full items-center gap-2 px-2.5 md:px-5">
         <Link href="/" className="flex shrink-0 items-center gap-1">
           <span className="text-[19px] font-black tracking-wider text-white">
-            Stake<span className="text-[var(--accent)]">za</span>
+            Stake<span className="text-[#f5b51b]">za</span>
           </span>
         </Link>
 
@@ -205,10 +205,10 @@ function NavItem({
     <Link
       href={href}
       className="relative flex flex-col items-center justify-center gap-1 pb-2 pt-2.5"
-      style={{ color: active ? "var(--accent)" : "rgba(255,255,255,0.7)" }}
+      style={{ color: active ? "#f5b51b" : "rgba(255,255,255,0.7)" }}
     >
       {active && (
-        <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[var(--accent)]" />
+        <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[#f5b51b]" />
       )}
       <Icon size={20} strokeWidth={1.8} />
       <span className="text-[10px] font-bold">{label}</span>
@@ -227,7 +227,7 @@ function SlipCircle() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-        className="glow-gold relative -top-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[var(--accent)] text-black transition-transform hover:scale-105 active:scale-95"
+        className="glow-gold relative -top-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#f5b51b] text-black transition-transform hover:scale-105 active:scale-95"
       >
         <ReceiptText size={24} strokeWidth={2.2} />
         <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
@@ -242,7 +242,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/20 bg-[var(--surface)]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/20 bg-[var(--chrome)]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg lg:hidden">
       <div className="grid w-full grid-cols-5 md:mx-auto md:max-w-2xl">
         {NAV_LEFT.map((item) => (
           <NavItem key={item.label} {...item} active={pathname === item.href} />
@@ -266,7 +266,7 @@ export function SlipButton() {
       type="button"
       onClick={() => setOpen(true)}
       aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-      className="glow-gold fixed bottom-8 right-8 z-30 hidden h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[var(--accent)] text-black transition-transform hover:scale-105 active:scale-95 lg:flex"
+      className="glow-gold fixed bottom-8 right-8 z-30 hidden h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[#f5b51b] text-black transition-transform hover:scale-105 active:scale-95 lg:flex"
     >
       <ReceiptText size={24} strokeWidth={2.2} />
       <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
