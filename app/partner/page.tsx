@@ -83,7 +83,7 @@ export default function PartnerPage() {
             <button
               key={m}
               onClick={() => setMode(m)}
-              className="flex-1 rounded py-2 text-[12px] font-bold capitalize"
+              className="flex-1 rounded-lg py-2 text-[12px] font-bold capitalize"
               style={
                 mode === m
                   ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -178,13 +178,13 @@ function PartnerAuth({ mode, onDone }: { mode: "login" | "register"; onDone: () 
         />
       </Field>
 
-      {error && <p className="rounded bg-[var(--lose)]/15 px-3 py-2 text-[12px] text-[var(--lose)]">{error}</p>}
-      {message && <p className="rounded bg-[var(--win)]/15 px-3 py-2 text-[12px] text-[var(--win)]">{message}</p>}
+      {error && <p className="rounded-lg bg-[var(--lose)]/15 px-3 py-2 text-[12px] text-[var(--lose)]">{error}</p>}
+      {message && <p className="rounded-lg bg-[var(--win)]/15 px-3 py-2 text-[12px] text-[var(--win)]">{message}</p>}
 
       <button
         type="submit"
         disabled={busy}
-        className="w-full rounded bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)] disabled:opacity-50"
+        className="w-full rounded-lg bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)] disabled:opacity-50"
       >
         {busy ? "Working…" : mode === "login" ? "Sign in" : "Create partner account"}
       </button>
@@ -241,24 +241,24 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
       </header>
 
       {!partner.approved && (
-        <p className="rounded bg-[var(--pending)]/15 px-4 py-3 text-[12px] text-[var(--pending)]">
+        <p className="rounded-lg bg-[var(--pending)]/15 px-4 py-3 text-[12px] text-[var(--pending)]">
           Your account is waiting for operator approval. You can sign in, but commission is not paid
           on deposits until you are approved.
         </p>
       )}
 
-      <section className="rounded bg-gradient-to-br from-[var(--surface)] to-[var(--surface-2)] p-4">
+      <section className="rounded-lg bg-gradient-to-br from-[var(--surface)] to-[var(--surface-2)] p-4">
         <p className="text-[11px] uppercase tracking-wide text-[var(--text-faint)]">Your referral code</p>
         <p className="text-[28px] font-black tracking-[0.15em] text-[var(--accent)]">
           {partner.referral_code}
         </p>
         <div className="mt-2 flex items-center gap-2">
-          <code className="flex-1 truncate rounded bg-[var(--bg)] px-2 py-1.5 text-[11px] text-[var(--text-muted)]">
+          <code className="flex-1 truncate rounded-lg bg-[var(--bg)] px-2 py-1.5 text-[11px] text-[var(--text-muted)]">
             {link}
           </code>
           <button
             onClick={() => navigator.clipboard?.writeText(link)}
-            className="rounded bg-[var(--accent)] px-3 py-1.5 text-[11px] font-black text-[var(--accent-ink)]"
+            className="rounded-lg bg-[var(--accent)] px-3 py-1.5 text-[11px] font-black text-[var(--accent-ink)]"
           >
             Copy
           </button>
@@ -280,7 +280,7 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
         <Card label="Earned all time" value={<Money totals={partner.lifetime} />} />
       </div>
 
-      <section className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+      <section className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
         <h2 className="border-b border-[var(--line)] px-4 py-2.5 text-[13px] font-bold">
           Where to pay you
         </h2>
@@ -305,7 +305,7 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
           />
           <button
             type="submit"
-            className="rounded bg-[var(--accent)] py-2 text-[12px] font-black text-[var(--accent-ink)] sm:col-span-3"
+            className="rounded-lg bg-[var(--accent)] py-2 text-[12px] font-black text-[var(--accent-ink)] sm:col-span-3"
           >
             Save payout details
           </button>
@@ -313,7 +313,7 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
         </form>
       </section>
 
-      <section className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+      <section className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
         <h2 className="border-b border-[var(--line)] px-4 py-2.5 text-[13px] font-bold">
           Your players
         </h2>
@@ -338,7 +338,7 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
         )}
       </section>
 
-      <section className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+      <section className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
         <h2 className="border-b border-[var(--line)] px-4 py-2.5 text-[13px] font-bold">
           Commission history
         </h2>
@@ -369,7 +369,7 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
 }
 
 const inputClass =
-  "w-full rounded bg-[var(--surface-2)] px-3 py-2.5 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]";
+  "w-full rounded-lg bg-[var(--surface-2)] px-3 py-2.5 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -384,7 +384,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Card({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded bg-[var(--bg-elevated)] p-4">
+    <div className="rounded-lg bg-[var(--bg-elevated)] p-4">
       <p className="text-[10px] uppercase tracking-wide text-[var(--text-faint)]">{label}</p>
       <div className="mt-0.5 text-[18px] font-black">{value}</div>
     </div>

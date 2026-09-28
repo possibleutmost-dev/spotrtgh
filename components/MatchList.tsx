@@ -126,7 +126,7 @@ export function MatchList({
 
   if (!filtered.length) {
     return (
-      <div className="rounded bg-[var(--bg-elevated)] p-8 text-center text-[13px] text-[var(--text-muted)]">
+      <div className="rounded-lg bg-[var(--bg-elevated)] p-8 text-center text-[13px] text-[var(--text-muted)]">
         {emptyLabel}
       </div>
     );
@@ -139,7 +139,7 @@ export function MatchList({
           <button
             key={t.key}
             onClick={() => setMarket(t.key)}
-            className="whitespace-nowrap rounded px-3 py-1.5 text-[12px] font-bold transition-colors"
+            className="whitespace-nowrap rounded-lg px-3 py-1.5 text-[12px] font-bold transition-colors"
             style={
               market === t.key
                 ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -152,7 +152,7 @@ export function MatchList({
       </div>
 
       {grouped.map(([league, list]) => (
-        <section key={league} className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+        <section key={league} className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
           <header className="flex items-center justify-between bg-[var(--surface)] px-3 py-2 md:px-4">
             <h2 className="truncate text-[12px] font-bold uppercase tracking-wide text-[var(--text-muted)]">
               {league}
@@ -274,7 +274,7 @@ function MatchRow({
               key={outcome}
               disabled={disabled}
               onClick={() => price && pick(outcome, price.odds, price.label)}
-              className="h-[34px] w-[54px] rounded-[3px] text-[12px] font-black transition-colors disabled:opacity-35 md:h-[40px] md:w-[92px] md:text-[14px]"
+              className="h-[34px] w-[54px] rounded-lg text-[12px] font-black transition-colors disabled:opacity-35 md:h-[40px] md:w-[92px] md:text-[14px]"
               style={
                 isOn
                   ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -356,14 +356,14 @@ function BoardSkeleton() {
   return (
     <div className="space-y-2">
       {[0, 1, 2].map((s) => (
-        <div key={s} className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+        <div key={s} className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
           <div className="h-9 bg-[var(--surface)]" />
           {[0, 1, 2, 3].map((r) => (
             <div key={r} className="flex items-center gap-2 border-t border-[var(--line)] px-2.5 py-2.5 md:px-4 md:py-3">
-              <div className="h-8 flex-1 rounded bg-[var(--surface)] opacity-60" />
-              <div className="h-[34px] w-[54px] rounded-[3px] bg-[var(--odds-btn)] opacity-60 md:h-[40px] md:w-[92px]" />
-              <div className="h-[34px] w-[54px] rounded-[3px] bg-[var(--odds-btn)] opacity-60 md:h-[40px] md:w-[92px]" />
-              <div className="h-[34px] w-[54px] rounded-[3px] bg-[var(--odds-btn)] opacity-60 md:h-[40px] md:w-[92px]" />
+              <div className="h-8 flex-1 rounded-lg bg-[var(--surface)] opacity-60" />
+              <div className="h-[34px] w-[54px] rounded-lg bg-[var(--odds-btn)] opacity-60 md:h-[40px] md:w-[92px]" />
+              <div className="h-[34px] w-[54px] rounded-lg bg-[var(--odds-btn)] opacity-60 md:h-[40px] md:w-[92px]" />
+              <div className="h-[34px] w-[54px] rounded-lg bg-[var(--odds-btn)] opacity-60 md:h-[40px] md:w-[92px]" />
             </div>
           ))}
         </div>

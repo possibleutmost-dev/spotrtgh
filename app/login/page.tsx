@@ -66,7 +66,7 @@ function LoginForm() {
           <PasswordField value={password} onChange={setPassword} />
 
           {error && (
-            <p className="rounded-[3px] bg-[var(--lose-bg)] px-3 py-2.5 text-[13px] text-[var(--lose)]">
+            <p className="rounded-lg bg-[var(--lose-bg)] px-3 py-2.5 text-[13px] text-[var(--lose)]">
               {error}
             </p>
           )}

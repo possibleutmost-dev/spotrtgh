@@ -43,7 +43,7 @@ export default function AzMenuPage() {
       ) : (
         <div className="space-y-2 px-2 md:grid md:grid-cols-2 md:gap-3 md:space-y-0 md:px-5 lg:grid-cols-3">
           {byCountry.map(([country, leagues]) => (
-            <section key={country} className="overflow-hidden rounded-[6px] bg-[var(--bg-elevated)]">
+            <section key={country} className="overflow-hidden rounded-xl bg-[var(--bg-elevated)]">
               <h2 className="bg-[var(--surface)] px-3 py-2 text-[12px] font-bold uppercase tracking-wide text-[var(--text-muted)]">
                 {country}
               </h2>

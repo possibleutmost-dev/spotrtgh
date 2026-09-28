@@ -49,7 +49,7 @@ export default function PaymentsPage() {
               <button
                 key={o}
                 onClick={() => group.set(o)}
-                className="rounded px-2 py-1 text-[11px] font-bold capitalize"
+                className="rounded-lg px-2 py-1 text-[11px] font-bold capitalize"
                 style={
                   group.value === o
                     ? { background: "var(--accent)", color: "var(--accent-ink)" }

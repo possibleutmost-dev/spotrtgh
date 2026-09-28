@@ -73,7 +73,7 @@ export function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <section className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+    <section className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
       <header className="flex items-center justify-between border-b border-[var(--line)] px-4 py-2.5">
         <h2 className="text-[13px] font-bold">{title}</h2>
         {action}
@@ -117,7 +117,7 @@ export function Badge({
   }[tone];
 
   return (
-    <span className="rounded px-1.5 py-0.5 text-[10px] font-black uppercase" style={styles}>
+    <span className="rounded-lg px-1.5 py-0.5 text-[10px] font-black uppercase" style={styles}>
       {children}
     </span>
   );
@@ -137,7 +137,7 @@ export function Button({
     <button
       {...props}
       style={styles}
-      className="rounded px-2.5 py-1 text-[11px] font-bold disabled:opacity-40"
+      className="rounded-lg px-2.5 py-1 text-[11px] font-bold disabled:opacity-40"
     />
   );
 }

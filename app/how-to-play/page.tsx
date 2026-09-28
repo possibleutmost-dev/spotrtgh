@@ -74,7 +74,7 @@ export default function HowToPlayPage() {
             You earn one tier point for every unit you stake. Points come from turnover, not from
             deposits — funding an account you never play earns nothing.
           </p>
-          <div className="mt-2 overflow-hidden rounded bg-[var(--bg-elevated)]">
+          <div className="mt-2 overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
             <table className="w-full text-left text-[13px]">
               <thead>
                 <tr className="border-b border-[var(--line)] text-[10px] uppercase tracking-wide text-[var(--text-faint)]">
@@ -108,7 +108,7 @@ export default function HowToPlayPage() {
               href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block rounded bg-[var(--accent)] px-5 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
+              className="mt-2 inline-block rounded-lg bg-[var(--accent)] px-5 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
             >
               Message us on WhatsApp
             </a>

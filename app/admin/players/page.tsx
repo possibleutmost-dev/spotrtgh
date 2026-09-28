@@ -68,7 +68,7 @@ export default function PlayersPage() {
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
-            className="rounded px-2.5 py-1.5 text-[12px] font-bold"
+            className="rounded-lg px-2.5 py-1.5 text-[12px] font-bold"
             style={
               filter === f.key
                 ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -82,7 +82,7 @@ export default function PlayersPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search name, phone or email"
-          className="ml-auto w-56 rounded bg-[var(--surface-2)] px-3 py-1.5 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="ml-auto w-56 rounded-lg bg-[var(--surface-2)] px-3 py-1.5 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
 

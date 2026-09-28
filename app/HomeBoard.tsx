@@ -43,7 +43,7 @@ function SeeAll({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="mt-2 flex items-center justify-center gap-1 rounded bg-[var(--bg-elevated)] py-3 text-[13px] font-bold text-[var(--accent)]"
+      className="mt-2 flex items-center justify-center gap-1 rounded-lg bg-[var(--bg-elevated)] py-3 text-[13px] font-bold text-[var(--accent)]"
     >
       {label}
       <ChevronRight size={15} strokeWidth={2.5} />
@@ -152,7 +152,7 @@ export function HomeBoard() {
         {feed === null ? (
           <div className="scroll-x flex gap-2 px-2.5 md:gap-3 md:px-5">
             {[0, 1].map((i) => (
-              <div key={i} className="h-[168px] w-[300px] shrink-0 rounded-[8px] bg-[var(--bg-elevated)]" />
+              <div key={i} className="h-[168px] w-[300px] shrink-0 rounded-2xl bg-[var(--bg-elevated)]" />
             ))}
           </div>
         ) : featured.length ? (

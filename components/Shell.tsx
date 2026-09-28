@@ -50,22 +50,22 @@ function HeaderActions({ onOpenAccount }: { onOpenAccount: () => void }) {
     };
   }, [player?.id, setBalance, player]);
 
-  if (!hydrated) return <div className="h-7 w-32 rounded bg-[var(--surface-2)]" />;
+  if (!hydrated) return <div className="h-7 w-32 rounded-lg bg-[var(--surface-2)]" />;
 
   if (!player) {
     return (
       <>
         <Link
-          href="/register"
-          className="rounded-[3px] bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-[var(--accent-ink)]"
+          href="/login"
+          className="rounded-xl border border-white/40 px-3.5 py-1.5 text-[12px] font-bold text-white"
         >
-          Join Now
+          Login
         </Link>
         <Link
-          href="/login"
-          className="rounded-[3px] px-3 py-1.5 text-[13px] font-medium text-[var(--accent)] ring-1 ring-[var(--accent)]"
+          href="/register"
+          className="rounded-xl bg-gradient-to-r from-[#fbbf24] via-[#fcd34d] to-[#facc15] px-4 py-1.5 text-[12px] font-bold text-black shadow-lg shadow-amber-500/20"
         >
-          Log In
+          Register
         </Link>
       </>
     );
@@ -82,7 +82,7 @@ function HeaderActions({ onOpenAccount }: { onOpenAccount: () => void }) {
       </button>
       <Link
         href="/deposit"
-        className="rounded-[3px] bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-[var(--accent-ink)]"
+        className="rounded-xl bg-gradient-to-r from-[#fbbf24] via-[#fcd34d] to-[#facc15] px-4 py-1.5 text-[12px] font-bold text-black shadow-lg shadow-amber-500/20"
       >
         Deposit
       </Link>
@@ -94,10 +94,13 @@ export function Header() {
   const [accountOpen, setAccountOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-[var(--surface)]">
-      <div className="flex h-[44px] w-full items-center gap-2 px-2.5 md:px-5">
-        <Link href="/" className="flex shrink-0 items-center">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-[var(--surface)]/95 backdrop-blur-md">
+      <div className="flex h-[52px] w-full items-center gap-2 px-2.5 md:px-5">
+        <Link href="/" className="flex shrink-0 items-center gap-1.5">
           <Image src="/logo-mark.svg" alt="Stakeza" width={26} height={26} priority />
+          <span className="font-display text-[19px] font-black tracking-wider text-white">
+            STAKE<span className="text-[var(--accent)]">ZA</span>
+          </span>
         </Link>
 
         <div className="flex flex-1 items-center justify-end gap-2">
@@ -127,7 +130,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 bg-[var(--surface)] pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/20 bg-[var(--surface)]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg">
       <div className="grid w-full grid-cols-5 md:mx-auto md:max-w-2xl">
         {NAV.map((item) => {
           const active = pathname === item.href;
@@ -136,13 +139,13 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className="relative flex flex-col items-center gap-1 pb-2 pt-2.5"
-              style={{ color: active ? "var(--text-bright)" : "var(--text-muted)" }}
+              style={{ color: active ? "var(--accent)" : "rgba(255,255,255,0.7)" }}
             >
-              <item.Icon size={20} strokeWidth={1.8} />
-              <span className="text-[10px] font-medium">{item.label}</span>
               {active && (
-                <span className="absolute bottom-0 h-[3px] w-7 rounded-full bg-[var(--accent)]" />
+                <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[var(--accent)]" />
               )}
+              <item.Icon size={20} strokeWidth={1.8} />
+              <span className="text-[10px] font-bold">{item.label}</span>
             </Link>
           );
         })}
@@ -163,10 +166,12 @@ export function SlipButton() {
       type="button"
       onClick={() => setOpen(true)}
       aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-      className="fixed bottom-[74px] right-3 z-30 flex h-[52px] w-[52px] flex-col items-center justify-center rounded-full bg-[var(--accent)] text-[var(--accent-ink)] shadow-lg"
+      className="glow-gold fixed bottom-[78px] right-3 z-30 flex h-[54px] w-[54px] flex-col items-center justify-center rounded-full border-2 border-white bg-[var(--accent)] text-black transition-transform active:scale-95"
     >
-      <span className="text-[17px] font-black leading-none">{legs.length}</span>
-      <span className="text-[9px] font-bold leading-none">SLIP</span>
+      <span className="text-[16px] font-black leading-none">SLIP</span>
+      <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
+        {legs.length}
+      </span>
     </button>
   );
 }

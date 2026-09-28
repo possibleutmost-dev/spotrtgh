@@ -179,7 +179,7 @@ function Checkout() {
           )}
           <button
             onClick={() => router.push("/")}
-            className="w-full rounded bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
+            className="w-full rounded-lg bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
           >
             Start betting
           </button>
@@ -200,7 +200,7 @@ function Checkout() {
       )}
 
       {error && (
-        <p className="mx-4 mt-4 rounded bg-[var(--lose-bg)] px-3 py-2.5 text-[12px] text-[var(--lose)]">{error}</p>
+        <p className="mx-4 mt-4 rounded-lg bg-[var(--lose-bg)] px-3 py-2.5 text-[12px] text-[var(--lose)]">{error}</p>
       )}
 
       {step.kind === "waiting" && (
@@ -340,7 +340,7 @@ function Checkout() {
 }
 
 const inputClass =
-  "w-full rounded bg-[var(--surface-2)] px-3 py-3 text-[15px] outline-none focus:ring-1 focus:ring-[var(--accent)]";
+  "w-full rounded-lg bg-[var(--surface-2)] px-3 py-3 text-[15px] outline-none focus:ring-1 focus:ring-[var(--accent)]";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -356,7 +356,7 @@ function SubmitButton({ disabled, label }: { disabled: boolean; label: string })
     <button
       type="submit"
       disabled={disabled}
-      className="w-full rounded-[4px] py-3.5 text-[16px] font-bold transition-colors"
+      className="w-full rounded-lg py-3.5 text-[16px] font-bold transition-colors"
       style={
         disabled
           ? { background: "var(--surface-2)", color: "var(--text-muted)" }

@@ -51,7 +51,7 @@ function FeaturedCard({ match }: { match: FeedMatch }) {
 
   return (
     <article
-      className="w-[300px] shrink-0 snap-start overflow-hidden rounded-[8px] p-3 md:w-[380px] md:p-4"
+      className="w-[300px] shrink-0 snap-start overflow-hidden rounded-2xl p-3 md:w-[380px] md:p-4"
       style={{ background: "linear-gradient(135deg, #241F4E 0%, #1C1A31 60%)" }}
     >
       <Link href={`/match/${match.id}`} className="block">
@@ -90,7 +90,7 @@ function FeaturedCard({ match }: { match: FeedMatch }) {
               key={outcome}
               disabled={disabled}
               onClick={() => price && pick(outcome, price.odds, price.label)}
-              className="flex h-[40px] items-center justify-between rounded-[4px] px-3 disabled:opacity-40 md:h-[46px] md:px-4"
+              className="flex h-[40px] items-center justify-between rounded-lg px-3 disabled:opacity-40 md:h-[46px] md:px-4"
               style={{
                 background: isOn ? "var(--accent)" : "var(--surface-3)",
                 color: isOn ? "var(--accent-ink)" : "var(--text-muted)",

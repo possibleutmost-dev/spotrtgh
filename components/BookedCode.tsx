@@ -102,7 +102,7 @@ export function BookedCode({
       {/* Ticket preview */}
       <button
         onClick={() => setZoom(true)}
-        className="relative mx-auto mt-3 block w-[92px] overflow-hidden rounded ring-1 ring-[var(--line)]"
+        className="relative mx-auto mt-3 block w-[92px] overflow-hidden rounded-lg ring-1 ring-[var(--line)]"
         aria-label="Enlarge ticket"
       >
         <Image
@@ -187,7 +187,7 @@ export function BookedCode({
             alt={`Ticket for booking code ${code}`}
             width={450}
             height={600}
-            className="relative max-h-full w-auto rounded"
+            className="relative max-h-full w-auto rounded-lg"
             unoptimized
           />
         </div>
@@ -211,7 +211,7 @@ function ShareAction({
 }) {
   const body = (
     <>
-      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#100E26]">
+      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#0f0f12]">
         {icon}
       </span>
       <span className="text-center text-[11px] leading-tight text-[var(--text)]">{label}</span>

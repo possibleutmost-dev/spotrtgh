@@ -47,7 +47,7 @@ export default function BetsPage() {
           <button
             key={s}
             onClick={() => setStatus(s)}
-            className="rounded px-2.5 py-1.5 text-[12px] font-bold capitalize"
+            className="rounded-lg px-2.5 py-1.5 text-[12px] font-bold capitalize"
             style={
               status === s
                 ? { background: "var(--accent)", color: "var(--accent-ink)" }

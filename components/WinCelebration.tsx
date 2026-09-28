@@ -164,13 +164,13 @@ export function WinCelebration({
           <Link
             href={`/my-bets/${code}`}
             onClick={onClose}
-            className="rounded-[4px] py-3 text-center text-[15px] font-bold text-[var(--accent)] ring-1 ring-[var(--accent)]"
+            className="rounded-lg py-3 text-center text-[15px] font-bold text-[var(--accent)] ring-1 ring-[var(--accent)]"
           >
             Details
           </Link>
           <button
             onClick={share}
-            className="flex items-center justify-center gap-2 rounded-[4px] bg-[var(--accent)] py-3 text-[15px] font-black text-[var(--accent-ink)]"
+            className="flex items-center justify-center gap-2 rounded-lg bg-[var(--accent)] py-3 text-[15px] font-black text-[var(--accent-ink)]"
           >
             {copied ? <Check size={16} strokeWidth={2.6} /> : <Share2 size={16} strokeWidth={2.2} />}
             {copied ? "Copied" : "Show Off"}

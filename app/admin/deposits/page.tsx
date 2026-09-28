@@ -52,7 +52,7 @@ export default function DepositsPage() {
         ) : (
           <div className="grid gap-3 p-3 sm:grid-cols-2 lg:grid-cols-3">
             {data.deposits.map((d) => (
-              <article key={d.reference} className="overflow-hidden rounded bg-[var(--surface)]">
+              <article key={d.reference} className="overflow-hidden rounded-lg bg-[var(--surface)]">
                 {d.screenshotUrl ? (
                   <a href={d.screenshotUrl} target="_blank" rel="noopener noreferrer">
                     <Image

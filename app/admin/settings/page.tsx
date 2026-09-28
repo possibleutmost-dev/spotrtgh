@@ -44,7 +44,7 @@ export default function SettingsPage() {
               <input
                 value={form[f.key] ?? ""}
                 onChange={(e) => setEdits({ ...edits, [f.key]: e.target.value })}
-                className="w-full rounded bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
               />
               <span className="mt-0.5 block text-[10px] text-[var(--text-faint)]">{f.hint}</span>
             </label>

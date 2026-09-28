@@ -20,7 +20,7 @@ export function RequestSubmitted({ title, message }: { title: string; message: s
     >
       <div className="absolute inset-0 bg-black/70" />
 
-      <div className="relative w-full max-w-[320px] overflow-hidden rounded-[14px] bg-[var(--bg-elevated)] text-center">
+      <div className="relative w-full max-w-[320px] overflow-hidden rounded-2xl bg-[var(--bg-elevated)] text-center">
         <div className="px-5 pb-5 pt-6">
           <h2 className="text-[17px] font-black text-[var(--text-bright)]">{title}</h2>
           <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">{message}</p>

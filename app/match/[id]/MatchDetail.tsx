@@ -74,7 +74,7 @@ export function MatchDetail({ id }: { id: string }) {
             <p className="text-[14px] text-[var(--text-muted)]">{error}</p>
             <Link
               href="/"
-              className="mt-4 inline-block rounded-[3px] bg-[var(--accent)] px-5 py-2.5 text-[13px] font-medium text-[var(--accent-ink)]"
+              className="mt-4 inline-block rounded-lg bg-[var(--accent)] px-5 py-2.5 text-[13px] font-medium text-[var(--accent-ink)]"
             >
               Back to the board
             </Link>
@@ -87,7 +87,7 @@ export function MatchDetail({ id }: { id: string }) {
               <div className="px-2.5 pt-2.5 md:px-5">
                 <span
                   className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-black text-white"
-                  style={{ background: "linear-gradient(90deg,#FF4E50,#E32BA0)" }}
+                  style={{ background: "linear-gradient(90deg,#e50539,#f5b51b)" }}
                 >
                   <Flame size={12} strokeWidth={2.4} />
                   Top Odds
@@ -319,7 +319,7 @@ function MarketCard({
   };
 
   return (
-    <section className="overflow-hidden rounded-[6px] bg-[var(--bg-elevated)]">
+    <section className="overflow-hidden rounded-xl bg-[var(--bg-elevated)]">
       <header className="flex items-center gap-2 px-3 py-2.5 md:px-4 md:py-3">
         <button
           onClick={onToggle}
@@ -368,8 +368,8 @@ function MarketCard({
                 onClick={() => pick(p.outcome, p.odds, p.label)}
                 className={
                   market.dense
-                    ? "flex h-[42px] items-center justify-between rounded-[4px] px-2 disabled:opacity-60"
-                    : "flex h-[46px] items-center justify-between rounded-[4px] px-3 disabled:opacity-60 md:h-[54px] md:px-5"
+                    ? "flex h-[42px] items-center justify-between rounded-lg px-2 disabled:opacity-60"
+                    : "flex h-[46px] items-center justify-between rounded-lg px-3 disabled:opacity-60 md:h-[54px] md:px-5"
                 }
                 style={{
                   background: isOn ? "var(--accent)" : "var(--surface-3)",
@@ -426,7 +426,7 @@ function SlipBar() {
         </div>
         <button
           onClick={() => setOpen(true)}
-          className="rounded-[3px] bg-[var(--accent)] px-6 py-2.5 text-[14px] font-bold text-[var(--accent-ink)]"
+          className="rounded-lg bg-[var(--accent)] px-6 py-2.5 text-[14px] font-bold text-[var(--accent-ink)]"
         >
           Bet slip
         </button>
@@ -438,11 +438,11 @@ function SlipBar() {
 function DetailSkeleton() {
   return (
     <div className="animate-pulse space-y-3 p-3">
-      <div className="h-4 w-40 rounded bg-[var(--bg-elevated)]" />
-      <div className="h-28 rounded bg-[var(--bg-elevated)]" />
-      <div className="h-9 rounded bg-[var(--bg-elevated)]" />
+      <div className="h-4 w-40 rounded-lg bg-[var(--bg-elevated)]" />
+      <div className="h-28 rounded-lg bg-[var(--bg-elevated)]" />
+      <div className="h-9 rounded-lg bg-[var(--bg-elevated)]" />
       {[0, 1, 2].map((i) => (
-        <div key={i} className="h-[92px] rounded-[6px] bg-[var(--bg-elevated)]" />
+        <div key={i} className="h-[92px] rounded-xl bg-[var(--bg-elevated)]" />
       ))}
     </div>
   );

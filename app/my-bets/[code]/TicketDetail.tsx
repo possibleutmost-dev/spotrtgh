@@ -245,7 +245,7 @@ export function TicketDetail({ code }: { code: string }) {
           <p className="text-[14px] text-[var(--text-muted)]">{error}</p>
           <Link
             href="/my-bets"
-            className="mt-4 inline-block rounded bg-[var(--accent)] px-5 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
+            className="mt-4 inline-block rounded-lg bg-[var(--accent)] px-5 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
           >
             Back to my bets
           </Link>
@@ -259,8 +259,8 @@ export function TicketDetail({ code }: { code: string }) {
       <div className="min-h-screen bg-[var(--bg)]">
         <Header onBack={() => router.back()} />
         <div className="animate-pulse space-y-3 p-4">
-          <div className="h-40 rounded bg-[var(--bg-elevated)]" />
-          <div className="h-32 rounded bg-[var(--bg-elevated)]" />
+          <div className="h-40 rounded-lg bg-[var(--bg-elevated)]" />
+          <div className="h-32 rounded-lg bg-[var(--bg-elevated)]" />
         </div>
       </div>
     );
@@ -342,7 +342,7 @@ export function TicketDetail({ code }: { code: string }) {
 
         {/* Congratulations, on a won ticket only. */}
         {won && (
-          <div className="mx-auto mt-4 flex max-w-2xl items-center gap-3 rounded-[6px] bg-[var(--bg-elevated)] px-3 py-2.5">
+          <div className="mx-auto mt-4 flex max-w-2xl items-center gap-3 rounded-xl bg-[var(--bg-elevated)] px-3 py-2.5">
             <Confetti />
             <span className="min-w-0 flex-1">
               <span className="block text-[15px] font-black leading-tight text-[var(--text-bright)]">
@@ -354,7 +354,7 @@ export function TicketDetail({ code }: { code: string }) {
             </span>
             <button
               onClick={showOff}
-              className="flex shrink-0 items-center gap-1.5 rounded-[4px] bg-[var(--accent)] px-4 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
+              className="flex shrink-0 items-center gap-1.5 rounded-lg bg-[var(--accent)] px-4 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
             >
               {shared ? <Check size={14} strokeWidth={2.6} /> : <Share2 size={14} strokeWidth={2.2} />}
               {shared ? "Copied" : "Show Off"}
@@ -538,7 +538,7 @@ function LegCard({ leg }: { leg: Leg }) {
       : null;
 
   return (
-    <article className="flex overflow-hidden rounded-[6px] bg-[var(--bg-elevated)]">
+    <article className="flex overflow-hidden rounded-xl bg-[var(--bg-elevated)]">
       {/* Status mark: a settled leg says at a glance whether it landed. */}
       <div
         className="flex w-9 shrink-0 items-start justify-center pt-3"
@@ -571,14 +571,14 @@ function LegCard({ leg }: { leg: Leg }) {
             <span className="font-bold text-[var(--live)]">{leg.minuteLabel}</span>
           )}
           <span
-            className="ml-auto rounded px-1.5 py-0.5 text-[9px] font-black"
+            className="ml-auto rounded-lg px-1.5 py-0.5 text-[9px] font-black"
             style={{ color: state.colour, boxShadow: `inset 0 0 0 1px ${state.colour}` }}
           >
             {leg.isLive ? "LIVE" : leg.result === "pending" ? "PRE" : state.label}
           </span>
         </div>
 
-        <div className="mt-2 rounded bg-[var(--surface)] px-3 py-2">
+        <div className="mt-2 rounded-lg bg-[var(--surface)] px-3 py-2">
           <Team name={leg.home_team} score={homeScore} live={showingLive} />
           <Team name={leg.away_team} score={awayScore} live={showingLive} />
         </div>
@@ -593,7 +593,7 @@ function LegCard({ leg }: { leg: Leg }) {
           </p>
         )}
 
-        <dl className="relative mt-2 space-y-1 rounded bg-[var(--surface)] px-3 py-2 text-[12px]">
+        <dl className="relative mt-2 space-y-1 rounded-lg bg-[var(--surface)] px-3 py-2 text-[12px]">
           {leg.result === "won" && (
             <Trophy
               size={38}

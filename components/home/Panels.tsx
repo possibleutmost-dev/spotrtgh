@@ -50,7 +50,7 @@ export function StoryList() {
         <Link
           key={s.title}
           href={s.href}
-          className="relative h-[88px] w-[86px] shrink-0 overflow-hidden rounded-[8px] ring-1 ring-white/10 md:h-[132px] md:w-[132px]"
+          className="relative h-[88px] w-[86px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-white/10 md:h-[132px] md:w-[132px]"
         >
           <Image src={s.art} alt="" fill sizes="(min-width: 768px) 132px, 86px" className="object-cover" />
           {/* Scrim so the label stays legible over any artwork. */}
@@ -82,17 +82,21 @@ const QUICK: { label: string; href: string; Icon: LucideIcon | typeof BallIcon }
 
 export function QuickPanel() {
   return (
-    <div className="mx-2.5 rounded-[6px] bg-[var(--bg-elevated)] px-1 py-3 md:mx-5 md:py-4">
-      <div className="grid grid-cols-6">
-        {QUICK.map(({ label, href, Icon }) => (
-          <Link key={label} href={href} className="flex flex-col items-center gap-1.5">
-            <Icon size={22} strokeWidth={1.7} className="text-[var(--text-bright)]" />
-            <span className="px-0.5 text-center text-[10px] font-medium leading-tight text-[var(--text-muted)]">
-              {label}
-            </span>
-          </Link>
-        ))}
-      </div>
+    <div className="scroll-x mx-2.5 flex gap-2 py-1 md:mx-5">
+      {QUICK.map(({ label, href, Icon }, i) => (
+        <Link
+          key={label}
+          href={href}
+          className={`flex h-16 w-16 shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border transition-colors md:h-20 md:w-20 ${
+            i === 0
+              ? "border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)] shadow-lg shadow-amber-400/10"
+              : "border-[var(--line)] bg-[var(--bg-elevated)] text-[var(--text-muted)]"
+          }`}
+        >
+          <Icon size={22} strokeWidth={1.7} />
+          <span className="px-0.5 text-center text-[10px] font-bold leading-tight">{label}</span>
+        </Link>
+      ))}
     </div>
   );
 }
@@ -131,8 +135,8 @@ export function LoadCodeWidget() {
   };
 
   return (
-    <div className="mx-2.5 mt-2 rounded-[6px] bg-[var(--bg-elevated)] p-2.5 md:mx-5">
-      <form onSubmit={submit} className="flex items-center gap-2 rounded-[4px] bg-[var(--bg)] p-1.5">
+    <div className="mx-2.5 mt-2 rounded-xl border border-[var(--line)] bg-[var(--bg-elevated)] p-2.5 md:mx-5">
+      <form onSubmit={submit} className="flex items-center gap-2 rounded-lg bg-[var(--bg)] p-1.5">
         <input
           value={code}
           onChange={(e) => setCode(e.target.value.toUpperCase())}
@@ -143,7 +147,7 @@ export function LoadCodeWidget() {
         <button
           type="submit"
           disabled={busy || !code.trim()}
-          className="shrink-0 rounded-[3px] bg-[var(--surface-2)] px-3 py-2 text-[13px] font-medium text-[var(--text)] disabled:opacity-50"
+          className="shrink-0 rounded-lg bg-[var(--accent)] px-3 py-2 text-[13px] font-bold text-[var(--accent-ink)] disabled:opacity-50"
         >
           {busy ? "…" : "Load Code"}
         </button>
@@ -191,7 +195,7 @@ export function HighlightList({ liveCount, soonCount }: { liveCount: number; soo
         <Link
           key={label}
           href={href}
-          className="flex h-[58px] w-[168px] shrink-0 items-center gap-2.5 rounded-[6px] bg-[var(--bg-elevated)] px-3 md:h-[64px] md:w-[220px] md:px-4"
+          className="flex h-[58px] w-[168px] shrink-0 items-center gap-2.5 rounded-xl border border-[var(--line)] bg-[var(--bg-elevated)] px-3 md:h-[64px] md:w-[220px] md:px-4"
         >
           {badge ? (
             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] text-[12px] font-bold text-[var(--accent)]">

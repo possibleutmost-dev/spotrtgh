@@ -120,7 +120,7 @@ export function WalletPanel({
   // --- Not opened yet ------------------------------------------------------
   if (!wallet) {
     return (
-      <section className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+      <section className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
         <h2 className="flex items-center gap-2 border-b border-[var(--line)] px-4 py-2.5 text-[13px] font-bold">
           <Wallet size={15} strokeWidth={1.9} className="text-[var(--accent)]" />
           Your betting account
@@ -140,7 +140,7 @@ export function WalletPanel({
               <select
                 value={countryCode}
                 onChange={(e) => setCountryCode(e.target.value)}
-                className="w-full rounded bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
               >
                 {allCountries().map((c) => (
                   <option key={c.code} value={c.code}>
@@ -158,7 +158,7 @@ export function WalletPanel({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder={`0${"X".repeat(getCountry(countryCode).phoneDigits)}`}
-                className="w-full rounded bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
               />
             </label>
           </div>
@@ -168,7 +168,7 @@ export function WalletPanel({
           <button
             onClick={open}
             disabled={busy || !phone.trim()}
-            className="rounded bg-[var(--accent)] px-4 py-2.5 text-[13px] font-black text-[var(--accent-ink)] disabled:opacity-50"
+            className="rounded-lg bg-[var(--accent)] px-4 py-2.5 text-[13px] font-black text-[var(--accent-ink)] disabled:opacity-50"
           >
             {busy ? "Opening…" : "Open betting account"}
           </button>
@@ -181,7 +181,7 @@ export function WalletPanel({
   const remaining = Math.max(0, dailyLimit - creditedToday);
 
   return (
-    <section className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+    <section className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
       <h2 className="flex items-center gap-2 border-b border-[var(--line)] px-4 py-2.5 text-[13px] font-bold">
         <Wallet size={15} strokeWidth={1.9} className="text-[var(--accent)]" />
         Your betting account
@@ -201,14 +201,14 @@ export function WalletPanel({
 
           <button
             onClick={play}
-            className="flex items-center gap-1.5 rounded bg-[var(--accent)] px-4 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
+            className="flex items-center gap-1.5 rounded-lg bg-[var(--accent)] px-4 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
           >
             Go to the board
             <ArrowRight size={15} strokeWidth={2.4} />
           </button>
         </div>
 
-        <form onSubmit={credit} className="space-y-2 rounded bg-[var(--surface)] p-3">
+        <form onSubmit={credit} className="space-y-2 rounded-lg bg-[var(--surface)] p-3">
           <p className="text-[12px] font-semibold">Credit your wallet</p>
           <div className="flex flex-wrap items-center gap-2">
             <input
@@ -218,12 +218,12 @@ export function WalletPanel({
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder={`Amount in ${wallet.currency}`}
-              className="w-40 rounded bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+              className="w-40 rounded-lg bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
             />
             <button
               type="submit"
               disabled={busy || !approved || !amount}
-              className="rounded bg-[var(--accent-dim)] px-4 py-2 text-[13px] font-black text-[var(--accent-ink)] disabled:opacity-40"
+              className="rounded-lg bg-[var(--accent-dim)] px-4 py-2 text-[13px] font-black text-[var(--accent-ink)] disabled:opacity-40"
             >
               {busy ? "Working…" : "Credit"}
             </button>

@@ -106,7 +106,7 @@ export function AccountDrawer({ open, onClose }: { open: boolean; onClose: () =>
       <button className="absolute inset-0 bg-black/70" onClick={onClose} aria-label="Close" />
 
       <div className="relative mx-auto max-w-2xl px-3 pt-3">
-        <div className="overflow-hidden rounded-[10px] bg-[var(--bg-elevated)] shadow-2xl">
+        <div className="overflow-hidden rounded-2xl bg-[var(--bg-elevated)] shadow-2xl">
           <header className="flex items-center gap-3 px-4 py-3.5">
             <Image src="/avatar.svg" alt="" width={36} height={36} className="h-9 w-9 rounded-full" />
             <span className="flex-1 truncate text-[17px] font-bold text-[var(--text-bright)]">
@@ -119,7 +119,7 @@ export function AccountDrawer({ open, onClose }: { open: boolean; onClose: () =>
 
           {/* Balances */}
           <div
-            className="mx-4 rounded-[8px] p-4"
+            className="mx-4 rounded-2xl p-4"
             style={{ background: "linear-gradient(150deg,#2E2668,#241F4E)" }}
           >
             <div className="flex items-start justify-between">

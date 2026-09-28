@@ -170,7 +170,7 @@ export default function DepositPage() {
           )}
           <button
             onClick={() => router.push("/")}
-            className="w-full rounded bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
+            className="w-full rounded-lg bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
           >
             Start betting
           </button>
@@ -240,14 +240,14 @@ export default function DepositPage() {
                   onChange={(e) => setPhoneEdit(e.target.value.replace(/[^\d]/g, ""))}
                   inputMode="numeric"
                   placeholder={`0${"X".repeat(country.phoneDigits)}`}
-                  className="w-full rounded bg-[var(--surface-2)] px-3 py-2.5 text-[14px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2.5 text-[14px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </div>
             )}
 
             <SwitchRow
               icon={
-                <span className="flex h-7 w-9 items-center justify-center rounded bg-[var(--pending)] text-[9px] font-black text-[#3a2500]">
+                <span className="flex h-7 w-9 items-center justify-center rounded-lg bg-[var(--pending)] text-[9px] font-black text-[#3a2500]">
                   {chosenNetwork.split(" ")[0].slice(0, 4).toUpperCase()}
                 </span>
               }
@@ -265,7 +265,7 @@ export default function DepositPage() {
                       setNetwork(n);
                       setSwitching(null);
                     }}
-                    className="rounded px-3 py-2 text-[13px] font-medium"
+                    className="rounded-lg px-3 py-2 text-[13px] font-medium"
                     style={
                       chosenNetwork === n
                         ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -294,7 +294,7 @@ export default function DepositPage() {
               <button
                 onClick={startGateway}
                 disabled={!canSubmit}
-                className="w-full rounded-[4px] py-3.5 text-[16px] font-bold transition-colors"
+                className="w-full rounded-lg py-3.5 text-[16px] font-bold transition-colors"
                 style={
                   canSubmit
                     ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -307,7 +307,7 @@ export default function DepositPage() {
           </>
         ) : (
           <form onSubmit={submitManual}>
-            <div className="mx-4 mt-4 rounded bg-[var(--bg-elevated)] p-4">
+            <div className="mx-4 mt-4 rounded-lg bg-[var(--bg-elevated)] p-4">
               <p className="text-[12px] text-[var(--text-muted)]">Send to</p>
               <p className="mt-0.5 text-[20px] font-black tracking-wide text-[var(--accent)]">
                 {settings.deposit_account_number ?? "—"}
@@ -334,11 +334,11 @@ export default function DepositPage() {
                   name="senderNumber"
                   type="tel"
                   defaultValue={player.phone}
-                  className="w-full rounded bg-[var(--surface-2)] px-3 py-2.5 text-[14px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2.5 text-[14px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </label>
 
-              <label className="flex cursor-pointer items-center gap-2 rounded bg-[var(--surface-2)] px-3 py-3 text-[13px] text-[var(--text-muted)]">
+              <label className="flex cursor-pointer items-center gap-2 rounded-lg bg-[var(--surface-2)] px-3 py-3 text-[13px] text-[var(--text-muted)]">
                 <Upload size={16} strokeWidth={1.9} />
                 Screenshot of the transfer
                 <input name="screenshot" type="file" accept="image/*" className="sr-only" />
@@ -347,7 +347,7 @@ export default function DepositPage() {
               <button
                 type="submit"
                 disabled={!canSubmit}
-                className="w-full rounded-[4px] py-3.5 text-[16px] font-bold"
+                className="w-full rounded-lg py-3.5 text-[16px] font-bold"
                 style={
                   canSubmit
                     ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -373,12 +373,12 @@ export default function DepositPage() {
             </p>
           )}
           {status && (
-            <p className="rounded bg-[var(--pending)]/15 px-3 py-2.5 text-[12px] text-[var(--pending)]">
+            <p className="rounded-lg bg-[var(--pending)]/15 px-3 py-2.5 text-[12px] text-[var(--pending)]">
               {status}
             </p>
           )}
           {error && (
-            <p className="rounded bg-[var(--lose-bg)] px-3 py-2.5 text-[12px] text-[var(--lose)]">{error}</p>
+            <p className="rounded-lg bg-[var(--lose-bg)] px-3 py-2.5 text-[12px] text-[var(--lose)]">{error}</p>
           )}
         </div>
 
@@ -413,7 +413,7 @@ export default function DepositPage() {
             href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-4 mb-10 block rounded py-3 text-center text-[12px] font-bold text-[var(--accent)] ring-1 ring-[var(--line)]"
+            className="mx-4 mb-10 block rounded-lg py-3 text-center text-[12px] font-bold text-[var(--accent)] ring-1 ring-[var(--line)]"
           >
             Payment problem? Chat on WhatsApp
           </a>
@@ -456,7 +456,7 @@ function SwitchRow({
   onAction: () => void;
 }) {
   return (
-    <div className="mx-4 mt-3 flex items-center gap-3 rounded-[4px] bg-[var(--bg-elevated)] px-3 py-3.5 ring-1 ring-[var(--line)]">
+    <div className="mx-4 mt-3 flex items-center gap-3 rounded-lg bg-[var(--bg-elevated)] px-3 py-3.5 ring-1 ring-[var(--line)]">
       {icon}
       <span className="flex-1 text-[15px]">{value}</span>
       <button
@@ -483,7 +483,7 @@ function AmountField({
   hint: string;
 }) {
   return (
-    <div className="mx-4 mt-2 flex items-center gap-3 rounded-[4px] bg-[var(--bg-elevated)] px-3 py-3.5 ring-1 ring-[var(--line)]">
+    <div className="mx-4 mt-2 flex items-center gap-3 rounded-lg bg-[var(--bg-elevated)] px-3 py-3.5 ring-1 ring-[var(--line)]">
       <label htmlFor="amount" className="shrink-0 text-[15px] text-[var(--text-bright)]">
         Amount ({currency})
       </label>

@@ -80,7 +80,7 @@ export function PitchTracker({
   const homeShare = possession ? possession.home : 50;
 
   return (
-    <div className="overflow-hidden rounded-[8px] bg-[var(--bg-elevated)]">
+    <div className="overflow-hidden rounded-2xl bg-[var(--bg-elevated)]">
       {/* Score strip */}
       <div className="flex items-center justify-between gap-2 px-3 py-2.5">
         <span className="min-w-0 flex-1 truncate text-[12px] font-semibold">{homeTeam}</span>
@@ -89,7 +89,7 @@ export function PitchTracker({
             {scoreHome} - {scoreAway}
           </span>
           <span
-            className="rounded px-1.5 py-0.5 text-[10px] font-black"
+            className="rounded-lg px-1.5 py-0.5 text-[10px] font-black"
             style={{
               background: isLive ? "var(--live)" : "var(--surface-2)",
               color: isLive ? "#fff" : "var(--text-muted)",

@@ -29,7 +29,7 @@ export default function ForgotPasswordPage() {
 
         {sent ? (
           <div className="mt-6 space-y-4">
-            <p className="rounded-[3px] bg-[var(--field)] px-4 py-3.5 text-[14px] leading-relaxed text-[var(--text-muted)] ring-1 ring-[var(--field-line)]">
+            <p className="rounded-lg bg-[var(--field)] px-4 py-3.5 text-[14px] leading-relaxed text-[var(--text-muted)] ring-1 ring-[var(--field-line)]">
               Our team will verify your number and reset the password for you. This is handled by a
               person, so it is not instant.
             </p>
@@ -38,7 +38,7 @@ export default function ForgotPasswordPage() {
                 href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-[3px] bg-[var(--accent)] py-3.5 text-center text-[16px] font-medium text-[var(--accent-ink)]"
+                className="block rounded-lg bg-[var(--accent)] py-3.5 text-center text-[16px] font-medium text-[var(--accent-ink)]"
               >
                 Message support on WhatsApp
               </a>

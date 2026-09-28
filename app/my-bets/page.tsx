@@ -88,7 +88,7 @@ export default function MyBetsPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className="rounded px-3 py-1.5 text-[12px] font-bold capitalize"
+              className="rounded-lg px-3 py-1.5 text-[12px] font-bold capitalize"
               style={
                 filter === f
                   ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -103,11 +103,11 @@ export default function MyBetsPage() {
         {shown === null ? (
           <div className="space-y-2">
             {[0, 1, 2].map((i) => (
-              <div key={i} className="h-28 rounded bg-[var(--bg-elevated)] opacity-60" />
+              <div key={i} className="h-28 rounded-lg bg-[var(--bg-elevated)] opacity-60" />
             ))}
           </div>
         ) : shown.length === 0 ? (
-          <p className="rounded bg-[var(--bg-elevated)] p-10 text-center text-[var(--text-muted)]">
+          <p className="rounded-lg bg-[var(--bg-elevated)] p-10 text-center text-[var(--text-muted)]">
             No tickets here yet.
           </p>
         ) : (
@@ -164,7 +164,7 @@ function TicketCard({ ticket, onCelebrate }: { ticket: Ticket; onCelebrate: (t: 
   const style = STATUS_STYLE[ticket.status] ?? STATUS_STYLE.pending;
 
   return (
-    <article className="overflow-hidden rounded bg-[var(--bg-elevated)]">
+    <article className="overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
       <CardShell ticket={ticket} onCelebrate={onCelebrate}>
         <div className="flex items-center justify-between">
           <div>
@@ -175,7 +175,7 @@ function TicketCard({ ticket, onCelebrate }: { ticket: Ticket; onCelebrate: (t: 
             </p>
           </div>
           <span
-            className="rounded px-2 py-0.5 text-[10px] font-black uppercase"
+            className="rounded-lg px-2 py-0.5 text-[10px] font-black uppercase"
             style={{ background: style.bg, color: style.fg }}
           >
             {style.label}

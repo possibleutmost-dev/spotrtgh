@@ -39,7 +39,7 @@ export default function SearchPage() {
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search teams, leagues or countries"
           autoFocus
-          className="w-full rounded-[4px] bg-[var(--bg-elevated)] px-3 py-3 text-[14px] outline-none placeholder:text-[var(--text-faint)] focus:ring-1 focus:ring-[var(--accent)] md:mx-auto md:max-w-2xl md:block"
+          className="w-full rounded-lg bg-[var(--bg-elevated)] px-3 py-3 text-[14px] outline-none placeholder:text-[var(--text-faint)] focus:ring-1 focus:ring-[var(--accent)] md:mx-auto md:max-w-2xl md:block"
         />
       </div>
 

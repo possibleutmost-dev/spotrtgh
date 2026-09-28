@@ -27,7 +27,7 @@ export default function AccountStatusPage() {
         </div>
 
         <div className="mt-6 space-y-3">
-          <section className="rounded-[3px] bg-[var(--field)] p-4 ring-1 ring-[var(--field-line)]">
+          <section className="rounded-lg bg-[var(--field)] p-4 ring-1 ring-[var(--field-line)]">
             <h2 className="text-[15px] font-medium">Deactivate</h2>
             <p className="mt-1 text-[14px] leading-relaxed text-[var(--text-muted)]">
               Closes your account and stops all activity. Any balance is paid out first — withdraw
@@ -35,7 +35,7 @@ export default function AccountStatusPage() {
             </p>
           </section>
 
-          <section className="rounded-[3px] bg-[var(--field)] p-4 ring-1 ring-[var(--field-line)]">
+          <section className="rounded-lg bg-[var(--field)] p-4 ring-1 ring-[var(--field-line)]">
             <h2 className="text-[15px] font-medium">Reactivate</h2>
             <p className="mt-1 text-[14px] leading-relaxed text-[var(--text-muted)]">
               We can reopen a closed account on the same phone number. Your bet history comes back
@@ -48,12 +48,12 @@ export default function AccountStatusPage() {
               href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-[3px] bg-[var(--accent)] py-3.5 text-center text-[16px] font-medium text-[var(--accent-ink)]"
+              className="block rounded-lg bg-[var(--accent)] py-3.5 text-center text-[16px] font-medium text-[var(--accent-ink)]"
             >
               Contact support
             </a>
           ) : (
-            <p className="rounded-[3px] bg-[var(--field)] px-4 py-3.5 text-center text-[14px] text-[var(--text-muted)] ring-1 ring-[var(--field-line)]">
+            <p className="rounded-lg bg-[var(--field)] px-4 py-3.5 text-center text-[14px] text-[var(--text-muted)] ring-1 ring-[var(--field-line)]">
               Support contact is not configured on this deployment.
             </p>
           )}

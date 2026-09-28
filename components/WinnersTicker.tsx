@@ -34,34 +34,31 @@ function generate(count: number) {
 
 export function WinnersTicker() {
   const [items, setItems] = useState(() => generate(8));
-  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((i) => {
-        const next = i + 1;
-        if (next >= items.length) {
-          setItems(generate(8));
-          return 0;
-        }
-        return next;
-      });
-    }, 3500);
+    const timer = setInterval(() => setItems(generate(8)), 60_000);
     return () => clearInterval(timer);
-  }, [items.length]);
-
-  const current = items[index];
-  if (!current) return null;
+  }, []);
 
   return (
-    <div className="flex items-center gap-2 overflow-hidden rounded bg-[var(--surface)] px-3 py-2">
-      <span className="shrink-0 rounded-sm bg-[var(--accent)] px-1.5 py-0.5 text-[9px] font-black uppercase text-[var(--accent-ink)]">
-        Winner
+    <div className="flex items-center gap-3 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-elevated)] px-3 py-2">
+      <span className="flex shrink-0 items-center gap-1.5 rounded-lg border border-[var(--lose)]/30 bg-[var(--lose)]/20 px-2 py-0.5 text-[10px] font-black text-[var(--lose)]">
+        <span className="live-dot h-2 w-2 rounded-full bg-[var(--lose)]" />
+        LIVE TICKER
       </span>
-      <p key={current.id} className="truncate text-[12px] text-[var(--text-muted)]">
-        <span className="font-semibold text-[var(--text)]">{current.number}</span> just won{" "}
-        <span className="font-bold text-[var(--accent)]">{current.amount}</span>
-      </p>
+      <div className="relative flex flex-1 items-center overflow-hidden">
+        {/* Two copies of the row so the -50% crawl loops without a seam. */}
+        <div className="marquee flex items-center gap-8 whitespace-nowrap text-[12px] font-semibold">
+          {[...items, ...items].map((w, i) => (
+            <span key={`${w.id}-${i}`} className="flex items-center gap-2.5">
+              <span className="font-bold text-[var(--text)]">🎉 {w.number}</span>
+              <span className="rounded-lg border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-2.5 py-0.5 font-black tracking-tight text-[var(--accent)]">
+                {w.amount} Won
+              </span>
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

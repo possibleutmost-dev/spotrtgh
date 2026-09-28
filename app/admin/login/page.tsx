@@ -48,15 +48,15 @@ function AdminLoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Admin password"
           autoComplete="current-password"
-          className="w-full rounded bg-[var(--surface-2)] px-3 py-2.5 text-[14px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2.5 text-[14px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
         {error && (
-          <p className="rounded bg-[var(--lose)]/15 px-3 py-2 text-[12px] text-[var(--lose)]">{error}</p>
+          <p className="rounded-lg bg-[var(--lose)]/15 px-3 py-2 text-[12px] text-[var(--lose)]">{error}</p>
         )}
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded bg-[var(--accent)] py-2.5 text-[13px] font-black text-[var(--accent-ink)] disabled:opacity-50"
+          className="w-full rounded-lg bg-[var(--accent)] py-2.5 text-[13px] font-black text-[var(--accent-ink)] disabled:opacity-50"
         >
           {busy ? "Checking…" : "Sign in"}
         </button>

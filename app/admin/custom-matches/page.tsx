@@ -124,7 +124,7 @@ export default function CustomMatchesPage() {
             value={form.kickoff}
             onChange={(e) => setForm({ ...form, kickoff: e.target.value })}
             required
-            className="rounded bg-[var(--surface-2)] px-2.5 py-2 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+            className="rounded-lg bg-[var(--surface-2)] px-2.5 py-2 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
           />
           <Input placeholder="Home odds" type="number" value={String(form.odds_home)} onChange={(v) => setForm({ ...form, odds_home: Number(v) })} />
           <Input placeholder="Draw odds" type="number" value={String(form.odds_draw)} onChange={(v) => setForm({ ...form, odds_draw: Number(v) })} />
@@ -310,7 +310,7 @@ function CrestDialog({
         role="dialog"
         aria-modal="true"
         aria-label="Team crests"
-        className="relative w-full max-w-md overflow-hidden rounded-[6px] bg-[var(--bg-elevated)] shadow-2xl ring-1 ring-[var(--line)]"
+        className="relative w-full max-w-md overflow-hidden rounded-xl bg-[var(--bg-elevated)] shadow-2xl ring-1 ring-[var(--line)]"
       >
         <header className="border-b border-[var(--line)] px-4 py-3">
           <h2 className="text-[14px] font-bold">Team crests</h2>
@@ -327,13 +327,13 @@ function CrestDialog({
         <div className="flex justify-end gap-2 border-t border-[var(--line)] p-3">
           <button
             onClick={onClose}
-            className="rounded-[3px] px-4 py-2 text-[12px] font-bold text-[var(--text-muted)] ring-1 ring-[var(--line)]"
+            className="rounded-lg px-4 py-2 text-[12px] font-bold text-[var(--text-muted)] ring-1 ring-[var(--line)]"
           >
             Cancel
           </button>
           <button
             onClick={() => onSave(home, away)}
-            className="rounded-[3px] bg-[var(--accent)] px-4 py-2 text-[12px] font-black text-[var(--accent-ink)]"
+            className="rounded-lg bg-[var(--accent)] px-4 py-2 text-[12px] font-black text-[var(--accent-ink)]"
           >
             Save crests
           </button>
@@ -356,7 +356,7 @@ function Input({
       {...props}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded bg-[var(--surface-2)] px-2.5 py-2 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+      className="rounded-lg bg-[var(--surface-2)] px-2.5 py-2 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
     />
   );
 }

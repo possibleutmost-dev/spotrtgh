@@ -58,7 +58,7 @@ export default function ProfilePage() {
       <div className="px-4 py-4 md:mx-auto md:max-w-2xl md:px-5">
         <h1 className="text-[18px] font-black">Personal page</h1>
 
-        <section className="mt-3 overflow-hidden rounded bg-[var(--bg-elevated)]">
+        <section className="mt-3 overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
           <Field label="Name" value={u?.name ?? player.name} />
           <Field label="Phone" value={player.phone} />
           <Field label="Email" value={u?.email ?? "—"} />
@@ -69,7 +69,7 @@ export default function ProfilePage() {
 
         <h2 className="mt-6 text-[15px] font-bold">Account standing</h2>
 
-        <section className="mt-2 overflow-hidden rounded bg-[var(--bg-elevated)]">
+        <section className="mt-2 overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
           <div className="flex items-start gap-3 border-b border-[var(--line)] px-4 py-3.5">
             <span style={{ color: unlocked ? "var(--win)" : "var(--pending)" }}>
               {unlocked ? (
@@ -105,7 +105,7 @@ export default function ProfilePage() {
           <Field label="Withdrawn" value={formatMoney(Number(u?.total_withdrawn ?? 0), player.currency)} />
         </section>
 
-        <nav className="mt-6 overflow-hidden rounded bg-[var(--bg-elevated)]">
+        <nav className="mt-6 overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
           {[
             { href: "/transactions", label: "Transactions" },
             { href: "/my-bets", label: "Bet history" },

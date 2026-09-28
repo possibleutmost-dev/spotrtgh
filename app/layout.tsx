@@ -1,13 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Roboto } from "next/font/google";
+import { Barlow, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
-// The reference build ships Roboto at these four weights; matching them keeps
-// the type colour of the board identical.
-const roboto = Roboto({
+// The reference build ships Barlow at five weights for the interface and
+// Bebas Neue as the display face; matching them keeps the type colour of the
+// board identical.
+const barlow = Barlow({
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-  variable: "--font-roboto",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const bebas = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -20,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#100E26",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -28,7 +36,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={roboto.variable}>
+    <html lang="en" className={`${barlow.variable} ${bebas.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -101,15 +101,15 @@ export function TrackerView({ id }: { id: string }) {
           <p className="text-[14px] text-[var(--text-muted)]">{error}</p>
           <Link
             href={`/match/${id}`}
-            className="mt-4 inline-block rounded bg-[var(--accent)] px-5 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
+            className="mt-4 inline-block rounded-lg bg-[var(--accent)] px-5 py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
           >
             Match details
           </Link>
         </div>
       ) : !data ? (
         <div className="animate-pulse space-y-3 p-4">
-          <div className="h-28 rounded bg-[var(--bg-elevated)]" />
-          <div className="h-56 rounded bg-[var(--bg-elevated)]" />
+          <div className="h-28 rounded-lg bg-[var(--bg-elevated)]" />
+          <div className="h-56 rounded-lg bg-[var(--bg-elevated)]" />
         </div>
       ) : (
         <div className="mx-auto max-w-2xl pb-12">
@@ -149,7 +149,7 @@ export function TrackerView({ id }: { id: string }) {
           <h2 className="px-4 pb-2 pt-4 text-[13px] font-bold text-[var(--text-bright)]">Timeline</h2>
 
           {!data.events.length ? (
-            <p className="mx-4 rounded bg-[var(--bg-elevated)] p-8 text-center text-[13px] text-[var(--text-muted)]">
+            <p className="mx-4 rounded-lg bg-[var(--bg-elevated)] p-8 text-center text-[13px] text-[var(--text-muted)]">
               Nothing has happened yet.
             </p>
           ) : (
@@ -168,7 +168,7 @@ export function TrackerView({ id }: { id: string }) {
               <h2 className="px-4 pb-2 pt-6 text-[13px] font-bold text-[var(--text-bright)]">
                 Statistics
               </h2>
-              <div className="mx-4 space-y-3 rounded bg-[var(--bg-elevated)] p-4">
+              <div className="mx-4 space-y-3 rounded-lg bg-[var(--bg-elevated)] p-4">
                 {data.stats.map((s) => (
                   <StatRow key={s.label} stat={s} />
                 ))}
@@ -179,7 +179,7 @@ export function TrackerView({ id }: { id: string }) {
           <div className="px-4 pt-6">
             <Link
               href={`/match/${id}`}
-              className="block rounded py-3 text-center text-[13px] font-bold text-[var(--accent)] ring-1 ring-[var(--accent)]"
+              className="block rounded-lg py-3 text-center text-[13px] font-bold text-[var(--accent)] ring-1 ring-[var(--accent)]"
             >
               Match details and odds
             </Link>
@@ -222,7 +222,7 @@ function TimelineRow({ event }: { event: TrackerEvent }) {
 
   const body = (
     <div
-      className="max-w-[46%] rounded bg-[var(--bg-elevated)] px-3 py-2"
+      className="max-w-[46%] rounded-lg bg-[var(--bg-elevated)] px-3 py-2"
       style={{ textAlign: home ? "right" : "left" }}
     >
       <p className="text-[12px] font-semibold text-[var(--text)]">{event.player ?? event.detail}</p>

@@ -83,7 +83,7 @@ export function GoalTimeline({
         role="dialog"
         aria-modal="true"
         aria-label="Goal timeline"
-        className="relative flex max-h-[90vh] w-full max-w-md flex-col overflow-hidden rounded-[6px] bg-[var(--bg-elevated)] shadow-2xl ring-1 ring-[var(--line)]"
+        className="relative flex max-h-[90vh] w-full max-w-md flex-col overflow-hidden rounded-xl bg-[var(--bg-elevated)] shadow-2xl ring-1 ring-[var(--line)]"
       >
         <header className="flex items-start justify-between gap-3 border-b border-[var(--line)] px-4 py-3">
           <div>
@@ -120,7 +120,7 @@ export function GoalTimeline({
                   }
                 }}
                 placeholder="20"
-                className="w-20 rounded-[3px] bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                className="w-20 rounded-lg bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
               />
             </label>
 
@@ -134,7 +134,7 @@ export function GoalTimeline({
                     key={side}
                     type="button"
                     onClick={() => setTeam(side)}
-                    className="truncate rounded-[3px] px-2 py-2 text-[12px] font-bold"
+                    className="truncate rounded-lg px-2 py-2 text-[12px] font-bold"
                     style={
                       team === side
                         ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -151,7 +151,7 @@ export function GoalTimeline({
               type="button"
               onClick={add}
               aria-label="Add goal"
-              className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[3px] bg-[var(--accent)] text-[var(--accent-ink)]"
+              className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-ink)]"
             >
               <Plus size={18} strokeWidth={2.6} />
             </button>
@@ -218,13 +218,13 @@ export function GoalTimeline({
         <div className="flex justify-end gap-2 border-t border-[var(--line)] p-3">
           <button
             onClick={onClose}
-            className="rounded-[3px] px-4 py-2 text-[12px] font-bold text-[var(--text-muted)] ring-1 ring-[var(--line)]"
+            className="rounded-lg px-4 py-2 text-[12px] font-bold text-[var(--text-muted)] ring-1 ring-[var(--line)]"
           >
             Cancel
           </button>
           <button
             onClick={() => onSave(goals)}
-            className="rounded-[3px] bg-[var(--accent)] px-4 py-2 text-[12px] font-black text-[var(--accent-ink)]"
+            className="rounded-lg bg-[var(--accent)] px-4 py-2 text-[12px] font-black text-[var(--accent-ink)]"
           >
             Save timeline
           </button>

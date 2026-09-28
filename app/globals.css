@@ -1,59 +1,59 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Stakeza token layer.
+   PRIME BET token layer.
 
-   Values are taken from the football.com Ghana mobile build, whose theme is
-   expressed as RGB triples behind semantic names (--brand-primary,
-   --background-type1-*, --text-type1-*). The names below are ours; the values
-   are the dark theme that site actually ships.
+   Values are taken from primebet.ltd's shipped stylesheet: near-black grounds
+   (#0f0f12 / #16161d), a dominant gold accent (#f5b51b) with black type on it,
+   red (#e50539) for live and losing states, and green (#00bb7f) for wins.
+   Chrome (header, league bars, bottom nav) is pure black; content sits on the
+   dark zinc grounds.
 
    The one thing worth knowing when editing: an odds button is DARKER than the
    row it sits in, not lighter. That inversion is what makes the board read.
    --------------------------------------------------------------------------- */
 :root {
   /* Grounds */
-  --bg: #100e26;          /* background-type1-secondary — the page */
-  --bg-elevated: #1c1a31; /* background-type1-primary — cards, panels, footer */
-  --surface: #282450;     /* brand-primary — header, league bars */
-  --surface-2: #352f5c;   /* background-type2-tertiary — chips, inputs */
-  --surface-3: #2a2453;   /* background-type2-secondary */
-  --line: #28263c;        /* background-type1-tertiary — dividers */
-  --odds-btn: #100e26;    /* background-outcome-dark-btn */
-  --disabled: #343247;    /* background-disable-type1-primary */
+  --bg: #0f0f12;          /* the page */
+  --bg-elevated: #16161d; /* cards, panels, footer */
+  --surface: #000000;     /* chrome — header, league bars, bottom nav */
+  --surface-2: #26272b;   /* chips, inputs */
+  --surface-3: #1b1c20;
+  --line: #26272b;        /* dividers */
+  --odds-btn: #0a0a0d;    /* darker than the card it sits in */
+  --disabled: #2c2d30;
 
   /* Brand */
-  --accent: #9ff611;      /* brand-secondary / brand-active */
-  --accent-ink: #100e26;  /* brand-tertiary — type on lime */
-  --accent-dim: #7fc50e;  /* btn-bookbet */
-  --focus: #c5fa70;       /* highlight-focus */
+  --accent: #f5b51b;      /* prime gold */
+  --accent-ink: #000000;  /* type on gold */
+  --accent-dim: #d99b0a;
+  --focus: #ffd166;
 
   /* Type */
-  --text: #e7e7e9;        /* text-type1-primary */
-  --text-muted: #878693;  /* text-type1-secondary */
-  --text-faint: #4a4959;  /* text-disable-type1-primary */
-  --text-bright: #ffffff; /* text-type1-tertiary */
+  --text: #f4f4f5;
+  --text-muted: #9ca0a8;
+  --text-faint: #5b5e66;
+  --text-bright: #ffffff;
 
   /* State */
-  --win: #16ea84;         /* boost-color / odds-rise-primary */
-  --win-2: #12ca72;       /* odds-rise-secondary */
-  --lose: #fb4d3d;        /* warning-primary */
-  --lose-bg: #3c0f1c;     /* warning-tertiary / background-notice */
-  --pending: #ffd63a;     /* c-payout-boost */
-  --live: #fb4d3d;
-  --hint: #3685e2;        /* highlight-hint */
-  --hint-bg: #4d5fae;     /* background-hint-type1 */
+  --win: #00bb7f;
+  --win-2: #04976b;
+  --lose: #e50539;
+  --lose-bg: #460809;
+  --pending: #fcbb00;
+  --live: #e50539;
+  --hint: #34b4ff;
+  --hint-bg: #123a63;
 
-  /* Form fields sit on the dark ground like the rest of the app. The reference
-     login uses a pale fill; four of those stacked on the register form read as
-     a different site, so the shell stays dark and the accent marks focus. */
-  --field: #1b1938;
-  --field-line: #35325c;
-  --input: #12102b;
-  --input-ink: #f2f1f8;
-  --input-placeholder: #6f6a95;
+  /* Form fields sit on the dark ground like the rest of the app; the gold
+     accent marks focus. */
+  --field: #16161d;
+  --field-line: #2c2d30;
+  --input: #101013;
+  --input-ink: #f7f7f8;
+  --input-placeholder: #71717a;
 
-  --radius: 4px;
+  --radius: 12px;
 }
 
 @theme inline {
@@ -88,13 +88,19 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  /* Roboto is the face the reference build ships, with a metric-compatible
+  /* Barlow is the face the reference ships (400–800), with a metric-friendly
      fallback stack so the layout does not shift before the webfont lands. */
-  font-family: var(--font-roboto), "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  font-family: var(--font-sans), "Segoe UI", "Helvetica Neue", Arial,
     "Noto Sans", sans-serif;
   font-size: 12px;
   line-height: 1.4;
   overscroll-behavior-y: none;
+}
+
+/* Bebas Neue — the display face for the wordmark and big numbers. */
+.font-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  letter-spacing: 0.04em;
 }
 
 * {
@@ -110,12 +116,31 @@ body {
   display: none;
 }
 
+/* The gold glow the reference hangs on its betslip button and active nav. */
+.glow-gold {
+  box-shadow: 0 0 20px rgba(245, 181, 27, 0.4);
+}
+.glow-gold-sm {
+  box-shadow: 0 0 8px rgba(245, 181, 27, 0.7);
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
 }
 .live-dot {
   animation: blink 1.4s ease-in-out infinite;
+}
+
+/* The winners marquee: one continuous right-to-left crawl, like the
+   reference's LIVE TICKER strip. The track holds two copies of the row, so
+   -50% lines the second copy up exactly where the first began. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee {
+  animation: marquee 28s linear infinite;
 }
 
 /* Price movement, the way a board shows it: a brief tint, not a jump. */
@@ -179,7 +204,8 @@ body {
   .win-cup,
   .win-cup-float,
   .win-line,
-  .confetti-piece {
+  .confetti-piece,
+  .marquee {
     animation: none;
   }
   .confetti-piece { display: none; }

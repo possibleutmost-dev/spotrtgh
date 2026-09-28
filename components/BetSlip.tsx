@@ -239,7 +239,7 @@ export function BetSlip() {
             </div>
 
             {settingsOpen && (
-              <label className="mx-4 mb-3 flex items-start gap-2 rounded bg-[var(--surface)] p-3">
+              <label className="mx-4 mb-3 flex items-start gap-2 rounded-lg bg-[var(--surface)] p-3">
                 <input
                   type="checkbox"
                   checked={acceptOddsChanges}
@@ -282,7 +282,7 @@ export function BetSlip() {
                   <button
                     key={k}
                     onClick={() => setSystemSize(k)}
-                    className="shrink-0 rounded px-3 py-1.5 text-[12px] font-bold"
+                    className="shrink-0 rounded-lg px-3 py-1.5 text-[12px] font-bold"
                     style={
                       maths.size === k
                         ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -340,7 +340,7 @@ export function BetSlip() {
               <>
             {/* Bonus progress, on multiples only */}
             {mode === "multiple" && (
-              <div className="mx-4 mt-3 overflow-hidden rounded">
+              <div className="mx-4 mt-3 overflow-hidden rounded-lg">
                 <div
                   className="flex items-center gap-2 px-3 py-2"
                   style={{ background: standing.rate > 0 ? "var(--accent-dim)" : "var(--surface-2)" }}
@@ -376,7 +376,7 @@ export function BetSlip() {
                     value={stake || ""}
                     onChange={(e) => setStake(Number(e.target.value))}
                     aria-label="Stake"
-                    className="w-24 rounded border border-[var(--line)] bg-[var(--bg)] px-2 py-1.5 text-right font-bold outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                    className="w-24 rounded-lg border border-[var(--line)] bg-[var(--bg)] px-2 py-1.5 text-right font-bold outline-none focus:ring-1 focus:ring-[var(--accent)]"
                   />
                 </dd>
               </div>
@@ -398,7 +398,7 @@ export function BetSlip() {
             </dl>
 
             {error && (
-              <p className="mx-4 mt-2 rounded bg-[var(--lose-bg)] px-3 py-2 text-[12px] text-[var(--lose)]">
+              <p className="mx-4 mt-2 rounded-lg bg-[var(--lose-bg)] px-3 py-2 text-[12px] text-[var(--lose)]">
                 {error}
               </p>
             )}

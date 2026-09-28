@@ -62,7 +62,7 @@ export default function TransactionsPage() {
             <button
               key={f.key}
               onClick={() => setFilter(f.key)}
-              className="rounded px-3 py-1.5 text-[12px] font-bold"
+              className="rounded-lg px-3 py-1.5 text-[12px] font-bold"
               style={
                 filter === f.key
                   ? { background: "var(--accent)", color: "var(--accent-ink)" }
@@ -77,15 +77,15 @@ export default function TransactionsPage() {
         {txns === null ? (
           <div className="mt-3 space-y-2 px-2">
             {[0, 1, 2].map((i) => (
-              <div key={i} className="h-16 rounded bg-[var(--bg-elevated)] opacity-60" />
+              <div key={i} className="h-16 rounded-lg bg-[var(--bg-elevated)] opacity-60" />
             ))}
           </div>
         ) : !shown.length ? (
-          <p className="mt-3 rounded bg-[var(--bg-elevated)] p-10 text-center text-[13px] text-[var(--text-muted)]">
+          <p className="mt-3 rounded-lg bg-[var(--bg-elevated)] p-10 text-center text-[13px] text-[var(--text-muted)]">
             Nothing here yet.
           </p>
         ) : (
-          <ul className="mt-3 overflow-hidden rounded bg-[var(--bg-elevated)]">
+          <ul className="mt-3 overflow-hidden rounded-lg bg-[var(--bg-elevated)]">
             {shown.map((t) => {
               const out = t.metadata?.type === "withdrawal";
               const isPartner = t.metadata?.type === "partner_credit";

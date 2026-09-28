@@ -141,7 +141,7 @@ function DialogBox({
         role="dialog"
         aria-modal="true"
         aria-label={state.title}
-        className="relative w-full max-w-sm overflow-hidden rounded-[6px] bg-[var(--bg-elevated)] shadow-2xl ring-1 ring-[var(--line)]"
+        className="relative w-full max-w-sm overflow-hidden rounded-xl bg-[var(--bg-elevated)] shadow-2xl ring-1 ring-[var(--line)]"
       >
         <header className="flex items-start justify-between gap-3 border-b border-[var(--line)] px-4 py-3">
           <h2 className="text-[14px] font-bold">{state.title}</h2>
@@ -168,7 +168,7 @@ function DialogBox({
                   setValues((v) => ({ ...v, [f.name]: e.target.value }));
                   setErrors((x) => ({ ...x, [f.name]: "" }));
                 }}
-                className="w-full rounded-[3px] bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2 text-[13px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
               />
               {errors[f.name] ? (
                 <span className="mt-1 block text-[11px] text-[var(--lose)]">{errors[f.name]}</span>
@@ -182,13 +182,13 @@ function DialogBox({
             <button
               type="button"
               onClick={() => onClose(null)}
-              className="rounded-[3px] px-4 py-2 text-[12px] font-bold text-[var(--text-muted)] ring-1 ring-[var(--line)]"
+              className="rounded-lg px-4 py-2 text-[12px] font-bold text-[var(--text-muted)] ring-1 ring-[var(--line)]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-[3px] px-4 py-2 text-[12px] font-black"
+              className="rounded-lg px-4 py-2 text-[12px] font-black"
               style={
                 state.tone === "danger"
                   ? { background: "var(--lose)", color: "#2a0508" }

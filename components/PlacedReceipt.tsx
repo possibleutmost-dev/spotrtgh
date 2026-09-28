@@ -84,7 +84,7 @@ export function PlacedReceipt({
       </div>
 
       {/* Total odds panel */}
-      <div className="mx-4 mt-2.5 flex items-center justify-between rounded-[5px] px-3 py-2 ring-1 ring-[var(--line)]">
+      <div className="mx-4 mt-2.5 flex items-center justify-between rounded-lg px-3 py-2 ring-1 ring-[var(--line)]">
         <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">
           Total Odds
         </span>
@@ -130,7 +130,7 @@ export function PlacedReceipt({
       </ul>
 
       {oddsChanged.length > 0 && (
-        <p className="mx-4 mt-2 rounded bg-[var(--surface)] px-3 py-1.5 text-[10px] leading-snug text-[var(--text-muted)]">
+        <p className="mx-4 mt-2 rounded-lg bg-[var(--surface)] px-3 py-1.5 text-[10px] leading-snug text-[var(--text-muted)]">
           {oddsChanged.length === 1
             ? `The price on ${oddsChanged[0].match} was ${oddsChanged[0].to.toFixed(2)} at placement, not ${oddsChanged[0].from.toFixed(2)}. Your ticket shows what you were given.`
             : `${oddsChanged.length} prices differed from the board at placement. Your ticket shows what you were given.`}
@@ -140,13 +140,13 @@ export function PlacedReceipt({
       <div className="flex gap-2 p-3">
         <Link
           href={`/my-bets/${ticket.code}`}
-          className="flex-1 rounded py-2.5 text-center text-[13px] font-bold ring-1 ring-[var(--line)]"
+          className="flex-1 rounded-lg py-2.5 text-center text-[13px] font-bold ring-1 ring-[var(--line)]"
         >
           View ticket
         </Link>
         <button
           onClick={onDone}
-          className="flex-1 rounded bg-[var(--accent)] py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
+          className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-[13px] font-black text-[var(--accent-ink)]"
         >
           Keep betting
         </button>

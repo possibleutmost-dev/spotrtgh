@@ -51,7 +51,7 @@ export function VerifyGate({
     >
       <div className="absolute inset-0 bg-black/85" />
 
-      <div className="relative w-full max-w-sm rounded-[10px] bg-[var(--bg-elevated)] p-5">
+      <div className="relative w-full max-w-sm rounded-2xl bg-[var(--bg-elevated)] p-5">
         <div className="flex items-center justify-between">
           <button
             onClick={onBack}
@@ -78,7 +78,7 @@ export function VerifyGate({
 
         <Link
           href="/deposit"
-          className="mt-5 block rounded-[6px] bg-[var(--accent)] py-3.5 text-center text-[16px] font-black text-[var(--accent-ink)]"
+          className="mt-5 block rounded-xl bg-[var(--accent)] py-3.5 text-center text-[16px] font-black text-[var(--accent-ink)]"
         >
           Deposit {formatMoney(amount, currency)} to verify
         </Link>

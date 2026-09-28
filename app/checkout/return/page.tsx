@@ -76,7 +76,7 @@ function Return() {
         <p className="text-[13px] text-[var(--text-muted)]">Nothing was taken from your card.</p>
         <button
           onClick={() => router.push("/deposit")}
-          className="w-full rounded bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
+          className="w-full rounded-lg bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
         >
           Try again
         </button>
@@ -100,7 +100,7 @@ function Return() {
       )}
       <button
         onClick={() => router.push("/")}
-        className="w-full rounded bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
+        className="w-full rounded-lg bg-[var(--accent)] py-3 text-[14px] font-black text-[var(--accent-ink)]"
       >
         Start betting
       </button>

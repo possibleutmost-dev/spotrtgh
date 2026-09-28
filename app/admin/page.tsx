@@ -27,7 +27,7 @@ export default function OverviewPage() {
       {data.pendingDeposits > 0 && (
         <Link
           href="/admin/deposits"
-          className="flex items-center gap-1 rounded bg-[var(--pending)]/15 px-4 py-3 text-[13px] font-semibold text-[var(--pending)]"
+          className="flex items-center gap-1 rounded-lg bg-[var(--pending)]/15 px-4 py-3 text-[13px] font-semibold text-[var(--pending)]"
         >
           {data.pendingDeposits} manual deposit{data.pendingDeposits === 1 ? "" : "s"} waiting for
           confirmation

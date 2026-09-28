@@ -109,7 +109,7 @@ export default function MatchesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search fixtures"
-          className="w-64 rounded bg-[var(--surface-2)] px-3 py-1.5 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-64 rounded-lg bg-[var(--surface-2)] px-3 py-1.5 text-[12px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
         <p className="text-[11px] text-[var(--text-faint)]">
           Finished matches settle themselves from the live result. Override only when it is wrong.

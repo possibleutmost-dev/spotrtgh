@@ -190,14 +190,14 @@ function AccountView() {
           <div className="mt-3.5 grid grid-cols-2 gap-3">
             <Link
               href="/deposit"
-              className="flex items-center justify-center gap-2 rounded-[4px] bg-[var(--accent)] py-3 text-[15px] font-bold text-[var(--accent-ink)]"
+              className="flex items-center justify-center gap-2 rounded-lg bg-[var(--accent)] py-3 text-[15px] font-bold text-[var(--accent-ink)]"
             >
               <Wallet size={18} strokeWidth={2} />
               Deposit
             </Link>
             <Link
               href="/withdraw"
-              className="flex items-center justify-center gap-2 rounded-[4px] py-3 text-[15px] font-bold text-[var(--accent)] ring-1 ring-[var(--accent)]"
+              className="flex items-center justify-center gap-2 rounded-lg py-3 text-[15px] font-bold text-[var(--accent)] ring-1 ring-[var(--accent)]"
             >
               <Banknote size={18} strokeWidth={2} />
               Withdraw
@@ -206,15 +206,15 @@ function AccountView() {
         </section>
 
         {swept !== null && (
-          <p className="mx-4 mt-3 rounded bg-[var(--win)]/15 px-3 py-2.5 text-[12px] text-[var(--win)]">
+          <p className="mx-4 mt-3 rounded-lg bg-[var(--win)]/15 px-3 py-2.5 text-[12px] text-[var(--win)]">
             We found {swept} completed deposit{swept === 1 ? "" : "s"} and credited your wallet.
           </p>
         )}
 
         <Link
           href="/how-to-play#loyalty"
-          className="mx-4 mt-3 flex items-center justify-between rounded-[4px] px-4 py-3.5"
-          style={{ background: "linear-gradient(100deg,#4B2CC4,#7B3FE4)" }}
+          className="mx-4 mt-3 flex items-center justify-between rounded-lg px-4 py-3.5"
+          style={{ background: "linear-gradient(100deg,#1b1c20,#3a2500)" }}
         >
           <span className="flex items-center gap-2">
             <Trophy size={19} strokeWidth={1.9} className="text-[var(--accent)]" />
@@ -272,7 +272,7 @@ function AccountView() {
             signOut();
             router.push("/");
           }}
-          className="mx-4 mt-5 flex w-[calc(100%-2rem)] items-center justify-center gap-2 rounded py-3 text-[13px] font-bold text-[var(--lose)] ring-1 ring-[var(--line)]"
+          className="mx-4 mt-5 flex w-[calc(100%-2rem)] items-center justify-center gap-2 rounded-lg py-3 text-[13px] font-bold text-[var(--lose)] ring-1 ring-[var(--line)]"
         >
           <LogOut size={15} strokeWidth={2} />
           Log out
@@ -313,7 +313,7 @@ function Tile({ href, icon, label }: { href: string; icon: React.ReactNode; labe
   return (
     <Link
       href={href}
-      className="flex flex-col items-center gap-2 rounded-[4px] bg-[var(--bg-elevated)] py-4 text-[var(--text-bright)]"
+      className="flex flex-col items-center gap-2 rounded-lg bg-[var(--bg-elevated)] py-4 text-[var(--text-bright)]"
     >
       {icon}
       <span className="text-[12px] font-medium">{label}</span>

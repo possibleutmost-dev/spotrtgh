@@ -22,7 +22,7 @@ export function Flag({ code, size = 18 }: { code: string; size?: number }) {
       alt=""
       width={size}
       height={Math.round((size * 2) / 3)}
-      className="shrink-0 rounded-[2px]"
+      className="shrink-0 rounded-lg"
     />
   );
 }
@@ -68,7 +68,7 @@ export function CountryBar({
       </div>
 
       {picking && (
-        <ul className="absolute left-0 right-0 z-20 mt-1 overflow-hidden rounded bg-[var(--field)] ring-1 ring-[var(--field-line)]">
+        <ul className="absolute left-0 right-0 z-20 mt-1 overflow-hidden rounded-lg bg-[var(--field)] ring-1 ring-[var(--field-line)]">
           {allCountries().map((c) => (
             <li key={c.code}>
               <button
@@ -105,7 +105,7 @@ export function PhoneField({
   autoFocus?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-2 rounded-[3px] bg-[var(--field)] px-3 py-2 ring-1 ring-[var(--field-line)]">
+    <div className="flex items-center gap-2 rounded-lg bg-[var(--field)] px-3 py-2 ring-1 ring-[var(--field-line)]">
       <span className="shrink-0 text-[15px] text-[var(--text-muted)]">+{country.dialCode}</span>
       <div className="relative flex-1">
         <input
@@ -115,7 +115,7 @@ export function PhoneField({
           autoFocus={autoFocus}
           value={value}
           onChange={(e) => onChange(e.target.value.replace(/[^\d]/g, ""))}
-          className="w-full rounded-[2px] bg-[var(--input)] py-2 pl-2 pr-7 text-[15px] text-[var(--input-ink)] outline-none placeholder:text-[var(--input-placeholder)] focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-full rounded-lg bg-[var(--input)] py-2 pl-2 pr-7 text-[15px] text-[var(--input-ink)] outline-none placeholder:text-[var(--input-placeholder)] focus:ring-1 focus:ring-[var(--accent)]"
         />
         {value && (
           <button
@@ -147,14 +147,14 @@ export function PasswordField({
   const [shown, setShown] = useState(false);
 
   return (
-    <div className="flex items-center gap-2 rounded-[3px] bg-[var(--field)] px-3 py-2 ring-1 ring-[var(--field-line)]">
+    <div className="flex items-center gap-2 rounded-lg bg-[var(--field)] px-3 py-2 ring-1 ring-[var(--field-line)]">
       <input
         type={shown ? "text" : "password"}
         autoComplete={autoComplete}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="min-w-0 flex-1 rounded-[2px] bg-[var(--input)] px-2 py-2 text-[15px] text-[var(--input-ink)] outline-none placeholder:text-[var(--input-placeholder)] focus:ring-1 focus:ring-[var(--accent)]"
+        className="min-w-0 flex-1 rounded-lg bg-[var(--input)] px-2 py-2 text-[15px] text-[var(--input-ink)] outline-none placeholder:text-[var(--input-placeholder)] focus:ring-1 focus:ring-[var(--accent)]"
       />
       <button
         type="button"
@@ -181,7 +181,7 @@ export function Check({
   return (
     <label className="flex cursor-pointer select-none items-center gap-2">
       <span
-        className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[3px] ring-1 transition-colors"
+        className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-lg ring-1 transition-colors"
         style={{
           background: checked ? "var(--accent)" : "transparent",
           boxShadow: `inset 0 0 0 1px ${checked ? "var(--accent)" : "var(--text-muted)"}`,
@@ -216,7 +216,7 @@ export function PrimaryButton({
   return (
     <button
       {...props}
-      className="w-full rounded-[3px] bg-[var(--accent)] py-3.5 text-[16px] font-medium text-[var(--accent-ink)] disabled:cursor-wait"
+      className="w-full rounded-lg bg-[var(--accent)] py-3.5 text-[16px] font-medium text-[var(--accent-ink)] disabled:cursor-wait"
     >
       {children}
     </button>

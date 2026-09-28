@@ -73,7 +73,7 @@ export function SupportChat() {
             <button
               key={item.q}
               onClick={() => setAsked(i)}
-              className="w-full rounded bg-[var(--surface-2)] px-3 py-2 text-left text-[12px] font-medium"
+              className="w-full rounded-lg bg-[var(--surface-2)] px-3 py-2 text-left text-[12px] font-medium"
             >
               {item.q}
             </button>

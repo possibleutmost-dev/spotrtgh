@@ -111,7 +111,7 @@ function RegisterForm() {
           </div>
 
           {error && (
-            <p className="rounded-[3px] bg-[var(--lose-bg)] px-3 py-2.5 text-[13px] text-[var(--lose)]">
+            <p className="rounded-lg bg-[var(--lose-bg)] px-3 py-2.5 text-[13px] text-[var(--lose)]">
               {error}
             </p>
           )}
@@ -147,13 +147,13 @@ function ShellInput({
   autoComplete?: string;
 }) {
   return (
-    <div className="rounded-[3px] bg-[var(--field)] px-3 py-2 ring-1 ring-[var(--field-line)]">
+    <div className="rounded-lg bg-[var(--field)] px-3 py-2 ring-1 ring-[var(--field-line)]">
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         autoComplete={autoComplete}
-        className="w-full rounded-[2px] bg-[var(--input)] px-2 py-2 text-[15px] text-[var(--input-ink)] outline-none placeholder:text-[var(--input-placeholder)] focus:ring-1 focus:ring-[var(--accent)]"
+        className="w-full rounded-lg bg-[var(--input)] px-2 py-2 text-[15px] text-[var(--input-ink)] outline-none placeholder:text-[var(--input-placeholder)] focus:ring-1 focus:ring-[var(--accent)]"
       />
     </div>
   );

@@ -48,13 +48,13 @@ export function CrestPicker({
   };
 
   return (
-    <div className="rounded-[4px] bg-[var(--surface)] p-3">
+    <div className="rounded-lg bg-[var(--surface)] p-3">
       <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[var(--text-faint)]">
         {label}
       </p>
 
       <div className="flex items-center gap-3">
-        <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-[var(--bg)] ring-1 ring-[var(--line)]">
+        <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-[var(--bg)] ring-1 ring-[var(--line)]">
           <Image
             src={value || "/crest-fallback.svg"}
             alt=""
@@ -70,7 +70,7 @@ export function CrestPicker({
             type="button"
             onClick={() => input.current?.click()}
             disabled={busy}
-            className="flex items-center gap-1.5 rounded-[3px] bg-[var(--surface-2)] px-2.5 py-1.5 text-[11px] font-bold disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-lg bg-[var(--surface-2)] px-2.5 py-1.5 text-[11px] font-bold disabled:opacity-50"
           >
             <Upload size={12} strokeWidth={2.2} />
             {busy ? "Uploading…" : value ? "Replace" : "Upload"}
@@ -79,7 +79,7 @@ export function CrestPicker({
           <button
             type="button"
             onClick={() => setPasting((p) => !p)}
-            className="flex items-center gap-1.5 rounded-[3px] bg-[var(--surface-2)] px-2.5 py-1.5 text-[11px] font-bold"
+            className="flex items-center gap-1.5 rounded-lg bg-[var(--surface-2)] px-2.5 py-1.5 text-[11px] font-bold"
           >
             <Link2 size={12} strokeWidth={2.2} />
             URL
@@ -89,7 +89,7 @@ export function CrestPicker({
             <button
               type="button"
               onClick={() => onChange(null)}
-              className="flex items-center gap-1.5 rounded-[3px] px-2.5 py-1.5 text-[11px] font-bold text-[var(--lose)]"
+              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-bold text-[var(--lose)]"
             >
               <X size={12} strokeWidth={2.4} />
               Clear
@@ -104,7 +104,7 @@ export function CrestPicker({
             value={pasted}
             onChange={(e) => setPasted(e.target.value)}
             placeholder="https://…/crest.png"
-            className="min-w-0 flex-1 rounded-[3px] bg-[var(--surface-2)] px-2.5 py-1.5 text-[11px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
+            className="min-w-0 flex-1 rounded-lg bg-[var(--surface-2)] px-2.5 py-1.5 text-[11px] outline-none focus:ring-1 focus:ring-[var(--accent)]"
           />
           <button
             type="button"
@@ -115,7 +115,7 @@ export function CrestPicker({
               setPasted("");
               setPasting(false);
             }}
-            className="rounded-[3px] bg-[var(--accent)] px-3 py-1.5 text-[11px] font-black text-[var(--accent-ink)]"
+            className="rounded-lg bg-[var(--accent)] px-3 py-1.5 text-[11px] font-black text-[var(--accent-ink)]"
           >
             Use
           </button>
