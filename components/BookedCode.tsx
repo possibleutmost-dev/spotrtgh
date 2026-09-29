@@ -74,7 +74,7 @@ export function BookedCode({
   return (
     <div className="border-t border-[var(--line)]">
       {/* Gold masthead */}
-      <div className="flex items-center justify-between bg-[#f5b51b] px-4 py-3 text-black">
+      <div className="flex items-center justify-between bg-[#f5b51b] px-4 py-2.5 text-black">
         <span className="flex items-center gap-2">
           <Ticket size={22} strokeWidth={2.4} />
           <span className="text-[16px] font-black tracking-wide">STAKEZA</span>
@@ -104,17 +104,17 @@ export function BookedCode({
       </div>
 
       {/* Ticket body — literal dark, in both themes */}
-      <div className="bg-[#0f0f12] px-4 pb-5 pt-5">
+      <div className="bg-[#0f0f12] px-4 pb-4 pt-4">
         <h2 className="text-center text-[15px] font-bold text-white">Booking Code</h2>
 
         <div className="mt-1 flex items-center justify-center gap-3">
-          <span className="text-[40px] font-black leading-none tracking-[0.06em] text-[#f5b51b]">
+          <span className="text-[32px] font-black leading-none tracking-[0.06em] text-[#f5b51b]">
             {code}
           </span>
           <button
             onClick={() => copy(code, "code")}
             aria-label="Copy booking code"
-            className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#26272b] text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#26272b] text-white"
           >
             {copied === "code" ? (
               <Check size={19} strokeWidth={2.6} className="text-[#f5b51b]" />
@@ -126,7 +126,7 @@ export function BookedCode({
             href={imageUrl}
             download={`stakeza-${code}.png`}
             aria-label="Download ticket"
-            className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#26272b] text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#26272b] text-white"
           >
             <Download size={19} strokeWidth={2} />
           </a>
@@ -145,18 +145,18 @@ export function BookedCode({
         </p>
 
         {/* Total odds */}
-        <div className="mt-4 rounded-lg border-b-4 border-[#f5b51b] bg-[#1b1c20] px-4 py-4">
+        <div className="mt-3 rounded-lg border-b-4 border-[#f5b51b] bg-[#1b1c20] px-4 py-3">
           <div className="flex items-center justify-between">
             <span className="text-[16px] font-semibold text-white">Odds</span>
-            <span className="text-[32px] font-black leading-none text-white">
+            <span className="text-[24px] font-black leading-none text-white">
               {money(totalOdds)}
             </span>
           </div>
         </div>
 
         {/* Example bet */}
-        <div className="mt-4 overflow-hidden rounded-lg">
-          <div className="bg-[#f2e3bd] px-4 py-2.5">
+        <div className="mt-3 overflow-hidden rounded-lg">
+          <div className="bg-[#f2e3bd] px-4 py-2">
             <span className="text-[15px] font-black text-[#8a6100]">Example Bet</span>
           </div>
           <div className="space-y-2 bg-white px-4 py-3">
@@ -172,13 +172,13 @@ export function BookedCode({
         </div>
 
         {/* Selections */}
-        <div className="mt-4 overflow-hidden rounded-lg">
-          <div className="bg-[#f2e3bd] px-4 py-2.5">
+        <div className="mt-3 overflow-hidden rounded-lg">
+          <div className="bg-[#f2e3bd] px-4 py-2">
             <span className="text-[15px] font-black text-[#8a6100]">Selections</span>
           </div>
           <ul className="divide-y divide-[#eef2f7] bg-white">
             {legs.map((l) => (
-              <li key={`${l.matchId}-${l.market}-${l.outcome}`} className="px-4 py-3">
+              <li key={`${l.matchId}-${l.market}-${l.outcome}`} className="px-4 py-2.5">
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
                     <span className="flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#f5b51b]">
