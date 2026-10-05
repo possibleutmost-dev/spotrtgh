@@ -70,7 +70,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
             B
           </div>
           <div style={{ display: "flex", fontSize: 30, fontWeight: 800, color: "#f7eedd" }}>
-            Bet<span style={{ color: "#f4c430" }}>lixx</span>
+            Bet<span style={{ color: "#f4c430" }}>Cono</span>
           </div>
         </div>
 

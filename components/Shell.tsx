@@ -143,7 +143,7 @@ export function Header() {
       <div className="flex h-[52px] w-full items-center gap-2 px-2.5 md:px-5">
         <Link href="/" className="flex shrink-0 items-center gap-1">
           <span className="text-[19px] font-black tracking-wider text-white">
-            Stake<span className="text-[#f4c430]">za</span>
+            Bet<span className="text-[#f4c430]">Cono</span>
           </span>
         </Link>
 
@@ -181,7 +181,7 @@ export function Header() {
 // ------------------------------------------------------------- bottom nav
 
 const NAV_LEFT = [
-  { href: "/", label: "Stakeza", Icon: BrandIcon },
+  { href: "/", label: "BetCono", Icon: BrandIcon },
   { href: "/?tab=live", label: "Live Matches", Icon: Tv },
 ] as const;
 

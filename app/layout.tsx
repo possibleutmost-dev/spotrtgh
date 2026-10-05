@@ -19,9 +19,9 @@ const bebas = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "Stakeza — Live Sports Betting & Casino",
+  title: "BetCono — Live Sports Betting & Casino",
   description:
-    "Bet live on football and more, and cash out fast with mobile money on Stakeza. Live odds, instant betslips, booking codes and daily boosted odds.",
+    "Bet live on football and more, and cash out fast with mobile money on BetCono. Live odds, instant betslips, booking codes and daily boosted odds.",
   manifest: "/manifest.json",
   icons: { icon: "/logo-mark.svg", apple: "/logo-mark.svg" },
 };

@@ -30,7 +30,7 @@ export function BookedCode({
   const origin = typeof window !== "undefined" ? window.location.origin : "";
   const link = `${origin}/load-code?code=${code}`;
   const imageUrl = `/api/bookings/${code}/image`;
-  const message = `Load my Stakeza code ${code} — ${link}`;
+  const message = `Load my BetCono code ${code} — ${link}`;
 
   const totalOdds = legs.reduce((acc, l) => acc * l.odds, 1);
   const exampleStake = 10;
@@ -62,7 +62,7 @@ export function BookedCode({
   const shareInApp = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: `Stakeza code ${code}`, text: message, url: link });
+        await navigator.share({ title: `BetCono code ${code}`, text: message, url: link });
         return;
       } catch {
         /* dismissed */
@@ -77,7 +77,7 @@ export function BookedCode({
       <div className="flex items-center justify-between bg-[#f4c430] px-4 py-2.5 text-[#4b0f14]">
         <span className="flex items-center gap-2">
           <Ticket size={22} strokeWidth={2.4} />
-          <span className="text-[16px] font-black tracking-wide">STAKEZA</span>
+          <span className="text-[16px] font-black tracking-wide">BETCONO</span>
           <span className="text-[13px] font-bold">🇬🇭 Ghana</span>
         </span>
         <span className="flex items-center gap-3">
@@ -124,7 +124,7 @@ export function BookedCode({
           </button>
           <a
             href={imageUrl}
-            download={`stakeza-${code}.png`}
+            download={`betcono-${code}.png`}
             aria-label="Download ticket"
             className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#6f1a21] text-white"
           >
@@ -238,7 +238,7 @@ export function BookedCode({
           <ShareAction
             label="Save"
             href={imageUrl}
-            download={`stakeza-${code}.png`}
+            download={`betcono-${code}.png`}
             icon={<Download size={19} strokeWidth={2} />}
           />
         </div>

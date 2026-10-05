@@ -1,4 +1,4 @@
-# Stakeza
+# BetCono
 
 A sports-betting platform for African mobile-money markets. Players sign up with a phone number, deposit by mobile money, bet on football, and withdraw back to a mobile wallet or a bank account. An operator runs the book from an admin console, and partners earn commission on the deposits of players they refer.
 
@@ -126,4 +126,4 @@ Written plainly, because these matter more than the features when deciding what 
 
 ## Design
 
-The interface follows the house style of the Ghanaian sportsbook market — a near-black indigo ground (`#100E26`), indigo surfaces (`#282450`) and a single electric lime accent (`#9FF611`) reserved for actions and active odds. The Stakeza wordmark and icons in `public/` are original to this project; team crests come from API-Football.
+The interface follows the "en cono" brand sheet — deep maroon grounds (`#4b0f14`), cream type (`#f7eedd`) and a single golden-yellow accent (`#f4c430`) reserved for actions and active odds, with the brand red (`#d42b23`) marking live and losing states. The BetCono wordmark and icons in `public/` are original to this project; team crests come from API-Football.
