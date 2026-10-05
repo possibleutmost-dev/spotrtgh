@@ -46,7 +46,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          background: "#0f0f12",
+          background: "#4b0f14",
           padding: 48,
           fontFamily: "sans-serif",
         }}
@@ -58,26 +58,26 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
               width: 44,
               height: 44,
               borderRadius: 11,
-              background: "#f5b51b",
+              background: "#f4c430",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#000000",
+              color: "#4b0f14",
               fontSize: 30,
               fontWeight: 900,
             }}
           >
             B
           </div>
-          <div style={{ display: "flex", fontSize: 30, fontWeight: 800, color: "#f7f7f8" }}>
-            Bet<span style={{ color: "#f5b51b" }}>lixx</span>
+          <div style={{ display: "flex", fontSize: 30, fontWeight: 800, color: "#f7eedd" }}>
+            Bet<span style={{ color: "#f4c430" }}>lixx</span>
           </div>
         </div>
 
         {/* The code */}
         <div style={{ display: "flex", flexDirection: "column", marginTop: 34 }}>
-          <div style={{ fontSize: 20, color: "#9ca0a8" }}>Booking Code</div>
-          <div style={{ fontSize: 82, fontWeight: 900, color: "#f5b51b", letterSpacing: 8 }}>
+          <div style={{ fontSize: 20, color: "#d8bdb4" }}>Booking Code</div>
+          <div style={{ fontSize: 82, fontWeight: 900, color: "#f4c430", letterSpacing: 8 }}>
             {code.toUpperCase()}
           </div>
         </div>
@@ -90,27 +90,27 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
               style={{
                 display: "flex",
                 alignItems: "center",
-                background: "#16161d",
+                background: "#5e141b",
                 borderRadius: 8,
                 padding: "12px 16px",
               }}
             >
               <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                <div style={{ fontSize: 21, color: "#f4f4f5" }}>
+                <div style={{ fontSize: 21, color: "#f7eedd" }}>
                   {l.homeTeam} v {l.awayTeam}
                 </div>
-                <div style={{ fontSize: 17, color: "#9ca0a8" }}>
+                <div style={{ fontSize: 17, color: "#d8bdb4" }}>
                   {l.marketLabel} · {l.outcomeLabel}
                 </div>
               </div>
-              <div style={{ fontSize: 24, fontWeight: 800, color: "#f5b51b" }}>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#f4c430" }}>
                 {Number(l.odds).toFixed(2)}
               </div>
             </div>
           ))}
 
           {!legs.length && (
-            <div style={{ fontSize: 21, color: "#9ca0a8" }}>This code has no selections.</div>
+            <div style={{ fontSize: 21, color: "#d8bdb4" }}>This code has no selections.</div>
           )}
         </div>
 
@@ -124,16 +124,16 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
           }}
         >
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 18, color: "#9ca0a8" }}>Total odds</div>
-            <div style={{ fontSize: 40, fontWeight: 900, color: "#f7f7f8" }}>
+            <div style={{ fontSize: 18, color: "#d8bdb4" }}>Total odds</div>
+            <div style={{ fontSize: 40, fontWeight: 900, color: "#f7eedd" }}>
               {totalOdds.toFixed(2)}
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-            <div style={{ fontSize: 17, color: "#5b5e66" }}>
+            <div style={{ fontSize: 17, color: "#a97e7c" }}>
               {expires ? `Expires ${new Date(expires).toLocaleString("en-GB")}` : "No expiry"}
             </div>
-            <div style={{ fontSize: 19, color: "#9ca0a8" }}>Load this code to bet the same slip</div>
+            <div style={{ fontSize: 19, color: "#d8bdb4" }}>Load this code to bet the same slip</div>
           </div>
         </div>
       </div>

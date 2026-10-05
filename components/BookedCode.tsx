@@ -74,7 +74,7 @@ export function BookedCode({
   return (
     <div className="border-t border-[var(--line)]">
       {/* Gold masthead */}
-      <div className="flex items-center justify-between bg-[#f5b51b] px-4 py-2.5 text-black">
+      <div className="flex items-center justify-between bg-[#f4c430] px-4 py-2.5 text-[#4b0f14]">
         <span className="flex items-center gap-2">
           <Ticket size={22} strokeWidth={2.4} />
           <span className="text-[16px] font-black tracking-wide">STAKEZA</span>
@@ -104,20 +104,20 @@ export function BookedCode({
       </div>
 
       {/* Ticket body — literal dark, in both themes */}
-      <div className="bg-[#0f0f12] px-4 pb-4 pt-4">
+      <div className="bg-[#4b0f14] px-4 pb-4 pt-4">
         <h2 className="text-center text-[15px] font-bold text-white">Booking Code</h2>
 
         <div className="mt-1 flex items-center justify-center gap-3">
-          <span className="text-[32px] font-black leading-none tracking-[0.06em] text-[#f5b51b]">
+          <span className="text-[32px] font-black leading-none tracking-[0.06em] text-[#f4c430]">
             {code}
           </span>
           <button
             onClick={() => copy(code, "code")}
             aria-label="Copy booking code"
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#26272b] text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#6f1a21] text-white"
           >
             {copied === "code" ? (
-              <Check size={19} strokeWidth={2.6} className="text-[#f5b51b]" />
+              <Check size={19} strokeWidth={2.6} className="text-[#f4c430]" />
             ) : (
               <Copy size={19} strokeWidth={2} />
             )}
@@ -126,13 +126,13 @@ export function BookedCode({
             href={imageUrl}
             download={`stakeza-${code}.png`}
             aria-label="Download ticket"
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#26272b] text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#6f1a21] text-white"
           >
             <Download size={19} strokeWidth={2} />
           </a>
         </div>
 
-        <p className="mt-1.5 text-center text-[12px] text-[#9ca0a8]">
+        <p className="mt-1.5 text-center text-[12px] text-[#d8bdb4]">
           {expiresAt
             ? `Valid till ${new Date(expiresAt).toLocaleString("en-GB", {
                 day: "2-digit",
@@ -145,7 +145,7 @@ export function BookedCode({
         </p>
 
         {/* Total odds */}
-        <div className="mt-3 rounded-lg border-b-4 border-[#f5b51b] bg-[#1b1c20] px-4 py-3">
+        <div className="mt-3 rounded-lg border-b-4 border-[#f4c430] bg-[#561218] px-4 py-3">
           <div className="flex items-center justify-between">
             <span className="text-[16px] font-semibold text-white">Odds</span>
             <span className="text-[24px] font-black leading-none text-white">
@@ -157,14 +157,14 @@ export function BookedCode({
         {/* Example bet */}
         <div className="mt-3 overflow-hidden rounded-lg">
           <div className="bg-[#f2e3bd] px-4 py-2">
-            <span className="text-[15px] font-black text-[#8a6100]">Example Bet</span>
+            <span className="text-[15px] font-black text-[#a01915]">Example Bet</span>
           </div>
           <div className="space-y-2 bg-white px-4 py-3">
-            <div className="flex items-center justify-between text-[15px] text-[#1b1c20]">
+            <div className="flex items-center justify-between text-[15px] text-[#4b0f14]">
               <span>Stake</span>
               <span className="font-semibold">{money(exampleStake)}</span>
             </div>
-            <div className="flex items-center justify-between text-[15px] text-[#1b1c20]">
+            <div className="flex items-center justify-between text-[15px] text-[#4b0f14]">
               <span>Payout</span>
               <span className="font-semibold">{money(examplePayout)}</span>
             </div>
@@ -174,24 +174,24 @@ export function BookedCode({
         {/* Selections */}
         <div className="mt-3 overflow-hidden rounded-lg">
           <div className="bg-[#f2e3bd] px-4 py-2">
-            <span className="text-[15px] font-black text-[#8a6100]">Selections</span>
+            <span className="text-[15px] font-black text-[#a01915]">Selections</span>
           </div>
           <ul className="divide-y divide-[#eef2f7] bg-white">
             {legs.map((l) => (
               <li key={`${l.matchId}-${l.market}-${l.outcome}`} className="px-4 py-2.5">
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#f5b51b]">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#f5b51b]" />
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#f4c430]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#f4c430]" />
                     </span>
-                    <span className="text-[16px] font-black text-[#1b1c20]">{l.outcomeLabel}</span>
+                    <span className="text-[16px] font-black text-[#4b0f14]">{l.outcomeLabel}</span>
                   </span>
-                  <span className="text-[16px] font-black text-[#1b1c20]">{money(l.odds)}</span>
+                  <span className="text-[16px] font-black text-[#4b0f14]">{money(l.odds)}</span>
                 </div>
-                <p className="mt-1 pl-6 text-[14px] text-[#3f4650]">
+                <p className="mt-1 pl-6 text-[14px] text-[#5c4a3f]">
                   {l.homeTeam} vs {l.awayTeam}
                 </p>
-                <p className="pl-6 text-[13px] text-[#6b7280]">{l.marketLabel}</p>
+                <p className="pl-6 text-[13px] text-[#8a7360]">{l.marketLabel}</p>
               </li>
             ))}
           </ul>
@@ -269,7 +269,7 @@ function ShareAction({
 }) {
   const body = (
     <>
-      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#0f0f12]">
+      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#4b0f14]">
         {icon}
       </span>
       <span className="text-center text-[11px] leading-tight text-[var(--text)]">{label}</span>

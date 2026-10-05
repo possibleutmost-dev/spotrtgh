@@ -1,95 +1,95 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   PRIME BET token layer.
+   EN CONO token layer.
 
-   Values are taken from primebet.ltd's shipped stylesheet: near-black grounds
-   (#0f0f12 / #16161d), a dominant gold accent (#f5b51b) with black type on it,
-   red (#e50539) for live and losing states, and green (#00bb7f) for wins.
-   Chrome (header, league bars, bottom nav) is pure black; content sits on the
-   dark zinc grounds.
+   Values follow the "en cono" brand sheet: deep maroon grounds (#4b0f14 /
+   #5e141b), a golden-yellow accent (#f4c430) with maroon type on it, brand
+   red (#d42b23) for live and losing states, and green (#00bb7f) for wins.
+   Chrome (header, league bars, bottom nav) is the darkest maroon; content
+   sits on the lighter maroon grounds.
 
    The one thing worth knowing when editing: an odds button is DARKER than the
    row it sits in, not lighter. That inversion is what makes the board read.
    --------------------------------------------------------------------------- */
 :root {
   /* Grounds */
-  --bg: #0f0f12;          /* the page */
-  --bg-elevated: #16161d; /* cards, panels, footer */
-  --chrome: #000000;      /* header, bottom nav — black in BOTH themes */
-  --surface: #000000;     /* league bars, chips, section heads — flips */
-  --surface-2: #26272b;   /* chips, inputs */
-  --surface-3: #1b1c20;
-  --line: #26272b;        /* dividers */
-  --odds-btn: #0a0a0d;    /* darker than the card it sits in */
-  --disabled: #2c2d30;
+  --bg: #4b0f14;          /* the page */
+  --bg-elevated: #5e141b; /* cards, panels, footer */
+  --chrome: #35090d;      /* header, bottom nav — darkest maroon in BOTH themes */
+  --surface: #35090d;     /* league bars, chips, section heads — flips */
+  --surface-2: #6f1a21;   /* chips, inputs */
+  --surface-3: #561218;
+  --line: #6f1a21;        /* dividers */
+  --odds-btn: #400c11;    /* darker than the card it sits in */
+  --disabled: #7a2a30;
 
   /* Brand */
-  --accent: #f5b51b;      /* prime gold */
-  --accent-ink: #000000;  /* type on gold */
-  --accent-dim: #d99b0a;
-  --focus: #ffd166;
+  --accent: #f4c430;      /* en cono yellow */
+  --accent-ink: #4b0f14;  /* maroon type on yellow */
+  --accent-dim: #d4a017;
+  --focus: #f7d35e;
 
   /* Type */
-  --text: #f4f4f5;
-  --text-muted: #9ca0a8;
-  --text-faint: #5b5e66;
+  --text: #f7eedd;        /* en cono cream */
+  --text-muted: #d8bdb4;
+  --text-faint: #a97e7c;
   --text-bright: #ffffff;
 
   /* State */
   --win: #00bb7f;
   --win-2: #04976b;
-  --lose: #e50539;
-  --lose-bg: #460809;
-  --pending: #fcbb00;
-  --live: #e50539;
+  --lose: #d42b23;        /* en cono red */
+  --lose-bg: #2e0406;
+  --pending: #f4c430;
+  --live: #d42b23;
   --hint: #34b4ff;
   --hint-bg: #123a63;
 
-  /* Form fields sit on the dark ground like the rest of the app; the gold
-     accent marks focus. */
-  --field: #16161d;
-  --field-line: #2c2d30;
-  --input: #101013;
-  --input-ink: #f7f7f8;
-  --input-placeholder: #71717a;
+  /* Form fields sit on the maroon ground like the rest of the app; the
+     yellow accent marks focus. */
+  --field: #5e141b;
+  --field-line: #7a2a30;
+  --input: #400c11;
+  --input-ink: #f7eedd;
+  --input-placeholder: #b08b86;
 
   --radius: 12px;
 }
 
 /* ---------------------------------------------------------------------------
-   The white theme, toggled from the header. Only the chrome (header, bottom
-   nav) stays black — that black-on-light contrast is the reference's light
-   mode. Anything that sits ON the chrome uses literal white/gold classes,
-   never the flipping tokens. Everything else, league bars included, flips
-   here along with its ink.
+   The light theme, toggled from the header: the brand's cream variant. Only
+   the chrome (header, bottom nav) stays deep maroon — that maroon-on-cream
+   contrast is the light mode. Anything that sits ON the chrome uses literal
+   white/yellow classes, never the flipping tokens. Everything else, league
+   bars included, flips here along with its ink.
    ------------------------------------------------------------------------- */
 :root[data-theme="light"] {
-  --bg: #f1f5f9;
-  --bg-elevated: #ffffff;
-  --surface: #e2e8f0;
-  --surface-2: #e2e8f0;
-  --surface-3: #eef2f7;
-  --line: #e2e8f0;
-  --odds-btn: #e8edf3;
-  --disabled: #cbd5e1;
+  --bg: #f3e9d2;
+  --bg-elevated: #fdf6e3;
+  --surface: #ecdfc3;
+  --surface-2: #ecdfc3;
+  --surface-3: #f2e8d0;
+  --line: #e4d5b8;
+  --odds-btn: #efe3c8;
+  --disabled: #d8c8a8;
 
-  --accent: #d99b0a; /* darker gold so type keeps contrast on white */
-  --accent-dim: #b8860b;
+  --accent: #c79514; /* darker yellow so type keeps contrast on cream */
+  --accent-dim: #a87c0c;
 
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --text-faint: #94a3b8;
-  --text-bright: #0f172a;
+  --text: #4b0f14;
+  --text-muted: #8a5a52;
+  --text-faint: #b08d84;
+  --text-bright: #35090d;
 
-  --lose-bg: #fbe3e5;
+  --lose-bg: #f6d9d2;
   --hint-bg: #dbeafe;
 
-  --field: #ffffff;
-  --field-line: #cbd5e1;
-  --input: #ffffff;
-  --input-ink: #0f172a;
-  --input-placeholder: #94a3b8;
+  --field: #fdf6e3;
+  --field-line: #d8c8a8;
+  --input: #fffaf0;
+  --input-ink: #4b0f14;
+  --input-placeholder: #b08d84;
 }
 
 @theme inline {
@@ -153,12 +153,12 @@ body {
   display: none;
 }
 
-/* The gold glow the reference hangs on its betslip button and active nav. */
+/* The yellow glow hung on the betslip button and active nav. */
 .glow-gold {
-  box-shadow: 0 0 20px rgba(245, 181, 27, 0.4);
+  box-shadow: 0 0 20px rgba(244, 196, 48, 0.4);
 }
 .glow-gold-sm {
-  box-shadow: 0 0 8px rgba(245, 181, 27, 0.7);
+  box-shadow: 0 0 8px rgba(244, 196, 48, 0.7);
 }
 
 @keyframes blink {

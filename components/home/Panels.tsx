@@ -174,7 +174,7 @@ export function SportPills() {
           href={p.href}
           className={`whitespace-nowrap rounded-xl px-4 py-1.5 text-[12px] font-bold transition-all ${
             p.active
-              ? "bg-[var(--accent)] text-black shadow-md shadow-amber-400/20"
+              ? "bg-[var(--accent)] text-[var(--accent-ink)] shadow-md shadow-amber-400/20"
               : "border border-[var(--line)] bg-[var(--bg-elevated)] text-[var(--text-muted)]"
           }`}
         >
@@ -232,7 +232,7 @@ export function FilterBar({
             onClick={() => onChange(f.key)}
             className={`whitespace-nowrap rounded-xl px-3 py-2 text-[12px] font-extrabold transition-all ${
               active === f.key
-                ? "bg-[var(--accent)] text-black shadow-md shadow-amber-400/20"
+                ? "bg-[var(--accent)] text-[var(--accent-ink)] shadow-md shadow-amber-400/20"
                 : "border border-[var(--line)] bg-[var(--bg-elevated)] text-[var(--text-muted)]"
             }`}
           >

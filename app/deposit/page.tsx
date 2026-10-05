@@ -247,7 +247,7 @@ export default function DepositPage() {
 
             <SwitchRow
               icon={
-                <span className="flex h-7 w-9 items-center justify-center rounded-lg bg-[var(--pending)] text-[9px] font-black text-[#3a2500]">
+                <span className="flex h-7 w-9 items-center justify-center rounded-lg bg-[var(--pending)] text-[9px] font-black text-[#4b0f14]">
                   {chosenNetwork.split(" ")[0].slice(0, 4).toUpperCase()}
                 </span>
               }

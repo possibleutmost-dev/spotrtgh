@@ -87,7 +87,7 @@ export function MatchDetail({ id }: { id: string }) {
               <div className="px-2.5 pt-2.5 md:px-5">
                 <span
                   className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-black text-white"
-                  style={{ background: "linear-gradient(90deg,#e50539,#f5b51b)" }}
+                  style={{ background: "linear-gradient(90deg,#d42b23,#f4c430)" }}
                 >
                   <Flame size={12} strokeWidth={2.4} />
                   Top Odds

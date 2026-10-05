@@ -62,7 +62,7 @@ function HeaderActions({ onOpenAccount }: { onOpenAccount: () => void }) {
         </Link>
         <Link
           href="/register"
-          className="rounded-xl bg-gradient-to-r from-[#fbbf24] via-[#fcd34d] to-[#facc15] px-4 py-1.5 text-[12px] font-bold text-black shadow-lg shadow-amber-500/20"
+          className="rounded-xl bg-gradient-to-r from-[#f6cf4b] via-[#f3c838] to-[#e8b317] px-4 py-1.5 text-[12px] font-bold text-[#4b0f14] shadow-lg shadow-amber-500/20"
         >
           Register
         </Link>
@@ -75,13 +75,13 @@ function HeaderActions({ onOpenAccount }: { onOpenAccount: () => void }) {
       <button
         onClick={onOpenAccount}
         aria-label="Account and balance"
-        className="rounded-full px-3 py-1 text-[13px] font-bold text-[#f5b51b] ring-1 ring-[#f5b51b]"
+        className="rounded-full px-3 py-1 text-[13px] font-bold text-[#f4c430] ring-1 ring-[#f4c430]"
       >
         {formatMoney(Number(player.balance), player.currency)}
       </button>
       <Link
         href="/deposit"
-        className="rounded-xl bg-gradient-to-r from-[#fbbf24] via-[#fcd34d] to-[#facc15] px-4 py-1.5 text-[12px] font-bold text-black shadow-lg shadow-amber-500/20"
+        className="rounded-xl bg-gradient-to-r from-[#f6cf4b] via-[#f3c838] to-[#e8b317] px-4 py-1.5 text-[12px] font-bold text-[#4b0f14] shadow-lg shadow-amber-500/20"
       >
         Deposit
       </Link>
@@ -143,7 +143,7 @@ export function Header() {
       <div className="flex h-[52px] w-full items-center gap-2 px-2.5 md:px-5">
         <Link href="/" className="flex shrink-0 items-center gap-1">
           <span className="text-[19px] font-black tracking-wider text-white">
-            Stake<span className="text-[#f5b51b]">za</span>
+            Stake<span className="text-[#f4c430]">za</span>
           </span>
         </Link>
 
@@ -205,10 +205,10 @@ function NavItem({
     <Link
       href={href}
       className="relative flex flex-col items-center justify-center gap-1 pb-2 pt-2.5"
-      style={{ color: active ? "#f5b51b" : "rgba(255,255,255,0.7)" }}
+      style={{ color: active ? "#f4c430" : "rgba(255,255,255,0.7)" }}
     >
       {active && (
-        <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[#f5b51b]" />
+        <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[#f4c430]" />
       )}
       <Icon size={20} strokeWidth={1.8} />
       <span className="text-[10px] font-bold">{label}</span>
@@ -227,7 +227,7 @@ function SlipCircle() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-        className="glow-gold relative -top-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#f5b51b] text-black transition-transform hover:scale-105 active:scale-95"
+        className="glow-gold relative -top-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#f4c430] text-[#4b0f14] transition-transform hover:scale-105 active:scale-95"
       >
         <ReceiptText size={24} strokeWidth={2.2} />
         <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
@@ -266,7 +266,7 @@ export function SlipButton() {
       type="button"
       onClick={() => setOpen(true)}
       aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-      className="glow-gold fixed bottom-8 right-8 z-30 hidden h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[#f5b51b] text-black transition-transform hover:scale-105 active:scale-95 lg:flex"
+      className="glow-gold fixed bottom-8 right-8 z-30 hidden h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[#f4c430] text-[#4b0f14] transition-transform hover:scale-105 active:scale-95 lg:flex"
     >
       <ReceiptText size={24} strokeWidth={2.2} />
       <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
