@@ -99,24 +99,24 @@ const HEADER_NAV = [
 ] as const;
 
 /**
- * Dark by default; the sun/moon flips the page ground to white. The choice
- * lives on <html data-theme> so the token layer swaps, and in localStorage so
- * the head script can re-apply it before the next paint.
+ * White by default; the sun/moon flips the page ground to the maroon dark
+ * theme. The choice lives on <html data-theme> so the token layer swaps, and
+ * in localStorage so the head script can re-apply it before the next paint.
  */
 function ThemeToggle() {
-  const [light, setLight] = useState(false);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    setLight(document.documentElement.dataset.theme === "light");
+    setDark(document.documentElement.dataset.theme === "dark");
   }, []);
 
   const toggle = () => {
-    const next = !light;
-    setLight(next);
-    if (next) document.documentElement.dataset.theme = "light";
+    const next = !dark;
+    setDark(next);
+    if (next) document.documentElement.dataset.theme = "dark";
     else delete document.documentElement.dataset.theme;
     try {
-      localStorage.setItem("theme", next ? "light" : "dark");
+      localStorage.setItem("theme", next ? "dark" : "light");
     } catch {
       /* private mode — the toggle still works for this page view */
     }
@@ -126,10 +126,10 @@ function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={light ? "Switch to dark background" : "Switch to white background"}
+      aria-label={dark ? "Switch to white background" : "Switch to dark background"}
       className="p-1 text-white"
     >
-      {light ? <Moon size={20} strokeWidth={2} /> : <Sun size={20} strokeWidth={2} />}
+      {dark ? <Sun size={20} strokeWidth={2} /> : <Moon size={20} strokeWidth={2} />}
     </button>
   );
 }
@@ -208,7 +208,7 @@ function NavItem({
       style={{ color: active ? "#f4c430" : "rgba(255,255,255,0.7)" }}
     >
       {active && (
-        <span className="glow-gold-sm absolute top-0 h-1 w-8 rounded-full bg-[#f4c430]" />
+        <span className="absolute top-0 h-1 w-8 rounded-full bg-[#f4c430] shadow-[0_0_8px_rgba(244,196,48,0.7)]" />
       )}
       <Icon size={20} strokeWidth={1.8} />
       <span className="text-[10px] font-bold">{label}</span>
@@ -227,10 +227,10 @@ function SlipCircle() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-        className="glow-gold relative -top-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#f4c430] text-[#4b0f14] transition-transform hover:scale-105 active:scale-95"
+        className="glow-gold relative -top-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[var(--accent)] text-[var(--accent-ink)] transition-transform hover:scale-105 active:scale-95"
       >
         <ReceiptText size={24} strokeWidth={2.2} />
-        <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
+        <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
           {legs.length}
         </span>
       </button>
@@ -266,10 +266,10 @@ export function SlipButton() {
       type="button"
       onClick={() => setOpen(true)}
       aria-label={`Bet slip, ${legs.length} selection${legs.length === 1 ? "" : "s"}`}
-      className="glow-gold fixed bottom-8 right-8 z-30 hidden h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[#f4c430] text-[#4b0f14] transition-transform hover:scale-105 active:scale-95 lg:flex"
+      className="glow-gold fixed bottom-8 right-8 z-30 hidden h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[var(--accent)] text-[var(--accent-ink)] transition-transform hover:scale-105 active:scale-95 lg:flex"
     >
       <ReceiptText size={24} strokeWidth={2.2} />
-      <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
+      <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-[var(--lose)] text-[11px] font-black text-white shadow-md">
         {legs.length}
       </span>
     </button>

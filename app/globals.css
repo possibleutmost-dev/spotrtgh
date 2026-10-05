@@ -3,93 +3,100 @@
 /* ---------------------------------------------------------------------------
    EN CONO token layer.
 
-   Values follow the "en cono" brand sheet: deep maroon grounds (#4b0f14 /
-   #5e141b), a golden-yellow accent (#f4c430) with maroon type on it, brand
-   red (#d42b23) for live and losing states, and green (#00bb7f) for wins.
-   Chrome (header, league bars, bottom nav) is the darkest maroon; content
-   sits on the lighter maroon grounds.
+   White is the default ground, and the brand's deep maroon (#7a1b22) is the
+   ACTION color — buttons, selected odds, active states — with cream type on
+   it. Brand red (#d42b23) marks live and losing states, green (#00bb7f)
+   wins. Chrome (header, bottom nav) is deep maroon in BOTH themes.
 
    The one thing worth knowing when editing: an odds button is DARKER than the
    row it sits in, not lighter. That inversion is what makes the board read.
    --------------------------------------------------------------------------- */
 :root {
   /* Grounds */
-  --bg: #4b0f14;          /* the page */
-  --bg-elevated: #5e141b; /* cards, panels, footer */
-  --chrome: #35090d;      /* header, bottom nav — darkest maroon in BOTH themes */
-  --surface: #35090d;     /* league bars, chips, section heads — flips */
-  --surface-2: #6f1a21;   /* chips, inputs */
-  --surface-3: #561218;
-  --line: #6f1a21;        /* dividers */
-  --odds-btn: #400c11;    /* darker than the card it sits in */
-  --disabled: #7a2a30;
+  --bg: #ffffff;          /* the page */
+  --bg-elevated: #faf6f0; /* cards, panels, footer */
+  --chrome: #4b0f14;      /* header, bottom nav — maroon in BOTH themes */
+  --surface: #f1e7dc;     /* league bars, chips, section heads — flips */
+  --surface-2: #f1e7dc;   /* chips, inputs */
+  --surface-3: #f7f0e7;
+  --line: #eadfd2;        /* dividers */
+  --odds-btn: #f3ebe1;    /* darker than the card it sits in */
+  --disabled: #d9cec1;
 
   /* Brand */
-  --accent: #f4c430;      /* en cono yellow */
-  --accent-ink: #4b0f14;  /* maroon type on yellow */
-  --accent-dim: #d4a017;
-  --focus: #f7d35e;
+  --accent: #7a1b22;      /* en cono maroon — the button color */
+  --accent-ink: #f7eedd;  /* cream type on maroon */
+  --accent-dim: #5e141b;
+  --focus: #a8323c;
 
   /* Type */
-  --text: #f7eedd;        /* en cono cream */
-  --text-muted: #d8bdb4;
-  --text-faint: #a97e7c;
-  --text-bright: #ffffff;
+  --text: #4b0f14;        /* maroon ink */
+  --text-muted: #8a5a52;
+  --text-faint: #b08d84;
+  --text-bright: #35090d;
 
   /* State */
   --win: #00bb7f;
   --win-2: #04976b;
   --lose: #d42b23;        /* en cono red */
-  --lose-bg: #2e0406;
+  --lose-bg: #f6d9d2;
   --pending: #f4c430;
   --live: #d42b23;
   --hint: #34b4ff;
+  --hint-bg: #dbeafe;
+
+  /* Form fields sit on the white ground like the rest of the app; the
+     maroon accent marks focus. */
+  --field: #ffffff;
+  --field-line: #d9cec1;
+  --input: #ffffff;
+  --input-ink: #4b0f14;
+  --input-placeholder: #b08d84;
+
+  /* The glow hung on the betslip button and active nav. */
+  --glow: rgba(122, 27, 34, 0.35);
+  --glow-sm: rgba(122, 27, 34, 0.6);
+
+  --radius: 12px;
+}
+
+/* ---------------------------------------------------------------------------
+   The dark theme, toggled from the header: the brand's maroon variant. The
+   grounds become the deep maroons and the accent flips to the golden yellow
+   (maroon buttons would vanish on maroon grounds). Anything that sits ON the
+   chrome uses literal white/yellow classes, never the flipping tokens.
+   ------------------------------------------------------------------------- */
+:root[data-theme="dark"] {
+  --bg: #4b0f14;
+  --bg-elevated: #5e141b;
+  --surface: #35090d;
+  --surface-2: #6f1a21;
+  --surface-3: #561218;
+  --line: #6f1a21;
+  --odds-btn: #400c11;
+  --disabled: #7a2a30;
+
+  --accent: #f4c430;     /* en cono yellow */
+  --accent-ink: #4b0f14; /* maroon type on yellow */
+  --accent-dim: #d4a017;
+  --focus: #f7d35e;
+
+  --text: #f7eedd;       /* en cono cream */
+  --text-muted: #d8bdb4;
+  --text-faint: #a97e7c;
+  --text-bright: #ffffff;
+
+  --lose-bg: #2e0406;
   --hint-bg: #123a63;
 
-  /* Form fields sit on the maroon ground like the rest of the app; the
-     yellow accent marks focus. */
   --field: #5e141b;
   --field-line: #7a2a30;
   --input: #400c11;
   --input-ink: #f7eedd;
   --input-placeholder: #b08b86;
 
-  --radius: 12px;
-}
-
-/* ---------------------------------------------------------------------------
-   The light theme, toggled from the header: the brand's cream variant. Only
-   the chrome (header, bottom nav) stays deep maroon — that maroon-on-cream
-   contrast is the light mode. Anything that sits ON the chrome uses literal
-   white/yellow classes, never the flipping tokens. Everything else, league
-   bars included, flips here along with its ink.
-   ------------------------------------------------------------------------- */
-:root[data-theme="light"] {
-  --bg: #f3e9d2;
-  --bg-elevated: #fdf6e3;
-  --surface: #ecdfc3;
-  --surface-2: #ecdfc3;
-  --surface-3: #f2e8d0;
-  --line: #e4d5b8;
-  --odds-btn: #efe3c8;
-  --disabled: #d8c8a8;
-
-  --accent: #c79514; /* darker yellow so type keeps contrast on cream */
-  --accent-dim: #a87c0c;
-
-  --text: #4b0f14;
-  --text-muted: #8a5a52;
-  --text-faint: #b08d84;
-  --text-bright: #35090d;
-
-  --lose-bg: #f6d9d2;
-  --hint-bg: #dbeafe;
-
-  --field: #fdf6e3;
-  --field-line: #d8c8a8;
-  --input: #fffaf0;
-  --input-ink: #4b0f14;
-  --input-placeholder: #b08d84;
+  --glow: rgba(244, 196, 48, 0.4);
+  --glow-sm: rgba(244, 196, 48, 0.7);
 }
 
 @theme inline {
@@ -153,12 +160,13 @@ body {
   display: none;
 }
 
-/* The yellow glow hung on the betslip button and active nav. */
+/* The accent glow hung on the betslip button and active nav. Maroon on the
+   white theme, yellow on the dark one. */
 .glow-gold {
-  box-shadow: 0 0 20px rgba(244, 196, 48, 0.4);
+  box-shadow: 0 0 20px var(--glow);
 }
 .glow-gold-sm {
-  box-shadow: 0 0 8px rgba(244, 196, 48, 0.7);
+  box-shadow: 0 0 8px var(--glow-sm);
 }
 
 @keyframes blink {

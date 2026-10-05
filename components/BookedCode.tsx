@@ -74,7 +74,7 @@ export function BookedCode({
   return (
     <div className="border-t border-[var(--line)]">
       {/* Gold masthead */}
-      <div className="flex items-center justify-between bg-[#f4c430] px-4 py-2.5 text-[#4b0f14]">
+      <div className="flex items-center justify-between bg-[#7a1b22] px-4 py-2.5 text-[#f7eedd]">
         <span className="flex items-center gap-2">
           <Ticket size={22} strokeWidth={2.4} />
           <span className="text-[16px] font-black tracking-wide">BETCONO</span>

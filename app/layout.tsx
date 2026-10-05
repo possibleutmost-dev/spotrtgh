@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#35090d",
+  themeColor: "#4b0f14",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -37,11 +37,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${bebas.variable}`} suppressHydrationWarning>
       <head>
-        {/* Applies the saved theme before first paint, so a light-theme player
-            never sees a dark flash. Dark is the default. */}
+        {/* Applies the saved theme before first paint, so a dark-theme player
+            never sees a white flash. White is the default. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`,
+            __html: `try{if(localStorage.getItem("theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}`,
           }}
         />
       </head>

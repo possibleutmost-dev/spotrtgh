@@ -6,8 +6,8 @@
   "display": "standalone",
   "orientation": "portrait",
   "start_url": "/",
-  "theme_color": "#35090d",
-  "background_color": "#4b0f14",
+  "theme_color": "#4b0f14",
+  "background_color": "#ffffff",
   "icons": [{ "src": "/logo-mark.svg", "type": "image/svg+xml", "sizes": "any" }],
   "shortcuts": [
     { "name": "Today's football", "url": "/?tab=today" },

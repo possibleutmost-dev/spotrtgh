@@ -8,6 +8,6 @@
   <rect x="0" y="4" width="36" height="36" rx="9" fill="url(#stk)"/>
   <text x="18" y="31" text-anchor="middle" font-family="ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif" font-size="25" font-weight="800" fill="#4b0f14">B</text>
   <text x="44" y="29" font-family="ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif" font-size="19" font-weight="800" letter-spacing="0.5">
-    <tspan fill="#f4c430">Bet</tspan><tspan fill="#d42b23">Cono</tspan>
+    <tspan fill="#7a1b22">Bet</tspan><tspan fill="#d42b23">Cono</tspan>
   </text>
 </svg>
