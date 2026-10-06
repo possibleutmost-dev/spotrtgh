@@ -52,9 +52,9 @@ export function BrandIcon({ size = 20, className }: { size?: number; className?:
         fontFamily="ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif"
         fontSize="27"
         fontWeight="800"
-        fill="var(--bg)"
+        fill="var(--chrome)"
       >
-        S
+        B
       </text>
     </svg>
   );

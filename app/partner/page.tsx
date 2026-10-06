@@ -248,6 +248,21 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
         </p>
       )}
 
+      {partner.approved && (
+        <Link
+          href="/admin/custom-matches"
+          className="flex items-center justify-between rounded-lg bg-[var(--bg-elevated)] px-4 py-3 ring-1 ring-[var(--line)]"
+        >
+          <span>
+            <span className="block text-[13px] font-bold">Custom matches</span>
+            <span className="block text-[11px] text-[var(--text-faint)]">
+              Create and manage house fixtures
+            </span>
+          </span>
+          <span className="text-[12px] font-black text-[var(--accent)]">Open →</span>
+        </Link>
+      )}
+
       <section className="rounded-lg bg-gradient-to-br from-[var(--surface)] to-[var(--surface-2)] p-4">
         <p className="text-[11px] uppercase tracking-wide text-[var(--text-faint)]">Your referral code</p>
         <p className="text-[28px] font-black tracking-[0.15em] text-[var(--accent)]">

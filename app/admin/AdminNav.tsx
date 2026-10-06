@@ -78,17 +78,24 @@ export function AdminNav() {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  // The role hint cookie steers only what the drawer lists; the server
-  // decides what a session may actually do. Until it is read, show the
-  // smaller menu — a flash of fewer links beats a flash of more.
+  // The role steers only what the drawer lists; the server decides what a
+  // session may actually do. Until it is known, show the smaller menu — a
+  // flash of fewer links beats a flash of more.
   const [role, setRole] = useState<"admin" | "sub" | null>(null);
 
   useEffect(() => {
-    // Sessions that predate the role cookie are operator sessions, so a
-    // missing hint reads as "admin". A forged hint only changes which links
-    // are listed; the proxy and the routes bounce anything a sub may not do.
-    const match = document.cookie.match(/(?:^|;\s*)betlixx_admin_role=(\w+)/);
-    setRole(match?.[1] === "sub" ? "sub" : "admin");
+    let cancelled = false;
+    fetch("/api/admin/me")
+      .then((r) => r.json())
+      .then((j) => {
+        if (!cancelled) setRole(j.role === "sub" ? "sub" : "admin");
+      })
+      .catch(() => {
+        if (!cancelled) setRole("admin");
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -107,6 +114,12 @@ export function AdminNav() {
   )[0];
 
   const logout = async () => {
+    // A partner's console session IS their portal session, so log that out.
+    if (role === "sub") {
+      await fetch("/api/partner/logout", { method: "POST" });
+      router.push("/partner");
+      return;
+    }
     await fetch("/api/admin/logout", { method: "POST" });
     router.push("/admin/login");
   };

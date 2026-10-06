@@ -26,9 +26,7 @@ function AdminLoginForm() {
         setError(json.error ?? "Wrong password");
         return;
       }
-      // A sub-admin only has the custom-matches screen, so "next" would just
-      // bounce through the proxy redirect anyway.
-      router.push(json.role === "sub" ? "/admin/custom-matches" : next);
+      router.push(next);
       router.refresh();
     } catch {
       setError("Network problem. Try again.");
