@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireCustomMatchAdmin } from "@/lib/admin-guard";
 
 export const dynamic = "force-dynamic";
 
 /** Operator fixtures: create, run and finalise. */
 export async function GET() {
-  if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+  if (!(await requireCustomMatchAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
   const supabase = db();
   if (!supabase) return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
 
@@ -20,7 +20,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+  if (!(await requireCustomMatchAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
   const supabase = db();
   if (!supabase) return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
 
@@ -58,7 +58,7 @@ export async function POST(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-  if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+  if (!(await requireCustomMatchAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
   const supabase = db();
   if (!supabase) return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
 
@@ -95,7 +95,7 @@ export async function PATCH(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+  if (!(await requireCustomMatchAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
   const supabase = db();
   if (!supabase) return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
 

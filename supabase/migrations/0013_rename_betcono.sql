@@ -4,9 +4,9 @@
 -- so a running deployment says the new name without anyone editing a row by
 -- hand.
 
-alter table matches alter column league set default 'BetCono Special';
+alter table custom_matches alter column league set default 'BetCono Special';
 
-update matches set league = 'BetCono Special' where league = 'Stakeza Special';
+update custom_matches set league = 'BetCono Special' where league = 'Stakeza Special';
 
 update app_settings
    set value = 'BetCono Ghana', updated_at = now()

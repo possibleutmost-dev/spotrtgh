@@ -68,10 +68,28 @@ const GROUPS: { title: string; items: Item[] }[] = [
 
 const ALL = GROUPS.flatMap((g) => g.items);
 
+/** A sub-admin's whole console is the custom-matches screen. */
+const SUB_GROUPS = GROUPS.map((g) => ({
+  ...g,
+  items: g.items.filter((i) => i.href === "/admin/custom-matches"),
+})).filter((g) => g.items.length > 0);
+
 export function AdminNav() {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  // The role hint cookie steers only what the drawer lists; the server
+  // decides what a session may actually do. Until it is read, show the
+  // smaller menu — a flash of fewer links beats a flash of more.
+  const [role, setRole] = useState<"admin" | "sub" | null>(null);
+
+  useEffect(() => {
+    // Sessions that predate the role cookie are operator sessions, so a
+    // missing hint reads as "admin". A forged hint only changes which links
+    // are listed; the proxy and the routes bounce anything a sub may not do.
+    const match = document.cookie.match(/(?:^|;\s*)betlixx_admin_role=(\w+)/);
+    setRole(match?.[1] === "sub" ? "sub" : "admin");
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -125,14 +143,16 @@ export function AdminNav() {
 
           <nav className="relative flex h-full w-[min(19rem,85vw)] flex-col bg-[var(--bg-elevated)] shadow-2xl">
             <header className="flex items-center justify-between border-b border-[var(--line)] px-4 py-3.5">
-              <span className="text-[14px] font-black">Operator console</span>
+              <span className="text-[14px] font-black">
+                {role === "sub" ? "Sub-admin console" : "Operator console"}
+              </span>
               <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-[var(--text-muted)]">
                 <X size={19} strokeWidth={2} />
               </button>
             </header>
 
             <div className="min-h-0 flex-1 overflow-y-auto py-2">
-              {GROUPS.map((group) => (
+              {(role === "sub" ? SUB_GROUPS : GROUPS).map((group) => (
                 <section key={group.title} className="pb-1">
                   <h2 className="px-4 pb-1 pt-3 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--text-faint)]">
                     {group.title}

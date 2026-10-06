@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireCustomMatchAdmin } from "@/lib/admin-guard";
 import { randomBytes } from "crypto";
 
 const MAX_BYTES = 2 * 1024 * 1024;
@@ -15,7 +15,7 @@ const ALLOWED = ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "imag
  * caller cannot choose where the file lands or overwrite an existing one.
  */
 export async function POST(req: Request) {
-  if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+  if (!(await requireCustomMatchAdmin())) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
 
   const supabase = db();
   if (!supabase) return NextResponse.json({ error: "Service unavailable" }, { status: 503 });

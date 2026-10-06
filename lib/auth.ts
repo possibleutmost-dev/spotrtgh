@@ -12,11 +12,20 @@ import { createHash, createHmac, timingSafeEqual, randomBytes } from "crypto";
  */
 
 export const ADMIN_COOKIE = "betlixx_admin";
+/** Client-readable role hint for the console nav. Enforcement never reads it —
+ *  the server derives the role from the session token alone. */
+export const ADMIN_ROLE_COOKIE = "betlixx_admin_role";
 export const PARTNER_COOKIE = "betlixx_partner";
 const ADMIN_TTL_HOURS = 12;
 
+export type AdminRole = "admin" | "sub";
+
 function secret(): string {
   return process.env.ADMIN_PASSWORD || "";
+}
+
+function subSecret(): string {
+  return process.env.SUB_ADMIN_PASSWORD || "";
 }
 
 function sha256(input: string): string {
@@ -49,6 +58,35 @@ export function checkAdminPassword(candidate: string): boolean {
 export function isValidAdminToken(value: string | undefined): boolean {
   if (!adminEnabled() || !value) return false;
   return safeEqual(value, adminToken());
+}
+
+// --------------------------------------------------------------- sub-admin
+
+/**
+ * A second shared password, SUB_ADMIN_PASSWORD, signs into the same console
+ * but is only honoured on the custom-matches screen and its API routes.
+ * A sub password equal to the operator's is refused outright, so a
+ * misconfiguration can never quietly hand out the wrong tier.
+ */
+export function subAdminEnabled(): boolean {
+  return adminEnabled() && subSecret().length > 0 && subSecret() !== secret();
+}
+
+export function subAdminToken(): string {
+  return sha256(`betlixx-subadmin:${subSecret()}`);
+}
+
+export function checkSubAdminPassword(candidate: string): boolean {
+  if (!subAdminEnabled()) return false;
+  return safeEqual(candidate, subSecret());
+}
+
+/** The role a session cookie carries, or null when it is not a valid session. */
+export function adminRoleFromToken(value: string | undefined): AdminRole | null {
+  if (!value) return null;
+  if (adminEnabled() && safeEqual(value, adminToken())) return "admin";
+  if (subAdminEnabled() && safeEqual(value, subAdminToken())) return "sub";
+  return null;
 }
 
 export function adminCookieOptions() {
