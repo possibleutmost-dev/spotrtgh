@@ -362,6 +362,108 @@ const paystack: GatewayAdapter = {
   },
 };
 
+// ---------------------------------------------------------------- AlphaPay
+
+/**
+ * AlphaPay (api.edibytes.online): one initialize call returns a hosted
+ * checkout, and a charge is verified by our reference.
+ *
+ * Two things its dashboard controls rather than this code. The account must
+ * whitelist every domain it collects from — that is the `domain` sent here,
+ * taken from ALPHAPAY_DOMAIN or the deposit page's own host. And its quick
+ * start quotes amounts in the minor unit, so that is the default; if its
+ * checkout page ever shows figures a hundred times too large, set
+ * ALPHAPAY_UNIT=major instead of touching this adapter.
+ */
+const ALPHAPAY_BASE = "https://api.edibytes.online/api/payments";
+
+function alphapayMinorUnits(): boolean {
+  return (process.env.ALPHAPAY_UNIT || "minor") !== "major";
+}
+
+/** The checkout URL, wherever in the payload AlphaPay puts it. */
+function alphapayUrl(payload: unknown): string | undefined {
+  if (!payload || typeof payload !== "object") return undefined;
+  const o = payload as Record<string, unknown>;
+  for (const k of ["checkout_url", "payment_url", "authorization_url", "url", "link"]) {
+    const v = o[k];
+    if (typeof v === "string" && v.startsWith("http")) return v;
+  }
+  return undefined;
+}
+
+const alphapay: GatewayAdapter = {
+  id: "alphapay",
+  label: "AlphaPay",
+  async start({ reference, amount, currency, redirectUrl }) {
+    const key = env("ALPHAPAY_SECRET_KEY");
+    if (!key) return { ok: false, error: "AlphaPay is not available right now" };
+
+    let domain = env("ALPHAPAY_DOMAIN");
+    if (!domain) {
+      try {
+        domain = new URL(redirectUrl).hostname;
+      } catch {
+        return { ok: false, error: "AlphaPay is not available right now" };
+      }
+    }
+
+    try {
+      const res = await fetch(`${ALPHAPAY_BASE}/initialize/`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          reference,
+          amount: alphapayMinorUnits() ? Math.round(amount * 100) : amount,
+          currency,
+          domain,
+        }),
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || json?.error) {
+        const message = json?.error?.message ?? json?.message;
+        console.error("[alphapay] start", res.status, message);
+        return { ok: false, error: typeof message === "string" ? message : "Could not start checkout" };
+      }
+      const url = alphapayUrl(json?.data) ?? alphapayUrl(json);
+      if (!url) {
+        console.error("[alphapay] start: no checkout url in response", json);
+        return { ok: false, error: "Could not start checkout" };
+      }
+      return { ok: true, redirectUrl: url };
+    } catch (err) {
+      console.error("[alphapay] start", err);
+      return { ok: false, error: "Could not start checkout" };
+    }
+  },
+  async status(reference) {
+    const key = env("ALPHAPAY_SECRET_KEY");
+    if (!key) return { status: "pending" };
+    try {
+      const res = await fetch(`${ALPHAPAY_BASE}/verify/${encodeURIComponent(reference)}/`, {
+        headers: { Authorization: `Bearer ${key}` },
+      });
+      const json = await res.json().catch(() => null);
+      const row = (json?.data ?? json) as Record<string, unknown> | null;
+      const s = String(row?.status ?? "").toLowerCase();
+      const status: ChargeStatus = ["success", "successful", "paid", "completed", "confirmed"].includes(s)
+        ? "confirmed"
+        : ["failed", "cancelled", "canceled", "declined", "expired", "voided"].includes(s)
+          ? "failed"
+          : "pending";
+      const raw = Number(row?.amount);
+      const paid = alphapayMinorUnits() ? raw / 100 : raw;
+      return {
+        status,
+        paidAmount: Number.isFinite(paid) && paid > 0 ? paid : undefined,
+        paidCurrency: typeof row?.currency === "string" ? row.currency : undefined,
+      };
+    } catch {
+      return { status: "pending" };
+    }
+  },
+};
+
 /**
  * The manual rail: the player sends money to the displayed agent number and
  * uploads a screenshot. Nothing is automatic, so the status stays pending until
@@ -384,6 +486,7 @@ const ADAPTERS: Record<Gateway, GatewayAdapter> = {
   korapay,
   moolre,
   paystack,
+  alphapay,
   manual,
 };
 

@@ -11,7 +11,18 @@ export type Gateway =
   | "korapay"
   | "moolre"
   | "paystack"
+  | "alphapay"
   | "manual";
+
+const GATEWAYS: Gateway[] = [
+  "flutterwave_momo",
+  "flutterwave_card",
+  "korapay",
+  "moolre",
+  "paystack",
+  "alphapay",
+  "manual",
+];
 
 export type KycKind = "bvn" | "nin" | "national_id";
 
@@ -129,12 +140,19 @@ function num(name: string, fallback: number): number {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+/** A misspelt gateway name falls back rather than breaking deposits. */
+function gatewayEnv(name: string, fallback: Gateway): Gateway {
+  const raw = process.env[name];
+  return GATEWAYS.includes(raw as Gateway) ? (raw as Gateway) : fallback;
+}
+
 /** Country config with the per-country env overrides applied. */
 export function getCountry(code: string | null | undefined): CountryConfig {
   const cc = (code ?? "GH").toUpperCase();
   const base = BASE[cc] ?? BASE.GH;
   return {
     ...base,
+    gateway: gatewayEnv(`GATEWAY_${base.code}`, base.gateway),
     minFirstDeposit: num(`MIN_FIRST_DEPOSIT_${base.code}`, base.minFirstDeposit),
     minDeposit: num(`MIN_DEPOSIT_${base.code}`, base.minDeposit),
     maxDeposit: num(`MAX_DEPOSIT_${base.code}`, base.maxDeposit),
