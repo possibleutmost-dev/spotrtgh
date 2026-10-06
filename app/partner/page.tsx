@@ -248,7 +248,7 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
         </p>
       )}
 
-      {partner.approved && (
+      {partner.approved ? (
         <Link
           href="/admin/custom-matches"
           className="flex items-center justify-between rounded-lg bg-[var(--bg-elevated)] px-4 py-3 ring-1 ring-[var(--line)]"
@@ -261,6 +261,16 @@ function PartnerDashboard({ data, onReload }: { data: Dashboard; onReload: () =>
           </span>
           <span className="text-[12px] font-black text-[var(--accent)]">Open →</span>
         </Link>
+      ) : (
+        <div className="flex items-center justify-between rounded-lg bg-[var(--bg-elevated)] px-4 py-3 opacity-60 ring-1 ring-[var(--line)]">
+          <span>
+            <span className="block text-[13px] font-bold">Custom matches</span>
+            <span className="block text-[11px] text-[var(--text-faint)]">
+              Create and manage house fixtures
+            </span>
+          </span>
+          <span className="text-[11px] font-bold text-[var(--text-faint)]">After approval</span>
+        </div>
       )}
 
       <section className="rounded-lg bg-gradient-to-br from-[var(--surface)] to-[var(--surface-2)] p-4">
