@@ -24,6 +24,27 @@ export function db(): SupabaseClient | null {
 
   cached = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
+    global: {
+      // An unresponsive database must read as "Supabase unavailable", not hang
+      // the route: every caller already degrades on error, but supabase-js has
+      // no timeout of its own, so a stuck Postgres froze every DB-touching
+      // route for minutes. Five seconds is far above any healthy query here.
+      fetch: async (input, init) => {
+        try {
+          return await fetch(input, { ...init, signal: AbortSignal.timeout(5000) });
+        } catch (err) {
+          // Resolve instead of rethrowing: a rejected fetch is retried with
+          // backoff upstream, which turned one stuck query into ~40 seconds.
+          console.error("[supabase] request failed, degrading:", String(err).slice(0, 100));
+          // 408/5xx get retried too, so answer with a non-retryable 4xx. The
+          // callers only check `error`, never the status code.
+          return new Response(
+            JSON.stringify({ message: "Supabase unreachable (client timeout)" }),
+            { status: 400, headers: { "Content-Type": "application/json" } },
+          );
+        }
+      },
+    },
   });
   return cached;
 }
