@@ -231,37 +231,27 @@ const paystack: GatewayAdapter = {
 // ---------------------------------------------------------------- AlphaPay
 
 /**
- * AlphaPay (api.edibytes.online): one initialize call returns a hosted
- * checkout, and a charge is verified by our reference.
+ * AlphaPay (api.edibytes.online): initialize creates the charge on their
+ * side, and then OUR OWN /checkout page drives it — phone number, handset
+ * prompt, and the OTP code — through that page's unauthenticated,
+ * reference-keyed endpoints, proxied under /api/deposits/alphapay.
  *
- * Two things its dashboard controls rather than this code. The account must
- * whitelist every domain it collects from — that is the `domain` sent here,
- * taken from ALPHAPAY_DOMAIN or the deposit page's own host. And its quick
- * start quotes amounts in the minor unit, so that is the default; if its
- * checkout page ever shows figures a hundred times too large, set
- * ALPHAPAY_UNIT=major instead of touching this adapter.
+ * Amounts are the MAJOR unit: a live initialize of amount 1 came back as
+ * "1.00" GHS. ALPHAPAY_UNIT=minor remains as an escape hatch should that
+ * ever change. The account must whitelist every domain it collects from,
+ * under Domains in the AlphaPay dashboard — that is the `domain` sent here,
+ * from ALPHAPAY_DOMAIN or the deposit page's own host.
  */
-const ALPHAPAY_BASE = "https://api.edibytes.online/api/payments";
+export const ALPHAPAY_BASE = "https://api.edibytes.online/api/payments";
 
 function alphapayMinorUnits(): boolean {
-  return (process.env.ALPHAPAY_UNIT || "minor") !== "major";
-}
-
-/** The checkout URL, wherever in the payload AlphaPay puts it. */
-function alphapayUrl(payload: unknown): string | undefined {
-  if (!payload || typeof payload !== "object") return undefined;
-  const o = payload as Record<string, unknown>;
-  for (const k of ["checkout_url", "payment_url", "authorization_url", "url", "link"]) {
-    const v = o[k];
-    if (typeof v === "string" && v.startsWith("http")) return v;
-  }
-  return undefined;
+  return (process.env.ALPHAPAY_UNIT || "major") === "minor";
 }
 
 const alphapay: GatewayAdapter = {
   id: "alphapay",
   label: "AlphaPay",
-  async start({ reference, amount, currency, redirectUrl }) {
+  async start({ reference, amount, currency, phone, redirectUrl }) {
     const key = env("ALPHAPAY_SECRET_KEY");
     if (!key) return { ok: false, error: "AlphaPay is not available right now" };
 
@@ -291,12 +281,13 @@ const alphapay: GatewayAdapter = {
         console.error("[alphapay] start", res.status, message);
         return { ok: false, error: typeof message === "string" ? message : "Could not start checkout" };
       }
-      const url = alphapayUrl(json?.data) ?? alphapayUrl(json);
-      if (!url) {
-        console.error("[alphapay] start: no checkout url in response", json);
-        return { ok: false, error: "Could not start checkout" };
-      }
-      return { ok: true, redirectUrl: url };
+      // The player types the number on our page, but the one from the deposit
+      // form makes a sensible prefill.
+      return {
+        ok: true,
+        metadata: { alphapay_id: json?.id, phone },
+        redirectUrl: `/checkout?reference=${encodeURIComponent(reference)}`,
+      };
     } catch (err) {
       console.error("[alphapay] start", err);
       return { ok: false, error: "Could not start checkout" };
