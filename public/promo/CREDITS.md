@@ -16,3 +16,7 @@ Each is cropped to 344x352 — four times the 86x88 display size, so the cards
 stay sharp on a high-density phone screen.
 
 Replacing one is a straight file swap: keep the name, keep the aspect ratio.
+
+`messi.jpg` is not from Pexels: "Messi vs Nigeria 2018" by Кирилл Венедиктов
+(soccer.ru), via Wikimedia Commons, licensed CC BY-SA 3.0
+(https://commons.wikimedia.org/wiki/File:Messi_vs_Nigeria_2018.jpg).

@@ -8,6 +8,8 @@ import { BetSlip } from "@/components/BetSlip";
 import { SupportChat } from "@/components/SupportChat";
 import { WinnersTicker } from "@/components/WinnersTicker";
 import { HeroBanner, SportTiles, SportPills, FilterBar } from "@/components/home/Panels";
+import { RecommendedCodes } from "@/components/home/RecommendedCodes";
+import { NewsStrip } from "@/components/home/NewsStrip";
 import type { FeedMatch } from "@/lib/fixtures";
 
 const POLL_MS = 30_000;
@@ -74,6 +76,8 @@ export function HomeBoard() {
         <WinnersTicker />
       </div>
 
+      <RecommendedCodes />
+
       <FilterBar active={filter} onChange={setFilter} />
 
       <div className="mx-2.5 mb-2 flex items-center justify-between md:mx-5">
@@ -91,6 +95,8 @@ export function HomeBoard() {
       <div className="px-2 md:px-5">
         <MatchList tab={filter} matches={homeFeed} />
       </div>
+
+      <NewsStrip />
 
       <BetSlip />
       <SupportChat />
