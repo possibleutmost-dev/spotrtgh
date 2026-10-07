@@ -59,7 +59,6 @@ export async function POST(req: Request) {
 }
 
 function detectProvider(req: Request): string {
-  if (req.headers.get("verif-hash")) return "flutterwave";
   if (req.headers.get("x-korapay-signature")) return "korapay";
   if (req.headers.get("x-paystack-signature")) return "paystack";
   return "moolre";
@@ -74,11 +73,6 @@ function safeCompare(a: string, b: string): boolean {
 
 function verify(provider: string, req: Request, raw: string): boolean {
   switch (provider) {
-    case "flutterwave": {
-      const expected = process.env.FLUTTERWAVE_WEBHOOK_HASH;
-      const got = req.headers.get("verif-hash") ?? "";
-      return Boolean(expected) && safeCompare(got, expected!);
-    }
     case "paystack": {
       const key = process.env.PAYSTACK_SECRET_KEY;
       if (!key) return false;
@@ -111,11 +105,6 @@ function extract(provider: string, event: Record<string, unknown>): { reference?
   const str = (v: unknown) => (typeof v === "string" ? v : undefined);
 
   switch (provider) {
-    case "flutterwave":
-      return {
-        reference: str(data.tx_ref) ?? str(data.txRef),
-        successful: String(data.status ?? "").toLowerCase() === "successful",
-      };
     case "paystack":
       return {
         reference: str(data.reference),

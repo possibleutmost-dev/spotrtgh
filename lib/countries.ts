@@ -5,24 +5,9 @@
  */
 
 export type PayoutRail = "mobile" | "bank";
-export type Gateway =
-  | "flutterwave_momo"
-  | "flutterwave_card"
-  | "korapay"
-  | "moolre"
-  | "paystack"
-  | "alphapay"
-  | "manual";
+export type Gateway = "korapay" | "moolre" | "paystack" | "alphapay" | "manual";
 
-const GATEWAYS: Gateway[] = [
-  "flutterwave_momo",
-  "flutterwave_card",
-  "korapay",
-  "moolre",
-  "paystack",
-  "alphapay",
-  "manual",
-];
+const GATEWAYS: Gateway[] = ["korapay", "moolre", "paystack", "alphapay", "manual"];
 
 export type KycKind = "bvn" | "nin" | "national_id";
 
@@ -57,7 +42,7 @@ const BASE: Record<string, CountryConfig> = {
     currencySymbol: "GH₵",
     dialCode: "233",
     phoneDigits: 9,
-    gateway: "flutterwave_momo",
+    gateway: "alphapay",
     payoutRail: "mobile",
     // Ghana collects no KYC value at sign-up; identity is carried by the
     // mobile-money number, which is already name-verified by the network.
@@ -78,8 +63,7 @@ const BASE: Record<string, CountryConfig> = {
     currencySymbol: "₦",
     dialCode: "234",
     phoneDigits: 10,
-    // Cards are taken on our own checkout page rather than a hosted one.
-    gateway: "flutterwave_card",
+    gateway: "alphapay",
     payoutRail: "bank",
     kyc: [
       { kind: "bvn", label: "BVN", pattern: /^\d{11}$/, hint: "11 digits" },
