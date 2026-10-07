@@ -43,7 +43,7 @@ const BANNERS: Banner[] = [
   {
     art: "/promo/welcome-bonus.jpg",
     kicker: "Welcome Bonus",
-    title: "GH₵50 on your first deposit",
+    title: "GH₵100 on your first deposit",
     href: "/register",
   },
   {
