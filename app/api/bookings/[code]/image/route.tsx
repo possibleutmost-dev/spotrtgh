@@ -46,13 +46,22 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          background: "#4b0f14",
+          background: "#35090d",
           padding: 48,
           fontFamily: "sans-serif",
         }}
       >
         {/* Brand bar */}
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            background: "#4b0f14",
+            borderRadius: 14,
+            padding: "14px 20px",
+          }}
+        >
           <div
             style={{
               width: 44,
@@ -69,14 +78,17 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
           >
             B
           </div>
-          <div style={{ display: "flex", fontSize: 30, fontWeight: 800, color: "#f7eedd" }}>
-            Bet<span style={{ color: "#f4c430" }}>Cono</span>
+          <div style={{ display: "flex", fontSize: 30, fontWeight: 900, color: "#f7eedd" }}>
+            BETCONO
+          </div>
+          <div style={{ display: "flex", fontSize: 22, color: "#f7eedd", marginLeft: "auto" }}>
+            🇬🇭 Ghana
           </div>
         </div>
 
         {/* The code */}
         <div style={{ display: "flex", flexDirection: "column", marginTop: 34 }}>
-          <div style={{ fontSize: 20, color: "#d8bdb4" }}>Booking Code</div>
+          <div style={{ fontSize: 20, color: "#f7eedd" }}>Booking Code</div>
           <div style={{ fontSize: 82, fontWeight: 900, color: "#f4c430", letterSpacing: 8 }}>
             {code.toUpperCase()}
           </div>
@@ -96,7 +108,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
               }}
             >
               <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                <div style={{ fontSize: 21, color: "#f7eedd" }}>
+                <div style={{ fontSize: 21, color: "#ffffff" }}>
                   {l.homeTeam} v {l.awayTeam}
                 </div>
                 <div style={{ fontSize: 17, color: "#d8bdb4" }}>
@@ -125,7 +137,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ code: string }
         >
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 18, color: "#d8bdb4" }}>Total odds</div>
-            <div style={{ fontSize: 40, fontWeight: 900, color: "#f7eedd" }}>
+            <div style={{ fontSize: 40, fontWeight: 900, color: "#ffffff" }}>
               {totalOdds.toFixed(2)}
             </div>
           </div>

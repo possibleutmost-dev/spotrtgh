@@ -6,10 +6,11 @@ import { useSession, type SlipLeg } from "@/lib/store";
 import { copyText } from "@/lib/clipboard";
 
 /**
- * The booking receipt, laid out like the reference ticket: a gold masthead,
- * the code writ large with copy and download beside it, the total odds, a
- * worked example bet, then every selection. The ticket area keeps its own
- * literal colours in both themes — it is a branded artifact, not chrome.
+ * The booking receipt: a maroon masthead the colour of the app's chrome, the
+ * code writ large with copy and download beside it, the total odds, a worked
+ * example bet, then every selection. The ticket keeps its own literal colours
+ * in both themes — BetCono maroon and cream with a golden-yellow accent, a
+ * branded artifact, not chrome.
  */
 export function BookedCode({
   code,
@@ -73,8 +74,8 @@ export function BookedCode({
 
   return (
     <div className="border-t border-[var(--line)]">
-      {/* Gold masthead */}
-      <div className="flex items-center justify-between bg-[#7a1b22] px-4 py-2.5 text-[#f7eedd]">
+      {/* Yellow masthead */}
+      <div className="flex items-center justify-between bg-[#4b0f14] px-4 py-2.5 text-[#f7eedd]">
         <span className="flex items-center gap-2">
           <Ticket size={22} strokeWidth={2.4} />
           <span className="text-[16px] font-black tracking-wide">BETCONO</span>
@@ -96,7 +97,7 @@ export function BookedCode({
           <button
             onClick={onDone}
             aria-label="Back to slip"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-black/15"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15"
           >
             <X size={18} strokeWidth={2.4} />
           </button>
@@ -104,8 +105,8 @@ export function BookedCode({
       </div>
 
       {/* Ticket body — literal dark, in both themes */}
-      <div className="bg-[#4b0f14] px-4 pb-4 pt-4">
-        <h2 className="text-center text-[15px] font-bold text-white">Booking Code</h2>
+      <div className="bg-[#35090d] px-4 pb-4 pt-4">
+        <h2 className="text-center text-[15px] font-bold text-[#f7eedd]">Booking Code</h2>
 
         <div className="mt-1 flex items-center justify-center gap-3">
           <span className="text-[32px] font-black leading-none tracking-[0.06em] text-[#f4c430]">
@@ -114,7 +115,7 @@ export function BookedCode({
           <button
             onClick={() => copy(code, "code")}
             aria-label="Copy booking code"
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#6f1a21] text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5e141b] text-[#f7eedd]"
           >
             {copied === "code" ? (
               <Check size={19} strokeWidth={2.6} className="text-[#f4c430]" />
@@ -126,7 +127,7 @@ export function BookedCode({
             href={imageUrl}
             download={`betcono-${code}.png`}
             aria-label="Download ticket"
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#6f1a21] text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5e141b] text-[#f7eedd]"
           >
             <Download size={19} strokeWidth={2} />
           </a>
@@ -145,9 +146,9 @@ export function BookedCode({
         </p>
 
         {/* Total odds */}
-        <div className="mt-3 rounded-lg border-b-4 border-[#f4c430] bg-[#561218] px-4 py-3">
+        <div className="mt-3 rounded-lg border-b-4 border-[#f4c430] bg-[#5e141b] px-4 py-3">
           <div className="flex items-center justify-between">
-            <span className="text-[16px] font-semibold text-white">Odds</span>
+            <span className="text-[16px] font-semibold text-[#f7eedd]">Odds</span>
             <span className="text-[24px] font-black leading-none text-white">
               {money(totalOdds)}
             </span>
@@ -156,8 +157,8 @@ export function BookedCode({
 
         {/* Example bet */}
         <div className="mt-3 overflow-hidden rounded-lg">
-          <div className="bg-[#f2e3bd] px-4 py-2">
-            <span className="text-[15px] font-black text-[#a01915]">Example Bet</span>
+          <div className="bg-[#f7eedd] px-4 py-2">
+            <span className="text-[15px] font-black text-[#7a1b22]">Example Bet</span>
           </div>
           <div className="space-y-2 bg-white px-4 py-3">
             <div className="flex items-center justify-between text-[15px] text-[#4b0f14]">
@@ -173,25 +174,25 @@ export function BookedCode({
 
         {/* Selections */}
         <div className="mt-3 overflow-hidden rounded-lg">
-          <div className="bg-[#f2e3bd] px-4 py-2">
-            <span className="text-[15px] font-black text-[#a01915]">Selections</span>
+          <div className="bg-[#f7eedd] px-4 py-2">
+            <span className="text-[15px] font-black text-[#7a1b22]">Selections</span>
           </div>
           <ul className="divide-y divide-[#eef2f7] bg-white">
             {legs.map((l) => (
               <li key={`${l.matchId}-${l.market}-${l.outcome}`} className="px-4 py-2.5">
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#f4c430]">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#f4c430]" />
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#7a1b22]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#7a1b22]" />
                     </span>
                     <span className="text-[16px] font-black text-[#4b0f14]">{l.outcomeLabel}</span>
                   </span>
                   <span className="text-[16px] font-black text-[#4b0f14]">{money(l.odds)}</span>
                 </div>
-                <p className="mt-1 pl-6 text-[14px] text-[#5c4a3f]">
+                <p className="mt-1 pl-6 text-[14px] text-[#8a5a52]">
                   {l.homeTeam} vs {l.awayTeam}
                 </p>
-                <p className="pl-6 text-[13px] text-[#8a7360]">{l.marketLabel}</p>
+                <p className="pl-6 text-[13px] text-[#b08d84]">{l.marketLabel}</p>
               </li>
             ))}
           </ul>
