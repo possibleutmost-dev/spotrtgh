@@ -72,6 +72,15 @@ export default function DepositPage() {
     [],
   );
 
+  // A credited deposit shows its confirmation, then returns to the home page to
+  // bet. The manual rail never reaches `done` — it stays pending until the
+  // operator confirms it — so only an instant credit sends the player back.
+  useEffect(() => {
+    if (!done) return;
+    const t = setTimeout(() => router.push("/"), 2200);
+    return () => clearTimeout(t);
+  }, [done, router]);
+
   if (!player) return null;
 
   const startGateway = async () => {

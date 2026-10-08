@@ -60,8 +60,10 @@ function CheckoutInner() {
         }
         setSession(j);
         setPhone(j.phone ?? "");
-        if (j.status === "confirmed" || j.status === "resolved") setStage("confirmed");
-        else if (j.status === "failed") setStage("failed");
+        if (j.status === "confirmed" || j.status === "resolved") {
+          setStage("confirmed");
+          setTimeout(() => router.push("/"), 1600);
+        } else if (j.status === "failed") setStage("failed");
         else setStage("number");
       })
       .catch(() => {
@@ -70,7 +72,7 @@ function CheckoutInner() {
     return () => {
       cancelled = true;
     };
-  }, [reference]);
+  }, [reference, router]);
 
   const poll = useCallback(() => {
     if (!reference) return;
@@ -79,7 +81,7 @@ function CheckoutInner() {
       .then((j) => {
         if (j.status === "confirmed") {
           setStage("confirmed");
-          setTimeout(() => router.push(`/account?ref=${reference}`), 1600);
+          setTimeout(() => router.push("/"), 1600);
           return;
         }
         if (j.status === "failed") {
